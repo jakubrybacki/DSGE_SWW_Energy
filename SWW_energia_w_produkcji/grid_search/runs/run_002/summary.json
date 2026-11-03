@@ -1,0 +1,25 @@
+{
+  "points": 36,
+  "domain_ok": 4,
+  "steady_ok": 4,
+  "bk_ok": 2,
+  "likelihood_ok": 2,
+  "exceptions": 0,
+  "reference_negative_log_likelihood": 800.98941872916,
+  "seconds": 0.6966863,
+  "interpretation": "Conditional grid, other parameters and shock variances fixed at ML; not profile likelihood or full identification test",
+  "best": {
+    "cnu": 0,
+    "comegaE": 0.1,
+    "crhoE": 0.9,
+    "crpi": 1.287264,
+    "DomainOK": true,
+    "SteadyOK": true,
+    "BK_OK": true,
+    "LikelihoodOK": true,
+    "NegLogLikelihood": 803.52295200804087,
+    "InfoCode": 0,
+    "Status": "accepted",
+    "Message": ""
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "country": "EA20",
+  "reference_profile": "profile_cnu/runs/run_002/fit_003.mat",
+  "reference_negative_log_likelihood": 805.216600449368,
+  "fixed_cnu": 0.05,
+  "axes": {
+    "cnu": [
+      0.05
+    ],
+    "comegaE": [
+      0.04,
+      0.08,
+      0.12
+    ],
+    "crhoE": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "crpi": [
+      1.1,
+      1.5,
+      2.0
+    ],
+    "crhointr": [
+      0.5,
+      0.7,
+      0.9
+    ],
+    "cthetap": [
+      0.5,
+      0.7,
+      0.9
+    ],
+    "cthetaw": [
+      0.5,
+      0.7,
+      0.9
+    ],
+    "ch": [
+      0.4,
+      0.65,
+      0.85
+    ]
+  },
+  "include_ml_point": true,
+  "max_points": 20000,
+  "checkpoint_every": 500
+}

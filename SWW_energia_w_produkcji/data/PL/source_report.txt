@@ -1,0 +1,15 @@
+Geography: PL (EA alias = EA20, fixed composition)
+Sample: 2009Q1 -- 2025Q4 ; observations: 68
+HICP seasonal adjustment: x13
+Employment adjustment: employment SA; employees SA
+PROXY ONLY: Eurostat IRT_M3 money market rate, not a central-bank policy rate. Geography: PL
+Consumption: households + NPISH; investment: gross fixed capital formation.
+Wages: nominal D1 per employee SAL_DC; employment: EMP_DC.
+Growth/inflation: 100*quarterly log difference; no annualisation or demeaning.
+pEobs centering constant (estimation sample only): -9.070593501929595
+Candidate omegaE from mean annual HICP weights: 0.137942941176471
+nu requires separate SUT/IO calibration, not HICP weights.
+HICP ex energy retains food. Retail energy proxies the common model energy price.
+X-13 uses only data through sample end, but latest revised data: not a real-time vintage.
+Inspect raw status flags and X-13 diagnostics before estimation.
+Model remains calibrated: priors, constants and identification need a separate estimation specification.

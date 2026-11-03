@@ -1,0 +1,2242 @@
+Notebook[{Cell["From the Classic SWW Model to Energy and Food Extensions", 
+   "Title"], 
+  Cell["Theoretical derivations for the three local implementations", 
+   "Subtitle"], Cell["Expanded textbook edition, 20 October 2026. This \
+chapter follows the requested order: SWW_klasyczny, SWW_energia_zywnosc, \
+SWW_energia_w_produkcji. It is written in English, as in the companion \
+annotated notebooks. Levels and optimality conditions are developed before \
+their log-linear counterparts. The PDF is the reading edition; this Wolfram \
+script and the notebook are reproducible working sources. No backups are \
+created.", "Text"], Cell["Important scope distinction. This order is not a \
+demonstrated development chronology. The food README describes an extension \
+of an energy-model diagnostic variant. Both sectoral folders already contain \
+energy in production AND household consumption. The last step in the \
+requested order therefore removes imported food; it does not introduce energy \
+for the first time. We compare the actual main .mod files and EA20 \
+calibration, measurement and shock modules, rather than infer mechanisms from \
+folder names.", "Text"], Cell["A linear model does not uniquely identify its \
+nonlinear foundations. The household-habit and cost-minimisation problems \
+below are explicit compatible reconstructions. The inherited SWW investment, \
+wage, employment and utilisation blocks are documented with their implemented \
+coefficients; a unique nonlinear microfoundation is not asserted where it is \
+not specified in the local files. Algebraic checks here do not replace \
+solving or estimating the stochastic model. No new Dynare simulation or \
+determinacy test is claimed.", "Text"], 
+  Cell["1. Model map, notation and timing", "Section"], 
+  Cell["Classic: one domestic consumption good, capital and labour in \
+production, domestic inflation relevant for consumption and policy, and y \
+used as GDP. It has 42 numbered core equations and eight innovations. \
+Energy-food: a three-good consumption basket, energy as an imported \
+intermediate input, imported final food, distinct CPI and domestic inflation, \
+explicit GDP, 64 core equations and ten innovations. Energy-only retains both \
+energy channels but removes food, leaving 60 core equations and nine \
+innovations. Measurement equations are additional to these counts.", "Text"], 
+  Cell["1.1 What an equilibrium model assumes", "Subsection"], 
+  Cell["A DSGE model describes households and firms making decisions under \
+constraints, and prices making those decisions mutually compatible. Dynamic \
+means that choices today affect tomorrow: saving changes future resources, \
+investment changes future capital, and a wage or price set today may remain \
+effective for several periods. Stochastic means that agents face innovations \
+they cannot perfectly forecast. General equilibrium means that consumption, \
+production, wages, interest rates and policy are solved together, rather than \
+changed one at a time while everything else is held fixed.", "Text"], 
+  Cell["These words matter for reading a derivation. A firm's condition for a \
+given output target is not yet an equilibrium output equation. A household's \
+demand for energy at a given expenditure level is not yet the full \
+consumption response to an energy shock. We first derive such conditional \
+decisions, then combine them with resource constraints, price adjustment, \
+policy and expectations. An impulse response follows from that complete \
+system.", "Text"], Cell["1.2 Steady states, trends and local approximations", 
+   "Subsection"], Cell["The steady state is the reference allocation around \
+which deviations are measured. It need not imply that observed GDP is \
+literally constant: after removing a balanced-growth trend, ratios and \
+suitably scaled quantities can be constant while their original levels grow. \
+Detrending is the operation that separates this predictable growth component \
+from cyclical movements. Here tau, the gross trend-growth factor, enters \
+capital accumulation and habit-adjusted consumption because yesterday's and \
+today's levels are measured on different trend scales.", "Text"], 
+  Cell["Log-linearisation approximates the equilibrium near that reference \
+allocation. For a positive variable, its log change is approximately its \
+percentage change for small movements. Thus a value of 2 in a 100-log \
+deviation means a level about 2.02% above the reference, not two extra \
+physical units. A linear equation is useful for tracing propagation and \
+expectations, but it need not describe a large crisis or an allocation near a \
+feasibility boundary. This is why positivity and steady-state restrictions \
+are part of the mathematics, rather than optional technical footnotes.", 
+   "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[OverscriptBox[
+         StyleBox["z", Italic, StripOnInput -> False], "^"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{"100", "\[ThinSpace]", RowBox[{"log", 
+          RowBox[{"(", FractionBox[RowBox[{FormBox[RowBox[{"Z", "(", "t", 
+                  ")"}], TraditionalForm]}], RowBox[{FormBox[OverscriptBox[
+                 "Z", "_"], TraditionalForm]}]], ")"}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(1)"}, {None, None}}], 
+  Cell["Upper-case symbols denote positive levels. Lower-case quantities and \
+relative prices denote 100 times log deviations from steady state, unless \
+explicitly identified as rate, unemployment or shock variables with a \
+different convention. Inflation and interest rates are quarterly \
+percentage-point deviations. In the economic interpretation, forward-looking \
+endogenous quantities are conditional expectations E_t; the code's (+1) is a \
+lead, not a known future outcome. A lag is t\[Minus]1.", "Text"], 
+  Cell["Do not apply the 100-log convention blindly to all shocks: epsilonp \
+and epsilonw are explicitly multiplied by 100 in their equations. epsilong is \
+already the additive government contribution in the resource equation. \
+Unemployment u and un use the source's unemployment-rate convention. ryear=4r \
+approximately annualises the quarterly rate.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox["p", 
+         StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{"100", "\[ThinSpace]", RowBox[{"log", 
+          RowBox[{"(", FractionBox[RowBox[{FractionBox[RowBox[
+                 {SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+                      FontSlant -> Italic, StripOnInput -> False], StyleBox[
+                      "E", FontSlant -> Plain, StripOnInput -> False]], 
+                    TraditionalForm], FormBox["t", TraditionalForm]]}], 
+                RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+                      FontSlant -> Italic, StripOnInput -> False], StyleBox[
+                      "D", FontSlant -> Plain, StripOnInput -> False]], 
+                    TraditionalForm], FormBox["t", TraditionalForm]]}]]}], 
+             RowBox[{FractionBox[RowBox[{FormBox[OverscriptBox[SubscriptBox[
+                     StyleBox["P", FontSlant -> Italic, StripOnInput -> 
+                       False], StyleBox["E", FontSlant -> Plain, 
+                      StripOnInput -> False]], "_"], TraditionalForm]}], 
+                RowBox[{FormBox[OverscriptBox[SubscriptBox[StyleBox["P", 
+                      FontSlant -> Italic, StripOnInput -> False], StyleBox[
+                      "D", FontSlant -> Plain, StripOnInput -> False]], "_"], 
+                   TraditionalForm]}]]}]], ")"}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(2)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox["p", 
+         StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{"100", "\[ThinSpace]", RowBox[{"log", 
+          RowBox[{"(", FractionBox[RowBox[{FractionBox[RowBox[
+                 {SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+                      FontSlant -> Italic, StripOnInput -> False], StyleBox[
+                      "C", FontSlant -> Italic, StripOnInput -> False]], 
+                    TraditionalForm], FormBox["t", TraditionalForm]]}], 
+                RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+                      FontSlant -> Italic, StripOnInput -> False], StyleBox[
+                      "D", FontSlant -> Plain, StripOnInput -> False]], 
+                    TraditionalForm], FormBox["t", TraditionalForm]]}]]}], 
+             RowBox[{FractionBox[RowBox[{FormBox[OverscriptBox[SubscriptBox[
+                     StyleBox["P", FontSlant -> Italic, StripOnInput -> 
+                       False], StyleBox["C", FontSlant -> Italic, 
+                      StripOnInput -> False]], "_"], TraditionalForm]}], 
+                RowBox[{FormBox[OverscriptBox[SubscriptBox[StyleBox["P", 
+                      FontSlant -> Italic, StripOnInput -> False], StyleBox[
+                      "D", FontSlant -> Plain, StripOnInput -> False]], "_"], 
+                   TraditionalForm]}]]}]], ")"}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(3)"}, {None, None}}], 
+  Cell["pF is the analogous relative food price. pi is domestic-goods \
+inflation, piC consumption inflation, and piE/piF imported-good inflation. w \
+is the nominal wage deflated by PD; wc uses PC. rk is the rental return on \
+capital services, distinct from the nominal bond rate r. k denotes services; \
+kbar installed capital. X denotes technological output before fixed costs, \
+Y=X\[Minus]\[CapitalPhi] output after the fixed cost, and GDP domestic value \
+added after subtracting imported intermediate energy.", "Text"], 
+  Cell["2. The classic benchmark and common dynamic core", "Section"], 
+  Cell["2.1 Derive the consumption equation", "Subsection"], 
+  Cell["A compatible reconstruction of the implemented coefficients uses log \
+utility of an external-habit surplus S_t=C_t\[Minus]h C_(t\[Minus]1)^agg. The \
+household treats the aggregate lagged habit as given; internal habit would \
+add future-utility effects to the derivative. Detrending at gross growth \
+\[Tau] gives an effective habit coefficient h*=h/\[Tau], with \
+0\[LessEqual]h*<1. The surplus must remain positive.", "Text"], 
+  Cell["Habit formation: consumption relative to a reference standard", 
+   "Subsection"], Cell["Habit formation means that the satisfaction from \
+current consumption depends on a reference level inherited from the past. \
+Think of a household accustomed to a particular standard of living. A \
+consumption level that previously seemed generous may feel restrictive after \
+a period of higher expenditure. In the specification used to reconstruct this \
+block, utility depends on surplus consumption S: actual consumption minus a \
+fraction h of a lagged reference. Habit is therefore a change in preferences \
+over consumption paths, rather than a literal extra purchase in the budget.", 
+   "Text"], Cell["The parameter h measures the strength of the reference \
+standard. If h=0, utility depends on current consumption alone. If h is \
+positive, keeping consumption unchanged after a rise in the reference leaves \
+a smaller surplus and therefore a higher marginal utility of resources. For a \
+numerical illustration, with current consumption 100, lagged reference 90 and \
+h=0.6, the surplus is 46. At the same current consumption but a reference of \
+100, the surplus is 40. Under log-surplus utility, marginal utility rises \
+from 1/46 to 1/40. These numbers illustrate preferences; they do not imply \
+that expenditure is 46 or that 54 units disappear from production.", "Text"], 
+  Cell["External and internal habit are different assumptions. With external \
+habit, a small household compares itself with past aggregate consumption and \
+treats that benchmark as outside its individual control. In a symmetric \
+equilibrium, individual and aggregate consumption may have the same realised \
+value, but they must not be treated as the same choice variable when \
+differentiating. With internal habit, today's own consumption also changes \
+tomorrow's own benchmark. Its lifetime derivative therefore includes an extra \
+future-utility term. Substituting internal habit into a derivation based on \
+external habit would generally change the Euler equation.", "Text"], 
+  Cell["For the compatible external-habit reconstruction, the period utility \
+contribution is log(S) less a labour-disutility term. Log utility is defined \
+only for S>0. This says that consumption must exceed the habit-adjusted \
+reference, a stronger requirement than merely C>0. We do not introduce a new \
+freely estimated CRRA coefficient here: the unit curvature of log-surplus \
+utility is what reproduces the simple c1 and c2 coefficients in the local \
+files.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["uh", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{"log", RowBox[{"(", SubscriptBox[FormBox["S", 
+              TraditionalForm], FormBox["t", TraditionalForm]], ")"}]}], 
+        RowBox[{"-", RowBox[{RowBox[{"\[ScriptV]", RowBox[{"(", SubscriptBox[
+                 FormBox[StyleBox["N", FontSlant -> Italic, StripOnInput -> 
+                    False], TraditionalForm], FormBox["t", TraditionalForm]], 
+                ")"}]}]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(4)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["S", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox[StyleBox["C", FontSlant -> Italic, 
+           StripOnInput -> False], TraditionalForm], FormBox["t", 
+          TraditionalForm]], RowBox[{"-", RowBox[
+           {FormBox["h", TraditionalForm], "\[ThinSpace]", 
+            SubscriptBox[FormBox[TemplateBox[{StyleBox["C", FontSlant -> 
+                  Italic, StripOnInput -> False], "agg"}, "Superscript", 
+               SyntaxForm -> SuperscriptBox], TraditionalForm], 
+             RowBox[{FormBox["t", TraditionalForm], RowBox[{"-", 
+                 "1"}]}]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(5)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["\[Lambda]", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", FractionBox[RowBox[{"1"}], 
+       RowBox[{SubscriptBox[FormBox["S", TraditionalForm], 
+          FormBox["t", TraditionalForm]]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(6)"}, {None, None}}], 
+  Cell["The nominal bond FOC is \[Lambda]_t=\[Beta] \
+E_t[\[Lambda]_(t+1)R_t/\[CapitalPi]C_(t+1)], augmented by the model's \
+risk-premium wedge. Marginal utility linearises as \
+\[Lambda]-hat_t=\[Minus](c_t\[Minus]h*c_(t\[Minus]1))/(1\[Minus]h*). Insert \
+this relation into the bond Euler equation, multiply by 1\[Minus]h*, collect \
+the two terms containing c_t, and divide by 1+h*. The resulting consumption \
+equation is:", "Text"], Cell["From marginal utility to an Euler equation", 
+   "Subsection"], Cell["An Euler equation compares two feasible uses of one \
+additional unit of resources: consume it today, or save it and consume its \
+payoff tomorrow. The multiplier lambda measures the utility value of an extra \
+unit of current purchasing power. The discount factor beta weights future \
+utility. The gross nominal payoff must be divided by future consumption-price \
+inflation because tomorrow's money buys goods at tomorrow's prices. Under \
+uncertainty, expected discounted marginal utility times the real payoff is \
+the relevant object; the expectation is conditional on information available \
+today.", "Text"], Cell["The following two first-order relations make the \
+intermediate algebra visible. The hat on lambda denotes its 100-log \
+deviation. The interest-rate and premium terms follow the source's linear \
+units. The first relation comes from differentiating log marginal utility \
+around the positive trend-adjusted surplus; the second is the log-linear \
+nominal bond condition. Together they explain why lagged consumption enters \
+the final demand equation.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[OverscriptBox["\[Lambda]", "^"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      FractionBox[RowBox[
+        {RowBox[{"-", RowBox[{RowBox[{"(", RowBox[{SubscriptBox[FormBox["c", 
+                   TraditionalForm], FormBox["t", TraditionalForm]], 
+                 RowBox[{"-", RowBox[{FormBox[TemplateBox[{"h", "*"}, 
+                       "Superscript", SyntaxForm -> SuperscriptBox], 
+                      TraditionalForm], "\[ThinSpace]", SubscriptBox[
+                      FormBox["c", TraditionalForm], RowBox[{FormBox["t", 
+                         TraditionalForm], RowBox[{"-", "1"}]}]]}]}]}], 
+               ")"}]}]}]}], RowBox[
+        {RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[{FormBox[TemplateBox[
+                   {"h", "*"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+                  TraditionalForm]}]}]}], ")"}]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(7)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[OverscriptBox["\[Lambda]", "^"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", 
+           FormBox["t", TraditionalForm]], "[", SubscriptBox[
+           FormBox[OverscriptBox["\[Lambda]", "^"], TraditionalForm], 
+           RowBox[{FormBox["t", TraditionalForm], RowBox[{"+", "1"}]}]], 
+          "]"}], RowBox[{"+", SubscriptBox[FormBox["r", TraditionalForm], 
+           FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", 
+               FormBox["t", TraditionalForm]], "[", SubscriptBox[FormBox[
+                TemplateBox[{"\[Pi]", StyleBox["C", FontSlant -> Italic, 
+                   StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+                  SuperscriptBox], TraditionalForm], RowBox[
+                {FormBox["t", TraditionalForm], RowBox[{"+", "1"}]}]], 
+              "]"}]}]}], RowBox[{"-", RowBox[
+           {SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", "b"], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(8)"}, {None, None}}], 
+  Cell[BoxData[RowBox[
+     {RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"+", FormBox[TemplateBox[
+                {"h", "*"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+               TraditionalForm]}]}], ")"}], "\[ThinSpace]", 
+        SubscriptBox[FormBox["c", TraditionalForm], FormBox["t", 
+          TraditionalForm]]}], "=", 
+      RowBox[{RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", 
+           FormBox["t", TraditionalForm]], "[", SubscriptBox[
+           FormBox["c", TraditionalForm], RowBox[
+            {FormBox["t", TraditionalForm], RowBox[{"+", "1"}]}]], "]"}], 
+        RowBox[{"+", RowBox[{FormBox[TemplateBox[{"h", "*"}, "Superscript", 
+              SyntaxForm -> SuperscriptBox], TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox["c", TraditionalForm], 
+             RowBox[{FormBox["t", TraditionalForm], RowBox[{"-", 
+                 "1"}]}]]}]}], RowBox[
+         {"-", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                   {FormBox[TemplateBox[{"h", "*"}, "Superscript", 
+                      SyntaxForm -> SuperscriptBox], TraditionalForm]}]}]}], 
+              ")"}], "\[ThinSpace]", RowBox[{"(", RowBox[{SubscriptBox[
+                 FormBox["r", TraditionalForm], FormBox["t", 
+                  TraditionalForm]], RowBox[{"-", RowBox[{RowBox[
+                     {SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+                        TraditionalForm]], "[", SubscriptBox[FormBox[
+                        TemplateBox[{"\[Pi]", StyleBox["C", FontSlant -> 
+                          Italic, StripOnInput -> False]}, "Superscript", 
+                         SyntaxForm -> SuperscriptBox], TraditionalForm], 
+                       RowBox[{FormBox["t", TraditionalForm], RowBox[{"+", 
+                          "1"}]}]], "]"}]}]}], RowBox[{"-", RowBox[
+                   {SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", "b"], 
+                      TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+              ")"}]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(9)"}, {None, None}}], 
+  Cell["Dividing the last line by 1+h* gives the implemented equation below. \
+Habit adds a backward-looking element through past consumption while \
+preserving a forward-looking element through expected consumption. It also \
+changes the direct coefficient on the expected real rate. With h*=0, c1=c2=1 \
+and there is no lagged-consumption term. As h* approaches one from below, c1 \
+approaches one half, the lag weight approaches one half, and c2 approaches \
+zero. This is a statement about coefficients in the conditional linear \
+equation, not a guarantee that every general-equilibrium consumption response \
+becomes smaller.", "Text"], Cell["Habit persistence must also be \
+distinguished from shock persistence. Habit makes past consumption relevant \
+even if an innovation itself is short lived. A persistent shock keeps a \
+disturbance alive through its own stochastic law. A model can have both \
+mechanisms; observing a slow consumption response alone does not identify \
+which one generated it. The parameter restriction h*=h/tau<1 also protects \
+the positive steady surplus after accounting for trend growth.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["c", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["c", "1"], TraditionalForm], 
+          "\[ThinSpace]", RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", 
+             FormBox["t", TraditionalForm]], "[", SubscriptBox[
+             FormBox["c", TraditionalForm], RowBox[{FormBox["t", 
+                TraditionalForm], RowBox[{"+", "1"}]}]], "]"}]}], 
+        RowBox[{"+", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", 
+                  RowBox[{FormBox[SubscriptBox["c", "1"], 
+                     TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+            SubscriptBox[FormBox["c", TraditionalForm], 
+             RowBox[{FormBox["t", TraditionalForm], RowBox[{"-", 
+                 "1"}]}]]}]}], RowBox[
+         {"-", RowBox[{FormBox[SubscriptBox["c", "2"], TraditionalForm], 
+            "\[ThinSpace]", RowBox[{"(", RowBox[{SubscriptBox[FormBox["r", 
+                  TraditionalForm], FormBox["t", TraditionalForm]], 
+                RowBox[{"-", RowBox[{RowBox[{SubscriptBox[
+                       "\[DoubleStruckCapitalE]", FormBox["t", 
+                        TraditionalForm]], "[", SubscriptBox[FormBox[
+                        TemplateBox[{"\[Pi]", StyleBox["C", FontSlant -> 
+                          Italic, StripOnInput -> False]}, "Superscript", 
+                         SyntaxForm -> SuperscriptBox], TraditionalForm], 
+                       RowBox[{FormBox["t", TraditionalForm], RowBox[{"+", 
+                          "1"}]}]], "]"}]}]}], RowBox[{"-", RowBox[
+                   {SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", "b"], 
+                      TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+              ")"}]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(10)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["c", "1"], TraditionalForm], "=", 
+      FractionBox[RowBox[{"1"}], RowBox[
+        {RowBox[{"(", RowBox[{"1", RowBox[{"+", FormBox[TemplateBox[
+                 {"h", "*"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+                TraditionalForm]}]}], ")"}]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(11)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["c", "2"], TraditionalForm], "=", 
+      FractionBox[RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                {FormBox[TemplateBox[{"h", "*"}, "Superscript", SyntaxForm -> 
+                    SuperscriptBox], TraditionalForm]}]}]}], ")"}]}], 
+       RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"+", FormBox[TemplateBox[
+                 {"h", "*"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+                TraditionalForm]}]}], ")"}]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(12)"}, {None, None}}], 
+  Cell["In the implementation hstar=ch/ctau. Classic PC=PD implies piC=pi and \
+recovers classic equation 01. Both sectoral versions use piC in equation 07. \
+A CRRA curvature other than one would change the simple real-rate loading; \
+the elementary CRRA-labour notebook is not a literal complete derivation of \
+these habit coefficients. The precise structural origin of the \
+financial/preference wedge epsilonb is not identified by its reduced-form \
+loading alone.", "Text"], Cell["2.2 Capital, investment and utilisation", 
+   "Subsection"], Cell["The inherited investment block corresponds to capital \
+accumulation with investment efficiency and adjustment costs. The local \
+linear files do not uniquely specify the nonlinear adjustment function. Its \
+detrended first-order laws are therefore stated with the actual coefficients, \
+rather than attributed to a unique unobserved level function.", "Text"], 
+  Cell["What capital adjustment costs and Tobin's q mean", "Subsection"], 
+  Cell["Investment is a flow of newly created capital; installed capital is a \
+stock accumulated over time. Depreciation delta is the fraction of the \
+existing stock lost in a period. If delta=0.025, 2.5% depreciates per quarter \
+under the stated quarterly timing. Capital services are the productive flow \
+delivered by that stock, which can also vary with how intensively machinery \
+is used. These distinctions explain why the model needs i, kbar, k and v \
+rather than one undifferentiated capital variable.", "Text"], 
+  Cell["Adjustment costs express the idea that rapidly changing the \
+investment programme is costly. Hiring installation teams, reorganising \
+production or absorbing new equipment cannot always be done instantly. The \
+cost is associated with changing investment, so the optimality condition \
+involves past and expected future investment as well as q. This provides \
+economic inertia without assuming that firms simply ignore profitable \
+opportunities. The investment-efficiency process is a separate disturbance to \
+how effective investment is; its precise nonlinear placement cannot be \
+recovered uniquely from the linear equations alone.", "Text"], 
+  Cell["Tobin's q is the shadow value of an additional unit of installed \
+capital relative to the price of acquiring investment goods. Around the \
+chosen reference, a positive q deviation makes investment more attractive. \
+The investment equation translates that incentive into an adjustment path. A \
+capital-value equation then links today's q to tomorrow's rental payoff and \
+resale value, discounted by the relevant return. This makes q a \
+forward-looking valuation variable, not a new physical quantity produced by \
+firms.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[OverscriptBox[
+         StyleBox["k", Italic, StripOnInput -> False], "_"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["k", "1"], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox[OverscriptBox[
+             StyleBox["k", Italic, StripOnInput -> False], "_"], 
+            TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+             RowBox[{"-", "1"}]}]]}], 
+        RowBox[{"+", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", 
+                  RowBox[{FormBox[SubscriptBox["k", "1"], 
+                     TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+            SubscriptBox[FormBox["i", TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}], RowBox[
+         {"+", RowBox[{FormBox[SubscriptBox["k", "2"], TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", 
+               "q"], TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(13)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["i", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["i", "1"], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox["i", TraditionalForm], 
+           RowBox[{FormBox["t", TraditionalForm], RowBox[{"-", "1"}]}]]}], 
+        RowBox[{"+", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", 
+                  RowBox[{FormBox[SubscriptBox["i", "1"], 
+                     TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+            RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+                TraditionalForm]], "[", SubscriptBox[FormBox["i", 
+                TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+                 RowBox[{"+", "1"}]}]], "]"}]}]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["i", "2"], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox["q", TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}], RowBox[{"+", SubscriptBox[
+           FormBox[SubscriptBox["\[Epsilon]", "q"], TraditionalForm], 
+           FormBox["t", TraditionalForm]]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(14)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["k", "1"], TraditionalForm], "=", 
+      FractionBox[RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                {FormBox["\[Delta]", TraditionalForm]}]}]}], ")"}]}], 
+       RowBox[{FormBox["\[Tau]", TraditionalForm]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(15)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["i", "1"], TraditionalForm], "=", 
+      FractionBox[RowBox[{"1"}], RowBox[
+        {RowBox[{"(", RowBox[{"1", RowBox[{"+", FormBox["\[Beta]", 
+                TraditionalForm]}]}], ")"}]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(16)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["i", "2"], TraditionalForm], "=", 
+      FractionBox[RowBox[{FormBox[SubscriptBox["i", "1"], TraditionalForm]}], 
+       RowBox[{RowBox[{SuperscriptBox[FormBox["\[Tau]", TraditionalForm], 
+            "2"], "\[ThinSpace]", FormBox[SubscriptBox["\[Phi]", 
+             "\[ImaginaryI]"], TraditionalForm]}]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(17)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["k", "2"], TraditionalForm], "=", 
+      RowBox[{RowBox[{"(", RowBox[{FormBox["\[Tau]", TraditionalForm], 
+            RowBox[{"+", FormBox["\[Delta]", TraditionalForm]}], 
+            RowBox[{"-", "1"}]}], ")"}], "\[ThinSpace]", 
+        RowBox[{"(", RowBox[{"1", RowBox[{"+", FormBox["\[Beta]", 
+               TraditionalForm]}]}], ")"}], "\[ThinSpace]", 
+        FormBox["\[Tau]", TraditionalForm], "\[ThinSpace]", 
+        FormBox[SubscriptBox["\[Phi]", "\[ImaginaryI]"], 
+         TraditionalForm]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(18)"}, {None, None}}], 
+  Cell["cphi=\[CurlyPhi]I measures investment adjustment curvature. The lag \
+in k=v+kbar(\[Minus]1) means installed capital is predetermined when current \
+services are used. Utilisation v adjusts the services flow, and a higher \
+rental return raises its desired intensity. cpsi=\[Psi]U is the utilisation \
+parameter.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["k", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["v", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[OverscriptBox[StyleBox["k", Italic, 
+              StripOnInput -> False], "_"], TraditionalForm], 
+           RowBox[{FormBox["t", TraditionalForm], RowBox[
+              {"-", "1"}]}]]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(19)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["v", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FractionBox[RowBox[{RowBox[{"(", RowBox[{"1", RowBox[
+                {"-", RowBox[{FormBox[SubscriptBox["\[Psi]", "U"], 
+                    TraditionalForm]}]}]}], ")"}]}], 
+         RowBox[{FormBox[SubscriptBox["\[Psi]", "U"], TraditionalForm]}]], 
+        "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox[
+           StyleBox["r", Italic, StripOnInput -> False], "K"], 
+          TraditionalForm], FormBox["t", TraditionalForm]]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(20)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["q", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{"-", RowBox[{RowBox[{"(", RowBox[{SubscriptBox[
+                 FormBox["r", TraditionalForm], FormBox["t", 
+                  TraditionalForm]], RowBox[{"-", RowBox[{RowBox[
+                     {SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+                        TraditionalForm]], "[", SubscriptBox[FormBox["\[Pi]", 
+                        TraditionalForm], RowBox[{FormBox["t", 
+                          TraditionalForm], RowBox[{"+", "1"}]}]], "]"}]}]}], 
+                RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox[
+                       "\[Epsilon]", "b"], TraditionalForm], FormBox["t", 
+                      TraditionalForm]]}]}]}], ")"}]}]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["q", "1"], 
+             TraditionalForm], "\[ThinSpace]", RowBox[
+             {SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+                TraditionalForm]], "[", SubscriptBox[FormBox[SubscriptBox[
+                 StyleBox["r", Italic, StripOnInput -> False], "K"], 
+                TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+                 RowBox[{"+", "1"}]}]], "]"}]}]}], 
+        RowBox[{"+", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", 
+                  RowBox[{FormBox[SubscriptBox["q", "1"], 
+                     TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+            RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+                TraditionalForm]], "[", SubscriptBox[FormBox["q", 
+                TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+                 RowBox[{"+", "1"}]}]], "]"}]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(21)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["q", "1"], TraditionalForm], "=", 
+      FractionBox[RowBox[{FormBox[OverscriptBox[SubscriptBox["R", 
+            StyleBox["K", FontSlant -> Italic, StripOnInput -> False]], "_"], 
+          TraditionalForm]}], RowBox[
+        {RowBox[{"(", RowBox[{FormBox[OverscriptBox[SubscriptBox["R", 
+                StyleBox["K", FontSlant -> Italic, StripOnInput -> False]], 
+               "_"], TraditionalForm], RowBox[{"+", "1"}], 
+             RowBox[{"-", RowBox[{FormBox["\[Delta]", TraditionalForm]}]}]}], 
+           ")"}]}]]}]], "DisplayFormula", CellFrameLabels -> 
+    {{None, "(22)"}, {None, None}}], Cell["The capital-value condition \
+discounts domestic-good rental and resale payoffs. Since q is measured in \
+domestic investment goods, its real-rate deflator remains domestic inflation \
+pi, even when consumption uses CPI. The weights q1 and 1\[Minus]q1 are the \
+steady rental and undepreciated resale shares in the total capital payoff.", 
+   "Text"], Cell["2.3 Production and fixed costs in the classic model", 
+   "Subsection"], 
+  Cell["Constant returns, marginal productivity and fixed costs", 
+   "Subsection"], Cell["A production exponent is an elasticity: it describes \
+the percentage change in output from a small percentage change in an input, \
+holding other inputs fixed. The sum of the exponents determines returns to \
+scale. When it is one, doubling all variable inputs doubles technological \
+output X. This does not contradict a decreasing marginal product of capital: \
+that statement increases capital alone while holding labour and, in the \
+sectoral version, energy fixed.", "Text"], Cell["The fixed cost Phi is \
+expressed in units of the domestic good. It reduces saleable output from X to \
+Y, but does not change how much an additional small input contributes to X. \
+It creates a distinction between marginal cost and average cost: resources \
+needed to cover a fixed requirement are spread over more units as production \
+expands. In the local model, the steady fixed-cost and markup normalisations \
+are tied through cpsip. That equality is a maintained calibration convention, \
+not a universal property of any economy with a fixed cost.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["X", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["A", TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SuperscriptBox[SubscriptBox[FormBox[StyleBox["K", 
+            FontSlant -> Italic, StripOnInput -> False], TraditionalForm], 
+          FormBox["t", TraditionalForm]], FormBox["\[Alpha]", 
+          TraditionalForm]], "\[ThinSpace]", SuperscriptBox[
+         SubscriptBox[FormBox[StyleBox["N", FontSlant -> Italic, 
+            StripOnInput -> False], TraditionalForm], FormBox["t", 
+           TraditionalForm]], RowBox[{"1", RowBox[
+            {"-", RowBox[{FormBox["\[Alpha]", TraditionalForm]}]}]}]]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(23)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["Y", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["X", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{FormBox["\[CapitalPhi]", 
+             TraditionalForm]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(24)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Psi]", 
+        StyleBox["P", FontSlant -> Italic, StripOnInput -> False]], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{FormBox[OverscriptBox["X", "_"], TraditionalForm]}], 
+       RowBox[{FormBox[OverscriptBox["Y", "_"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(25)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["y", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FormBox[SubscriptBox["\[Psi]", StyleBox["P", 
+           FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+        "\[ThinSpace]", RowBox[{"(", RowBox[{SubscriptBox[FormBox["a", 
+              TraditionalForm], FormBox["t", TraditionalForm]], 
+            RowBox[{"+", RowBox[{FormBox["\[Alpha]", TraditionalForm], 
+                "\[ThinSpace]", SubscriptBox[FormBox["k", TraditionalForm], 
+                 FormBox["t", TraditionalForm]]}]}], 
+            RowBox[{"+", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", 
+                      RowBox[{FormBox["\[Alpha]", TraditionalForm]}]}]}], 
+                  ")"}], "\[ThinSpace]", SubscriptBox[FormBox["n", 
+                  TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+          ")"}]}]}]], "DisplayFormula", CellFrameLabels -> 
+    {{None, "(26)"}, {None, None}}], Cell["For constant \[CapitalPhi] and \
+Y\:0304>0, dY=dX and dY/Y\:0304=(X\:0304/Y\:0304)dX/X\:0304. This explains \
+cpsip=\[Psi]P in the linear production function. Log additivity for X is \
+exact; mapping X to Y is first-order. Without imported intermediate inputs, Y \
+also serves as GDP in the classic output gap and measurement equation.", 
+   "Text"], Cell[BoxData[RowBox[{SubscriptBox[FormBox["y", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["s", StyleBox["C", 
+             FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox["c", TraditionalForm], 
+           FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["s", "\[ImaginaryI]"], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox["i", TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}], RowBox[
+         {"+", RowBox[{FormBox[SubscriptBox["s", "V"], TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox["v", TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox[StyleBox["g", Italic, 
+              StripOnInput -> False], "contribution"], TraditionalForm], 
+           FormBox["t", TraditionalForm]]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(27)"}, {None, None}}], 
+  Cell["This linear resource equation follows from Y=C+I+UtilisationCost+G. \
+The coefficients are steady expenditure shares or, for utilisation, the \
+derivative of its cost divided by Y\:0304. epsilong=gcontrib is already a \
+weighted additive contribution, not an unweighted government log deviation. A \
+zero steady utilisation cost need not imply a zero marginal utilisation \
+cost.", "Text"], 
+  Cell["3. Derive commodity demand and the consumption price index", 
+   "Section"], Cell["3.1 Energy-food consumption basket", "Subsection"], 
+  Cell["Let sN=1\[Minus]\[Omega]E\[Minus]\[Omega]F, sE=\[Omega]E and \
+sF=\[Omega]F, all positive. CN is domestic non-energy non-food consumption, \
+CE household energy and CF imported food. Both sectoral models implement a \
+Cobb\[Dash]Douglas basket with unit elasticity of substitution, not a general \
+CES basket with a freely varying substitution parameter.", "Text"], 
+  Cell["Why introduce a consumption basket?", "Subsection"], 
+  Cell["A household consumes different goods but needs a single index to \
+describe the flow of consumption services entering utility. The basket is \
+such an index. It is not obtained by simply adding tonnes of energy, food \
+quantities and domestic goods. Its aggregation rule specifies how \
+combinations of goods substitute for one another. The associated consumption \
+price index tells us the minimum expenditure needed to purchase one unit of \
+that composite at current prices.", "Text"], Cell["The Cobb-Douglas rule \
+imposes two strong restrictions. First, all positively weighted components \
+are essential for a positive composite, so an interior derivation uses \
+positive quantities. Second, optimal expenditure shares are constant. With \
+positive prices, the household spends the fraction omegaE on energy and \
+omegaF on imported food, although the purchased quantities change with \
+prices. Constant shares do not mean constant quantities. When the energy \
+price rises, energy demand falls so that its expenditure share remains fixed \
+at the optimum.", "Text"], Cell["A unit substitution elasticity means that, \
+conditionally on the basket's required service level, a one-percent change in \
+a relative price produces an approximately one-percent change in the \
+corresponding relative quantity. This is a tractable benchmark, not an \
+empirical claim that households can easily replace every energy service or \
+food product. Allowing a different elasticity requires a general CES \
+aggregator and changes the demand equations and price index. The local \
+implementation deliberately uses the simpler unit-elastic case.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[StyleBox["C", 
+         FontSlant -> Italic, StripOnInput -> False], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SuperscriptBox[RowBox[{"(", FractionBox[
+            RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["C", 
+                  FontSlant -> Italic, StripOnInput -> False], StyleBox["N", 
+                  FontSlant -> Italic, StripOnInput -> False]], 
+                TraditionalForm], FormBox["t", TraditionalForm]]}], 
+            RowBox[{FormBox[SubscriptBox["s", StyleBox["N", FontSlant -> 
+                  Italic, StripOnInput -> False]], TraditionalForm]}]], 
+           ")"}], FormBox[SubscriptBox["s", StyleBox["N", 
+            FontSlant -> Italic, StripOnInput -> False]], TraditionalForm]], 
+        "\[ThinSpace]", SuperscriptBox[RowBox[{"(", FractionBox[
+            RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["C", 
+                  FontSlant -> Italic, StripOnInput -> False], StyleBox["E", 
+                  FontSlant -> Plain, StripOnInput -> False]], 
+                TraditionalForm], FormBox["t", TraditionalForm]]}], 
+            RowBox[{FormBox[SubscriptBox["s", StyleBox["E", FontSlant -> 
+                  Plain, StripOnInput -> False]], TraditionalForm]}]], ")"}], 
+         FormBox[SubscriptBox["s", StyleBox["E", FontSlant -> Plain, 
+            StripOnInput -> False]], TraditionalForm]], "\[ThinSpace]", 
+        SuperscriptBox[RowBox[{"(", FractionBox[RowBox[
+             {SubscriptBox[FormBox[SubscriptBox[StyleBox["C", FontSlant -> 
+                   Italic, StripOnInput -> False], StyleBox["F", FontSlant -> 
+                   Plain, StripOnInput -> False]], TraditionalForm], FormBox[
+                "t", TraditionalForm]]}], RowBox[{FormBox[SubscriptBox["s", 
+                StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+               TraditionalForm]}]], ")"}], FormBox[SubscriptBox["s", 
+           StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(28)"}, {None, None}}], 
+  Cell[BoxData[RowBox[
+     {RowBox[{FormBox[SubscriptBox["s", StyleBox["N", FontSlant -> Italic, 
+           StripOnInput -> False]], TraditionalForm], 
+        RowBox[{"+", FormBox[SubscriptBox["s", StyleBox["E", 
+             FontSlant -> Plain, StripOnInput -> False]], TraditionalForm]}], 
+        RowBox[{"+", FormBox[SubscriptBox["s", StyleBox["F", 
+             FontSlant -> Plain, StripOnInput -> False]], 
+           TraditionalForm]}]}], "=", "1"}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(29)"}, {None, None}}], 
+  Cell["Minimise PD\[CenterDot]CN+PE\[CenterDot]CE+PF\[CenterDot]CF for a \
+required composite C. The composite derivative is s_j C/C_j, so the cost FOC \
+is P_j=\[Xi] s_j C/C_j. Multiply each FOC by C_j and add: expenditure equals \
+\[Xi]C. Substituting the demands back into the aggregator yields \[Xi]=PC, \
+the unit-expenditure function.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["Pj", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["\[Xi]", TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        FormBox["sj", TraditionalForm], "\[ThinSpace]", 
+        FractionBox[RowBox[{SubscriptBox[FormBox[StyleBox["C", 
+              FontSlant -> Italic, StripOnInput -> False], TraditionalForm], 
+            FormBox["t", TraditionalForm]]}], 
+         RowBox[{SubscriptBox[FormBox["Cj", TraditionalForm], 
+            FormBox["t", TraditionalForm]]}]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(30)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["P", FontSlant -> Italic, StripOnInput -> False], 
+         StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SuperscriptBox[SubscriptBox[FormBox[SubscriptBox[
+            StyleBox["P", FontSlant -> Italic, StripOnInput -> False], 
+            StyleBox["D", FontSlant -> Plain, StripOnInput -> False]], 
+           TraditionalForm], FormBox["t", TraditionalForm]], 
+         FormBox[SubscriptBox["s", StyleBox["N", FontSlant -> Italic, 
+            StripOnInput -> False]], TraditionalForm]], "\[ThinSpace]", 
+        SuperscriptBox[SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+             FontSlant -> Italic, StripOnInput -> False], StyleBox["E", 
+             FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+          FormBox["t", TraditionalForm]], FormBox[SubscriptBox["s", 
+           StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+          TraditionalForm]], "\[ThinSpace]", SuperscriptBox[
+         SubscriptBox[FormBox[SubscriptBox[StyleBox["P", FontSlant -> Italic, 
+             StripOnInput -> False], StyleBox["F", FontSlant -> Plain, 
+             StripOnInput -> False]], TraditionalForm], 
+          FormBox["t", TraditionalForm]], FormBox[SubscriptBox["s", 
+           StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(31)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["C", FontSlant -> Italic, StripOnInput -> False], 
+         StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FormBox[SubscriptBox["s", StyleBox["N", FontSlant -> Italic, 
+           StripOnInput -> False]], TraditionalForm], "\[ThinSpace]", 
+        FractionBox[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+              StyleBox["P", FontSlant -> Italic, StripOnInput -> False], 
+              StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+             TraditionalForm], FormBox["t", TraditionalForm]]}], 
+         RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", FontSlant -> 
+                Italic, StripOnInput -> False], StyleBox["D", FontSlant -> 
+                Plain, StripOnInput -> False]], TraditionalForm], 
+            FormBox["t", TraditionalForm]]}]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[StyleBox["C", FontSlant -> Italic, 
+           StripOnInput -> False], TraditionalForm], FormBox["t", 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(32)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["C", FontSlant -> Italic, StripOnInput -> False], 
+         StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FormBox[SubscriptBox["s", StyleBox["E", FontSlant -> Plain, 
+           StripOnInput -> False]], TraditionalForm], "\[ThinSpace]", 
+        FractionBox[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+              StyleBox["P", FontSlant -> Italic, StripOnInput -> False], 
+              StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+             TraditionalForm], FormBox["t", TraditionalForm]]}], 
+         RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", FontSlant -> 
+                Italic, StripOnInput -> False], StyleBox["E", FontSlant -> 
+                Plain, StripOnInput -> False]], TraditionalForm], 
+            FormBox["t", TraditionalForm]]}]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[StyleBox["C", FontSlant -> Italic, 
+           StripOnInput -> False], TraditionalForm], FormBox["t", 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(33)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["C", FontSlant -> Italic, StripOnInput -> False], 
+         StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FormBox[SubscriptBox["s", StyleBox["F", FontSlant -> Plain, 
+           StripOnInput -> False]], TraditionalForm], "\[ThinSpace]", 
+        FractionBox[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+              StyleBox["P", FontSlant -> Italic, StripOnInput -> False], 
+              StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+             TraditionalForm], FormBox["t", TraditionalForm]]}], 
+         RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", FontSlant -> 
+                Italic, StripOnInput -> False], StyleBox["F", FontSlant -> 
+                Plain, StripOnInput -> False]], TraditionalForm], 
+            FormBox["t", TraditionalForm]]}]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[StyleBox["C", FontSlant -> Italic, 
+           StripOnInput -> False], TraditionalForm], FormBox["t", 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(34)"}, {None, None}}], 
+  Cell["Normalising quantities by their weights removes constant share \
+factors from the dual price index. Such constants disappear in log deviations \
+but matter for level derivations. The level symbol CF for food must not be \
+confused with Dynare cf, which means total flexible-price consumption; food \
+is cfood in the code.", "Text"], 
+  Cell["3.2 Log deviations and the two-good reduction", "Subsection"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox["p", 
+         StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Omega]", StyleBox["E", 
+             FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["\[Omega]", 
+              StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox[SubscriptBox["p", StyleBox["F", FontSlant -> Plain, 
+                StripOnInput -> False]], TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(35)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["c", Italic, StripOnInput -> False], "N"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["c", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(36)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["c", Italic, StripOnInput -> False], "E"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["c", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "E", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(37)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["c", Italic, StripOnInput -> False], "F"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["c", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "F", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(38)"}, {None, None}}], 
+  Cell["Subtract the steady-state log identities to remove constant shares. \
+Conditional on fixed total C and other relative prices, a one-log-percent \
+rise in pF raises pc by \[Omega]F, reduces food demand by 1\[Minus]\[Omega]F, \
+and raises domestic demand by \[Omega]F. Full equilibrium consumption and \
+policy are not held fixed in an impulse response.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[StyleBox["C", 
+         FontSlant -> Italic, StripOnInput -> False], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SuperscriptBox[RowBox[{"(", FractionBox[
+            RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["C", 
+                  FontSlant -> Italic, StripOnInput -> False], StyleBox["N", 
+                  FontSlant -> Italic, StripOnInput -> False]], 
+                TraditionalForm], FormBox["t", TraditionalForm]]}], 
+            RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                     {FormBox[SubscriptBox["\[Omega]", StyleBox["E", 
+                         FontSlant -> Plain, StripOnInput -> False]], 
+                       TraditionalForm]}]}]}], ")"}]}]], ")"}], 
+         RowBox[{"1", RowBox[{"-", RowBox[{FormBox[SubscriptBox["\[Omega]", 
+                 StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+                TraditionalForm]}]}]}]], "\[ThinSpace]", 
+        SuperscriptBox[RowBox[{"(", FractionBox[RowBox[
+             {SubscriptBox[FormBox[SubscriptBox[StyleBox["C", FontSlant -> 
+                   Italic, StripOnInput -> False], StyleBox["E", FontSlant -> 
+                   Plain, StripOnInput -> False]], TraditionalForm], FormBox[
+                "t", TraditionalForm]]}], RowBox[{FormBox[SubscriptBox[
+                "\[Omega]", StyleBox["E", FontSlant -> Plain, StripOnInput -> 
+                  False]], TraditionalForm]}]], ")"}], 
+         FormBox[SubscriptBox["\[Omega]", StyleBox["E", FontSlant -> Plain, 
+            StripOnInput -> False]], TraditionalForm]]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(39)"}, {None, None}}], 
+  Cell["Removing food gives this two-good basket and pc=\[Omega]E pE, with \
+the same cn and ce log equations. At \[Omega]F=0 take the continuous \
+reduced-model limit; do not insert zero directly into CF/\[Omega]F. \
+Zero-share quantities cannot be log-linearised around a zero level.", 
+   "Text"], Cell["4. Deflators, wages, monetary policy and domestic prices", 
+   "Section"], Cell["A deflator converts a nominal amount into purchasing \
+power measured in a particular good or basket. Suppose nominal earnings stay \
+unchanged while household energy becomes more expensive. The wage measured in \
+domestic goods can stay constant if the domestic-good price has not changed, \
+yet the same earnings purchase less of the consumption basket. Hence w and wc \
+answer different questions. The distinction is central when imported prices \
+move independently of domestic prices.", "Text"], 
+  Cell["The assumption of a domestic numeraire is a choice of units: dividing \
+by PD does not assume that the domestic price is constant in nominal terms. \
+Relative prices PE/PD and PC/PD can change, and domestic inflation pi remains \
+an endogenous variable. A constant normalised steady relative price also does \
+not prevent dynamic relative-price shocks.", "Text"], 
+  Cell["4.1 Inflation accounting", "Subsection"], 
+  Cell["The identity PC=PD\[CenterDot](PC/PD) implies that consumption \
+inflation is domestic inflation plus the change in the relative consumption \
+price. The same argument applies to each imported good. The term added to \
+inflation is a price CHANGE, not the relative price level itself.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {"\[Pi]", StyleBox["C", FontSlant -> Italic, StripOnInput -> 
+            False]}, "Superscript", SyntaxForm -> SuperscriptBox], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["\[Pi]", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "C", FontSlant -> Italic, StripOnInput -> False]], 
+              TraditionalForm], RowBox[{FormBox["t", TraditionalForm], RowBox[
+                {"-", "1"}]}]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(40)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {"\[Pi]", StyleBox["E", FontSlant -> Plain, StripOnInput -> False]}, 
+         "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["\[Pi]", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "E", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], RowBox[{FormBox["t", TraditionalForm], RowBox[
+                {"-", "1"}]}]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(41)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {"\[Pi]", StyleBox["F", FontSlant -> Plain, StripOnInput -> False]}, 
+         "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["\[Pi]", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "F", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], RowBox[{FormBox["t", TraditionalForm], RowBox[
+                {"-", "1"}]}]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(42)"}, {None, None}}], 
+  Cell["The sectoral consumption Euler equation uses expected piC, whereas \
+capital valuation still uses expected pi. Replacing both deflators by CPI \
+would change the units of the domestic investment payoff incorrectly.", 
+   "Text"], Cell["4.2 Purchasing-power wages and the labour-market block", 
+   "Subsection"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox["w", 
+         StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["w", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "C", FontSlant -> Italic, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(43)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{RowBox[{FormBox[SubscriptBox["\[Omega]", "U"], 
+         TraditionalForm], "\[ThinSpace]", SubscriptBox[
+         FormBox["u", TraditionalForm], FormBox["t", TraditionalForm]]}], 
+      "=", RowBox[{SubscriptBox[FormBox[SubscriptBox["w", 
+           StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+          TraditionalForm], FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{RowBox[{"(", RowBox[{SubscriptBox[FormBox["z", 
+                  TraditionalForm], FormBox["t", TraditionalForm]], 
+                RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", 
+                     "s"], TraditionalForm], FormBox["t", 
+                    TraditionalForm]]}], RowBox[{"+", RowBox[
+                   {FormBox[SubscriptBox["\[Omega]", "U"], TraditionalForm], 
+                    "\[ThinSpace]", SubscriptBox[FormBox["e", 
+                      TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+              ")"}]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(44)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["z", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                 {FormBox[SubscriptBox["v", "z"], TraditionalForm]}]}]}], 
+            ")"}], "\[ThinSpace]", SubscriptBox[FormBox["z", 
+            TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+             RowBox[{"-", "1"}]}]]}], 
+        RowBox[{"+", RowBox[{FractionBox[RowBox[{FormBox[SubscriptBox["v", 
+                 "z"], TraditionalForm]}], RowBox[{RowBox[{"(", 
+                 RowBox[{"1", RowBox[{"-", RowBox[{FormBox[TemplateBox[
+                         {"h", "*"}, "Superscript", SyntaxForm -> 
+                          SuperscriptBox], TraditionalForm]}]}]}], ")"}]}]], 
+            "\[ThinSpace]", RowBox[{"(", RowBox[{SubscriptBox[FormBox["c", 
+                  TraditionalForm], FormBox["t", TraditionalForm]], 
+                RowBox[{"-", RowBox[{FormBox[TemplateBox[{"h", "*"}, 
+                      "Superscript", SyntaxForm -> SuperscriptBox], 
+                     TraditionalForm], "\[ThinSpace]", SubscriptBox[
+                     FormBox["c", TraditionalForm], RowBox[{FormBox["t", 
+                        TraditionalForm], RowBox[{"-", "1"}]}]]}]}]}], 
+              ")"}]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(45)"}, {None, None}}], 
+  Cell["The household's reservation-wage term depends on smoothed \
+habit-adjusted consumption z, labour-supply wedge epsilons and employment e. \
+comega=\[Omega]U and cv=vz. Classic uses w, since its PC=PD; sectoral \
+versions use wc. A commodity-price increase can therefore lower consumption \
+purchasing power at an unchanged domestic-real wage. Hours n and employment e \
+remain distinct quantities.", "Text"], Cell["Wage rigidity means that \
+households or wage setters cannot freely reset every wage in every period. A \
+Calvo-style parameter thetaW can be interpreted as the probability that a \
+wage is not reoptimised in a period under a constant-hazard formulation. The \
+indexation coefficient gammaW describes how a wage that is not freshly \
+optimised is mechanically updated with past inflation. Indexation and \
+reoptimisation are therefore distinct: an indexed wage may change without the \
+setter choosing a new optimal wage.", "Text"], Cell["The unemployment term \
+summarises a gap between wage compensation and the reservation-wage side of \
+the labour market. Higher unemployment and a wage-markup disturbance affect \
+bargaining or wage-setting pressure through the implemented reduced block. A \
+natural unemployment variable here is a model counterfactual, not an \
+assertion that all observed unemployment is voluntary or that the benchmark \
+is a welfare optimum.", "Text"], 
+  Cell[BoxData[RowBox[
+     {RowBox[{SubscriptBox[FormBox[SubscriptBox["w", StyleBox["C", 
+            FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["w", StyleBox[
+                "C", FontSlant -> Italic, StripOnInput -> False]], 
+              TraditionalForm], RowBox[{FormBox["t", TraditionalForm], RowBox[
+                {"-", "1"}]}]]}]}], RowBox[{"+", SubscriptBox[
+           FormBox[TemplateBox[{"\[Pi]", StyleBox["C", FontSlant -> Italic, 
+               StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+              SuperscriptBox], TraditionalForm], FormBox["t", 
+            TraditionalForm]]}]}], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Gamma]", "W"], 
+           TraditionalForm], "\[ThinSpace]", SubscriptBox[
+           FormBox[TemplateBox[{"\[Pi]", StyleBox["C", FontSlant -> Italic, 
+               StripOnInput -> False]}, "Superscript", SyntaxForm -> 
+              SuperscriptBox], TraditionalForm], 
+           RowBox[{FormBox["t", TraditionalForm], RowBox[{"-", "1"}]}]]}], 
+        RowBox[{"+", RowBox[{FormBox["\[Beta]", TraditionalForm], 
+            "\[ThinSpace]", RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", 
+               FormBox["t", TraditionalForm]], "[", RowBox[{SubscriptBox[
+                 FormBox[SubscriptBox["w", StyleBox["C", FontSlant -> Italic, 
+                    StripOnInput -> False]], TraditionalForm], RowBox[
+                  {FormBox["t", TraditionalForm], RowBox[{"+", "1"}]}]], 
+                RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["w", 
+                       StyleBox["C", FontSlant -> Italic, StripOnInput -> 
+                         False]], TraditionalForm], FormBox["t", 
+                      TraditionalForm]]}]}], RowBox[{"+", SubscriptBox[
+                   FormBox[TemplateBox[{"\[Pi]", StyleBox["C", FontSlant -> 
+                        Italic, StripOnInput -> False]}, "Superscript", 
+                     SyntaxForm -> SuperscriptBox], TraditionalForm], 
+                   RowBox[{FormBox["t", TraditionalForm], RowBox[{"+", 
+                       "1"}]}]]}], RowBox[{"-", RowBox[{FormBox[SubscriptBox[
+                      "\[Gamma]", "W"], TraditionalForm], "\[ThinSpace]", 
+                    SubscriptBox[FormBox[TemplateBox[{"\[Pi]", StyleBox["C", 
+                         FontSlant -> Italic, StripOnInput -> False]}, 
+                       "Superscript", SyntaxForm -> SuperscriptBox], 
+                      TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+              "]"}]}]}], RowBox[{"-", RowBox[
+           {FormBox[SubscriptBox["\[Kappa]", "W"], TraditionalForm], 
+            "\[ThinSpace]", RowBox[{"(", RowBox[{RowBox[{FormBox[SubscriptBox[
+                    "\[Omega]", "U"], TraditionalForm], "\[ThinSpace]", 
+                  SubscriptBox[FormBox["u", TraditionalForm], FormBox["t", 
+                    TraditionalForm]]}], RowBox[{"-", RowBox[{"100", 
+                    "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox[
+                       "\[Epsilon]", "w"], TraditionalForm], FormBox["t", 
+                      TraditionalForm]]}]}]}], ")"}]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(46)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Kappa]", "W"], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                  {FormBox[SubscriptBox["\[Theta]", "W"], TraditionalForm], 
+                   "\[ThinSpace]", FormBox["\[Beta]", TraditionalForm]}]}]}], 
+             ")"}], "\[ThinSpace]", RowBox[{"(", RowBox[{"1", RowBox[
+                {"-", RowBox[{FormBox[SubscriptBox["\[Theta]", "W"], 
+                    TraditionalForm]}]}]}], ")"}]}]}], 
+       RowBox[{RowBox[{FormBox[SubscriptBox["\[Theta]", "W"], 
+            TraditionalForm], "\[ThinSpace]", RowBox[
+            {"(", RowBox[{"1", RowBox[{"+", RowBox[{FormBox[SubscriptBox[
+                     "\[Omega]", "U"], TraditionalForm], "\[ThinSpace]", 
+                   FormBox[SubscriptBox["\[CurlyEpsilon]", "W"], 
+                    TraditionalForm]}]}]}], ")"}]}]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(47)"}, {None, None}}], 
+  Cell["The left side is nominal wage inflation: \
+\[CapitalDelta]wc+piC=\[CapitalDelta]w+pi. This cancellation is a \
+unit-conversion identity. Indexing wages to CPI on the right instead of \
+domestic inflation is a substantive modelling choice in the sectoral files, \
+not an implication of accounting alone. This sticky-wage unemployment block \
+should not be replaced by a frictionless household labour FOC.", "Text"], 
+  Cell[BoxData[RowBox[{RowBox[{FormBox[SubscriptBox["\[Omega]", "U"], 
+         TraditionalForm], "\[ThinSpace]", SubscriptBox[
+         FormBox["un", TraditionalForm], FormBox["t", TraditionalForm]]}], 
+      "=", RowBox[{"100", "\[ThinSpace]", SubscriptBox[
+         FormBox[SubscriptBox["\[Epsilon]", "w"], TraditionalForm], 
+         FormBox["t", TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(48)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["l", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["u", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox["e", TraditionalForm], 
+           FormBox["t", TraditionalForm]]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(49)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{RowBox[{SubscriptBox[FormBox["e", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox["e", TraditionalForm], 
+             RowBox[{FormBox["t", TraditionalForm], RowBox[{"-", 
+                 "1"}]}]]}]}]}], "=", 
+      RowBox[{RowBox[{FormBox["\[Beta]", TraditionalForm], "\[ThinSpace]", 
+          RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+              TraditionalForm]], "[", RowBox[{SubscriptBox[FormBox["e", 
+                TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+                 RowBox[{"+", "1"}]}]], RowBox[{"-", RowBox[{SubscriptBox[
+                   FormBox["e", TraditionalForm], FormBox["t", 
+                    TraditionalForm]]}]}]}], "]"}]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["\[Kappa]", "e"], 
+             TraditionalForm], "\[ThinSpace]", RowBox[
+             {"(", RowBox[{SubscriptBox[FormBox["n", TraditionalForm], 
+                 FormBox["t", TraditionalForm]], RowBox[{"-", RowBox[
+                   {SubscriptBox[FormBox["e", TraditionalForm], FormBox["t", 
+                      TraditionalForm]]}]}]}], ")"}]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(50)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Kappa]", "e"], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                  {FormBox[SubscriptBox["\[Theta]", "e"], TraditionalForm], 
+                   "\[ThinSpace]", FormBox["\[Beta]", TraditionalForm]}]}]}], 
+             ")"}], "\[ThinSpace]", RowBox[{"(", RowBox[{"1", RowBox[
+                {"-", RowBox[{FormBox[SubscriptBox["\[Theta]", "e"], 
+                    TraditionalForm]}]}]}], ")"}]}]}], 
+       RowBox[{FormBox[SubscriptBox["\[Theta]", "e"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(51)"}, {None, None}}], 
+  Cell["Employment adjusts gradually towards hours demanded. The relationship \
+l=u+e uses the model's linear normalisation; it is not the exact level \
+unemployment identity without an appropriate conversion. These labour-market \
+mechanisms are inherited across the three versions.", "Text"], 
+  Cell["4.3 Monetary policy and the domestic Phillips curve", "Subsection"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["r", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Rho]", "R"], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox["r", TraditionalForm], 
+           RowBox[{FormBox["t", TraditionalForm], RowBox[{"-", "1"}]}]]}], 
+        RowBox[{"+", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", 
+                  RowBox[{FormBox[SubscriptBox["\[Rho]", "R"], 
+                     TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+            RowBox[{"(", RowBox[{RowBox[{FormBox[SubscriptBox["\[Phi]", 
+                    "\[Pi]"], TraditionalForm], "\[ThinSpace]", SubscriptBox[
+                   FormBox[TemplateBox[{"\[Pi]", "target"}, "Superscript", 
+                     SyntaxForm -> SuperscriptBox], TraditionalForm], 
+                   FormBox["t", TraditionalForm]]}], RowBox[{"+", 
+                  RowBox[{FormBox[SubscriptBox["\[Phi]", "y"], 
+                     TraditionalForm], "\[ThinSpace]", SubscriptBox[
+                     FormBox["gap", TraditionalForm], FormBox["t", 
+                      TraditionalForm]]}]}], RowBox[{"+", RowBox[
+                   {FormBox[SubscriptBox["\[Phi]", RowBox[{"\[CapitalDelta]", 
+                        " ", "y"}]], TraditionalForm], "\[ThinSpace]", 
+                    RowBox[{"(", RowBox[{SubscriptBox[FormBox["gap", 
+                          TraditionalForm], FormBox["t", TraditionalForm]], 
+                        RowBox[{"-", RowBox[{SubscriptBox[FormBox["gap", 
+                          TraditionalForm], RowBox[{FormBox["t", 
+                          TraditionalForm], RowBox[{"-", "1"}]}]]}]}]}], 
+                      ")"}]}]}]}], ")"}]}]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", 
+               "r"], TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(52)"}, {None, None}}], 
+  Cell["Classic sets piTarget=pi; both sectoral versions set piTarget=piC. \
+This is an explicit policy choice. The negative sign on epsilonr is retained: \
+a positive innovation to that process reduces r directly. The domestic price \
+Phillips curve continues to use domestic inflation and domestic-real marginal \
+cost.", "Text"], Cell["What sticky prices and a Phillips curve assume", 
+   "Subsection"], Cell["Price rigidity gives a firm a reason to care about \
+future costs when choosing today's price. If a price may remain in place for \
+several periods, the firm must weigh a sequence of expected demand and cost \
+conditions. In a constant-hazard Calvo interpretation, thetaP is the \
+probability of not reoptimising the price in a period. The expected time \
+between reoptimisations is 1/(1\[Minus]thetaP). For example, thetaP=0.75 \
+corresponds to four quarters. This is an average waiting time, not a rule \
+that every firm changes its price exactly once a year.", "Text"], 
+  Cell["The parameter gammaP represents indexation of a non-reoptimised price \
+to past inflation. This introduces lagged inflation, whereas forward-looking \
+price setting introduces expected future inflation. The Phillips curve \
+summarises these forces around the reference equilibrium. Its slope kappaP \
+translates a marginal-cost deviation into inflation pressure. Greater \
+rigidity reduces the frequency of resetting and, under the maintained \
+formula, tends to flatten that relationship.", "Text"], 
+  Cell["A markup is the price charged relative to marginal cost. It reflects \
+product-market structure and demand elasticity; it is not the same as a fixed \
+cost or a wedge in household purchasing power. The present calibration \
+connects a steady markup factor with a fixed-cost/output normalisation, but \
+the concepts remain distinct. A domestic Phillips curve governs domestic \
+producer prices. Imported energy and food prices are instead driven by \
+exogenous relative-price laws, so CPI combines domestic price setting with \
+imported-price movements.", "Text"], 
+  Cell[BoxData[RowBox[
+     {RowBox[{SubscriptBox[FormBox["\[Pi]", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{FormBox[SubscriptBox["\[Gamma]", 
+              StyleBox["P", FontSlant -> Italic, StripOnInput -> False]], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[FormBox["\[Pi]", 
+              TraditionalForm], RowBox[{FormBox["t", TraditionalForm], RowBox[
+                {"-", "1"}]}]]}]}]}], "=", 
+      RowBox[{RowBox[{FormBox["\[Beta]", TraditionalForm], "\[ThinSpace]", 
+          RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+              TraditionalForm]], "[", RowBox[{SubscriptBox[FormBox["\[Pi]", 
+                TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+                 RowBox[{"+", "1"}]}]], RowBox[{"-", RowBox[
+                 {FormBox[SubscriptBox["\[Gamma]", StyleBox["P", FontSlant -> 
+                      Italic, StripOnInput -> False]], TraditionalForm], 
+                  "\[ThinSpace]", SubscriptBox[FormBox["\[Pi]", 
+                    TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+            "]"}]}], RowBox[{"+", RowBox[{FormBox[SubscriptBox["\[Kappa]", 
+              StyleBox["P", FontSlant -> Italic, StripOnInput -> False]], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox["mc", TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}], RowBox[
+         {"-", RowBox[{"100", "\[ThinSpace]", FormBox[SubscriptBox[
+              "\[Kappa]", StyleBox["P", FontSlant -> Italic, StripOnInput -> 
+                False]], TraditionalForm], "\[ThinSpace]", 
+            SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", "p"], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(53)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Kappa]", 
+        StyleBox["P", FontSlant -> Italic, StripOnInput -> False]], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[
+                  {FormBox[SubscriptBox["\[Theta]", StyleBox["P", 
+                      FontSlant -> Italic, StripOnInput -> False]], 
+                    TraditionalForm], "\[ThinSpace]", FormBox["\[Beta]", 
+                    TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+           RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[{FormBox[
+                    SubscriptBox["\[Theta]", StyleBox["P", FontSlant -> 
+                       Italic, StripOnInput -> False]], 
+                    TraditionalForm]}]}]}], ")"}]}]}], 
+       RowBox[{RowBox[{FormBox[SubscriptBox["\[Theta]", StyleBox["P", 
+              FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+           "\[ThinSpace]", RowBox[{"(", RowBox[{"1", RowBox[{"+", 
+                 RowBox[{RowBox[{"(", RowBox[{FormBox[SubscriptBox["\[Psi]", 
+                         StyleBox["P", FontSlant -> Italic, StripOnInput -> 
+                          False]], TraditionalForm], RowBox[{"-", "1"}]}], 
+                     ")"}], "\[ThinSpace]", FormBox[SubscriptBox[
+                     "\[CurlyEpsilon]", StyleBox["P", FontSlant -> Italic, 
+                      StripOnInput -> False]], TraditionalForm]}]}]}], 
+             ")"}]}]}]]}]], "DisplayFormula", CellFrameLabels -> 
+    {{None, "(54)"}, {None, None}}], Cell["This is the source expression \
+\[Minus]pi2(\[Minus]mc+100epsilonp) rewritten to show its signs. \
+cthetap=\[Theta]P, cgammap=\[Gamma]P, cepsp=epsP and cpsip=\[Psi]P. The \
+price-aggregator curvature correction is inherited. Adding imported food does \
+not add a domestic agricultural technology or a food Phillips curve.", 
+   "Text"], Cell["5. Energy in production: derive the firm's cost equations", 
+   "Section"], Cell["5.1 Production technology and the fixed cost", 
+   "Subsection"], Cell["Energy in production is an intermediate input: firms \
+buy it to produce something else. Household energy is final consumption: it \
+delivers services directly to households. These uses share an import price \
+here but play different economic roles. A production-energy shock changes the \
+firm's feasible input mix and cost; a household-energy shock channel changes \
+the cost of living. Keeping En and CE separate prevents these two mechanisms \
+from being mixed in resource accounting.", "Text"], 
+  Cell["The restriction alpha+nu<1 leaves a strictly positive labour \
+elasticity alphaN. A positive energy exponent means energy is essential in \
+this technology: with zero energy and positive weights, technological output \
+is zero. If nu is set to zero, energy becomes unnecessary and the appropriate \
+object is the reduced two-input technology. Increasing nu while holding alpha \
+fixed reduces the labour exponent; it does not create increasing returns, \
+since the exponent sum remains one.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["X", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["A", TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SuperscriptBox[SubscriptBox[FormBox[StyleBox["K", 
+            FontSlant -> Italic, StripOnInput -> False], TraditionalForm], 
+          FormBox["t", TraditionalForm]], FormBox["\[Alpha]", 
+          TraditionalForm]], "\[ThinSpace]", SuperscriptBox[
+         SubscriptBox[FormBox[StyleBox["N", FontSlant -> Italic, 
+            StripOnInput -> False], TraditionalForm], FormBox["t", 
+           TraditionalForm]], FormBox[SubscriptBox["\[Alpha]", 
+           StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+          TraditionalForm]], "\[ThinSpace]", SuperscriptBox[
+         SubscriptBox[FormBox[SubscriptBox[StyleBox["E", FontSlant -> Plain, 
+             StripOnInput -> False], "n"], TraditionalForm], 
+          FormBox["t", TraditionalForm]], FormBox["\[Nu]", 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(55)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Alpha]", 
+        StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+       TraditionalForm], "=", 
+      RowBox[{"1", RowBox[{"-", RowBox[{FormBox["\[Alpha]", 
+             TraditionalForm]}]}], RowBox[
+         {"-", RowBox[{FormBox["\[Nu]", TraditionalForm]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(56)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["Y", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["X", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{FormBox["\[CapitalPhi]", 
+             TraditionalForm]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(57)"}, {None, None}}], 
+  Cell["Assume \[Alpha]>0, \[Nu]>0, \[Alpha]+\[Nu]<1, A>0 and positive \
+inputs. The exponents sum to one, giving constant returns to scale. Each \
+input has a positive, decreasing own marginal product: for instance \
+\[PartialD]X/\[PartialD]En=\[Nu]X/En. Positive cross derivatives express \
+technological complementarity, while cost-driven substitution still has \
+elasticity one.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["y", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FormBox[SubscriptBox["\[Psi]", StyleBox["P", 
+           FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+        "\[ThinSpace]", RowBox[{"(", RowBox[{SubscriptBox[FormBox["a", 
+              TraditionalForm], FormBox["t", TraditionalForm]], 
+            RowBox[{"+", RowBox[{FormBox["\[Alpha]", TraditionalForm], 
+                "\[ThinSpace]", SubscriptBox[FormBox["k", TraditionalForm], 
+                 FormBox["t", TraditionalForm]]}]}], 
+            RowBox[{"+", RowBox[{FormBox[SubscriptBox["\[Alpha]", 
+                  StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+                 TraditionalForm], "\[ThinSpace]", SubscriptBox[FormBox["n", 
+                  TraditionalForm], FormBox["t", TraditionalForm]]}]}], 
+            RowBox[{"+", RowBox[{FormBox["\[Nu]", TraditionalForm], 
+                "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox[StyleBox[
+                    "e", Italic, StripOnInput -> False], "n"], 
+                  TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+          ")"}]}]}]], "DisplayFormula", CellFrameLabels -> 
+    {{None, "(58)"}, {None, None}}], 
+  Cell["5.2 Cost minimisation and the dual function", "Subsection"], 
+  Cell["For a given technological output X, minimise \
+RK\[CenterDot]K+W\[CenterDot]N+PE\[CenterDot]En subject to A K^\[Alpha] \
+N^\[Alpha]N En^\[Nu]\[GreaterEqual]X. Divide all prices and the nominal \
+multiplier by PD. The resulting real factor prices are rK, wD and \
+pElevel=PE/PD; m is the real marginal cost in domestic goods. The binding \
+production constraint and the three FOCs give:", "Text"], 
+  Cell["Marginal cost is the minimum additional expenditure needed to produce \
+a small extra unit of output, holding prices and technology fixed. The \
+multiplier on the production target has exactly that interpretation: relaxing \
+the requirement by one unit changes the minimum cost by the multiplier. This \
+is why the same m appears in all three input conditions. At an interior \
+optimum, spending one more unit on any input must buy the same additional \
+output after valuing it at marginal cost.", "Text"], 
+  Cell["Strictly positive factor prices rule out obtaining unlimited amounts \
+of an input at no cost. A positive production target and essential \
+positive-weight inputs rule out a zero-input corner. Concavity of the \
+Cobb-Douglas technology makes its production-superlevel feasible set convex, \
+while expenditure is linear. Under these assumptions the cost FOCs \
+characterise a global cost minimum, rather than merely an arbitrary \
+stationary point. These assumptions justify dividing the conditions by \
+positive inputs and using logarithms later.", "Text"], 
+  Cell[BoxData[RowBox[
+     {RowBox[{SubscriptBox[FormBox[SubscriptBox["r", StyleBox["K", 
+            FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[StyleBox["K", FontSlant -> Italic, 
+           StripOnInput -> False], TraditionalForm], FormBox["t", 
+          TraditionalForm]]}], "=", 
+      RowBox[{FormBox["\[Alpha]", TraditionalForm], "\[ThinSpace]", 
+        SubscriptBox[FormBox["m", TraditionalForm], FormBox["t", 
+          TraditionalForm]], "\[ThinSpace]", SubscriptBox[
+         FormBox["X", TraditionalForm], FormBox["t", TraditionalForm]]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(59)"}, {None, None}}], 
+  Cell[BoxData[RowBox[
+     {RowBox[{SubscriptBox[FormBox[SubscriptBox["w", StyleBox["D", 
+            FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[StyleBox["N", FontSlant -> Italic, 
+           StripOnInput -> False], TraditionalForm], FormBox["t", 
+          TraditionalForm]]}], "=", 
+      RowBox[{FormBox[SubscriptBox["\[Alpha]", StyleBox["N", 
+           FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+        "\[ThinSpace]", SubscriptBox[FormBox["m", TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SubscriptBox[FormBox["X", TraditionalForm], FormBox["t", 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(60)"}, {None, None}}], 
+  Cell[BoxData[RowBox[
+     {RowBox[{SubscriptBox[FormBox[TemplateBox[{SubscriptBox["p", 
+             StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+            "level"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+          TraditionalForm], FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[SubscriptBox[StyleBox["E", FontSlant -> Plain, 
+            StripOnInput -> False], "n"], TraditionalForm], 
+         FormBox["t", TraditionalForm]]}], "=", 
+      RowBox[{FormBox["\[Nu]", TraditionalForm], "\[ThinSpace]", 
+        SubscriptBox[FormBox["m", TraditionalForm], FormBox["t", 
+          TraditionalForm]], "\[ThinSpace]", SubscriptBox[
+         FormBox["X", TraditionalForm], FormBox["t", TraditionalForm]]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(61)"}, {None, None}}], 
+  Cell["Multiply each marginal product by its input and add. Euler's theorem \
+gives X, so total variable cost equals mX. Substitute K=\[Alpha]mX/rK, \
+N=\[Alpha]N mX/wD and En=\[Nu]mX/pElevel into the technology; cancel X>0 and \
+use the sum of shares equal to one. Solving for m gives:", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["m", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FractionBox[RowBox[{"1"}], 
+         RowBox[{SubscriptBox[FormBox["A", TraditionalForm], 
+            FormBox["t", TraditionalForm]]}]], "\[ThinSpace]", 
+        SuperscriptBox[RowBox[{"(", FractionBox[RowBox[
+             {SubscriptBox[FormBox[SubscriptBox["r", StyleBox["K", 
+                  FontSlant -> Italic, StripOnInput -> False]], 
+                TraditionalForm], FormBox["t", TraditionalForm]]}], 
+            RowBox[{FormBox["\[Alpha]", TraditionalForm]}]], ")"}], 
+         FormBox["\[Alpha]", TraditionalForm]], "\[ThinSpace]", 
+        SuperscriptBox[RowBox[{"(", FractionBox[RowBox[
+             {SubscriptBox[FormBox[SubscriptBox["w", StyleBox["D", 
+                  FontSlant -> Plain, StripOnInput -> False]], 
+                TraditionalForm], FormBox["t", TraditionalForm]]}], 
+            RowBox[{FormBox[SubscriptBox["\[Alpha]", StyleBox["N", 
+                 FontSlant -> Italic, StripOnInput -> False]], 
+               TraditionalForm]}]], ")"}], FormBox[SubscriptBox["\[Alpha]", 
+           StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+          TraditionalForm]], "\[ThinSpace]", SuperscriptBox[
+         RowBox[{"(", FractionBox[RowBox[{SubscriptBox[FormBox[TemplateBox[
+                 {SubscriptBox["p", StyleBox["E", FontSlant -> Plain, 
+                    StripOnInput -> False]], "level"}, "Superscript", 
+                 SyntaxForm -> SuperscriptBox], TraditionalForm], FormBox[
+                "t", TraditionalForm]]}], RowBox[{FormBox["\[Nu]", 
+               TraditionalForm]}]], ")"}], FormBox["\[Nu]", 
+          TraditionalForm]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(62)"}, {None, None}}], 
+  Cell["Now take logarithms and subtract the steady state. Alternatively, \
+divide the capital FOC by the labour FOC to eliminate m and X; its fixed \
+share constant disappears in log deviations. Finally, take logs of the energy \
+FOC and replace x by y/\[Psi]P. This yields equations 14, 16 and 15 of both \
+sectoral files:", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["mc", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Alpha]", StyleBox["N", 
+             FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox["w", TraditionalForm], 
+           FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox["\[Alpha]", TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox[StyleBox["r", 
+                Italic, StripOnInput -> False], "K"], TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}], 
+        RowBox[{"+", RowBox[{FormBox["\[Nu]", TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "E", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox["a", TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(63)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["k", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["w", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["r", 
+                Italic, StripOnInput -> False], "K"], TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}], 
+        RowBox[{"+", SubscriptBox[FormBox["n", TraditionalForm], 
+           FormBox["t", TraditionalForm]]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(64)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox[
+         StyleBox["e", Italic, StripOnInput -> False], "n"], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["mc", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", FractionBox[RowBox[{SubscriptBox[FormBox["y", 
+               TraditionalForm], FormBox["t", TraditionalForm]]}], 
+           RowBox[{FormBox[SubscriptBox["\[Psi]", StyleBox["P", FontSlant -> 
+                 Italic, StripOnInput -> False]], TraditionalForm]}]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "E", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(65)"}, {None, None}}], 
+  Cell["The energy FOC contains X, not Y. Omitting 1/cpsip would mix \
+technological and after-fixed-cost output. Holding wages, rentals and \
+productivity fixed, an energy relative-price increase raises marginal cost by \
+\[Nu] times its log change. An equilibrium response also includes adjustments \
+of all other endogenous variables.", "Text"], 
+  Cell["5.3 Scale is not determined by the input FOCs alone", "Subsection"], 
+  Cell["With a fixed product price and constant returns, profit after cost \
+minimisation is (PD\[Minus]MCnom)X\[Minus]PD\[CapitalPhi]. Without demand or \
+market clearing, a positive unit margin implies unbounded scale; equality of \
+unit price and variable cost leaves scale undetermined. The cost problem \
+identifies the input mix for a given production target. The sticky-price \
+product-demand and price-setting problems determine its scale. One should \
+distinguish technology, input choice and price choice.", "Text"], 
+  Cell["6. Import financing, domestic resources and GDP", "Section"], 
+  Cell["6.1 The energy-only closure", "Subsection"], 
+  Cell["Exports of the domestic good finance imports period by period. There \
+is no independently evolving foreign-asset position, exchange-rate equation \
+or foreign demand schedule in this closure. EX is the domestic export volume. \
+Energy used by firms and households faces the same imported price.", "Text"], 
+  Cell["A trade closure tells the model how an import bill is financed. In \
+this implementation the bill is paid immediately with exports. A more general \
+open-economy model could let the country borrow abroad, use accumulated \
+foreign assets, change its exchange rate, or face a foreign export-demand \
+schedule. None of those alternatives is automatically present here. The \
+balanced-trade assumption is simple and transparent, but can strongly \
+influence the response of domestic output to an imported-price shock.", 
+   "Text"], Cell["For example, a higher imported energy price tends to raise \
+the value of a given import volume. Households and firms adjust their \
+volumes, while the closure requires enough domestic exports to finance the \
+resulting bill. This extra domestic use interacts with declining household \
+purchasing power and higher production costs. It explains why one cannot \
+deduce the sign of GDP by reading the energy cost term alone.", "Text"], 
+  Cell[BoxData[RowBox[
+     {RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+            FontSlant -> Italic, StripOnInput -> False], StyleBox["D", 
+            FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[StyleBox["EX", Plain, StripOnInput -> False], 
+          TraditionalForm], FormBox["t", TraditionalForm]]}], "=", 
+      RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+            FontSlant -> Italic, StripOnInput -> False], StyleBox["E", 
+            FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        RowBox[{"(", RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["E", 
+                FontSlant -> Plain, StripOnInput -> False], "n"], 
+              TraditionalForm], FormBox["t", TraditionalForm]], 
+            RowBox[{"+", SubscriptBox[FormBox[SubscriptBox[StyleBox["C", 
+                  FontSlant -> Italic, StripOnInput -> False], StyleBox["E", 
+                  FontSlant -> Plain, StripOnInput -> False]], 
+                TraditionalForm], FormBox["t", TraditionalForm]]}]}], 
+          ")"}]}]}]], "DisplayFormula", CellFrameLabels -> 
+    {{None, "(66)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["etot", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Theta]", "En"], 
+           TraditionalForm], "\[ThinSpace]", SubscriptBox[
+           FormBox[SubscriptBox[StyleBox["e", Italic, StripOnInput -> False], 
+             "n"], TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["\[Theta]", "Ce"], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox[SubscriptBox[StyleBox["c", Italic, StripOnInput -> 
+                 False], "E"], TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(67)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[StyleBox["ex", Italic, 
+         StripOnInput -> False], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox["E", 
+            FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox["etot", TraditionalForm], 
+           FormBox["t", TraditionalForm]]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(68)"}, {None, None}}], 
+  Cell["The log approximation to a sum uses steady shares: \
+\[Theta]En=En\:0304/(En\:0304+CE\:0304), \[Theta]Ce=1\[Minus]\[Theta]En. The \
+same weights are energy-expenditure shares because both uses share a common \
+price. Adding log changes without these weights would be incorrect. These are \
+equations 10 and 11 in the energy-only file.", "Text"], 
+  Cell["6.2 Add final imported food", "Subsection"], 
+  Cell[BoxData[RowBox[
+     {RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+            FontSlant -> Italic, StripOnInput -> False], StyleBox["D", 
+            FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+        SubscriptBox[FormBox[StyleBox["EX", Plain, StripOnInput -> False], 
+          TraditionalForm], FormBox["t", TraditionalForm]]}], "=", 
+      RowBox[{RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["P", 
+              FontSlant -> Italic, StripOnInput -> False], StyleBox["E", 
+              FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+           FormBox["t", TraditionalForm]], "\[ThinSpace]", 
+          RowBox[{"(", RowBox[{SubscriptBox[FormBox[SubscriptBox[
+                 StyleBox["E", FontSlant -> Plain, StripOnInput -> False], 
+                 "n"], TraditionalForm], FormBox["t", TraditionalForm]], 
+              RowBox[{"+", SubscriptBox[FormBox[SubscriptBox[StyleBox["C", 
+                    FontSlant -> Italic, StripOnInput -> False], StyleBox[
+                    "E", FontSlant -> Plain, StripOnInput -> False]], 
+                  TraditionalForm], FormBox["t", TraditionalForm]]}]}], 
+            ")"}]}], RowBox[{"+", RowBox[{SubscriptBox[
+             FormBox[SubscriptBox[StyleBox["P", FontSlant -> Italic, 
+                StripOnInput -> False], StyleBox["F", FontSlant -> Plain, 
+                StripOnInput -> False]], TraditionalForm], FormBox["t", 
+              TraditionalForm]], "\[ThinSpace]", SubscriptBox[
+             FormBox[SubscriptBox[StyleBox["C", FontSlant -> Italic, 
+                StripOnInput -> False], StyleBox["F", FontSlant -> Plain, 
+                StripOnInput -> False]], TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(69)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[StyleBox["ex", Italic, 
+         StripOnInput -> False], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Theta]", "XE"], 
+           TraditionalForm], "\[ThinSpace]", 
+          RowBox[{"(", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", 
+                 StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+                TraditionalForm], FormBox["t", TraditionalForm]], 
+              RowBox[{"+", SubscriptBox[FormBox["etot", TraditionalForm], 
+                 FormBox["t", TraditionalForm]]}]}], ")"}]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["\[Theta]", "XF"], 
+             TraditionalForm], "\[ThinSpace]", RowBox[
+             {"(", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                    "F", FontSlant -> Plain, StripOnInput -> False]], 
+                  TraditionalForm], FormBox["t", TraditionalForm]], 
+                RowBox[{"+", SubscriptBox[FormBox[SubscriptBox[StyleBox["c", 
+                      Italic, StripOnInput -> False], "F"], TraditionalForm], 
+                   FormBox["t", TraditionalForm]]}]}], ")"}]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(70)"}, {None, None}}], 
+  Cell["\[Theta]XE and \[Theta]XF are the steady energy and food VALUE shares \
+in total import expenditure. Their sum is one when imports are positive. They \
+differ from \[Theta]En and \[Theta]Ce, which divide only energy imports. Food \
+equations 11 and 35 change export financing in the sticky and flexible \
+economies. For zero components use zero weighted contributions and the \
+reduced model; do not take logs of zero levels.", "Text"], 
+  Cell["6.3 The domestic resource constraint", "Subsection"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["Y", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox[SubscriptBox[StyleBox["C", 
+            FontSlant -> Italic, StripOnInput -> False], StyleBox["N", 
+            FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[StyleBox["I", Italic, 
+             StripOnInput -> False], TraditionalForm], FormBox["t", 
+            TraditionalForm]]}], RowBox[{"+", SubscriptBox[
+           FormBox[StyleBox["UC", Plain, StripOnInput -> False], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", SubscriptBox[FormBox[StyleBox["G", Italic, 
+             StripOnInput -> False], TraditionalForm], FormBox["t", 
+            TraditionalForm]]}], RowBox[{"+", SubscriptBox[
+           FormBox[StyleBox["EX", Plain, StripOnInput -> False], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(71)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["y", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["s", "CN"], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox[
+             StyleBox["c", Italic, StripOnInput -> False], "N"], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["s", "\[ImaginaryI]"], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox["i", TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}], RowBox[
+         {"+", RowBox[{FormBox[SubscriptBox["s", "V"], TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox["v", TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox[StyleBox["g", Italic, 
+              StripOnInput -> False], "contribution"], TraditionalForm], 
+           FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["s", "X"], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox[StyleBox["ex", Italic, StripOnInput -> False], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(72)"}, {None, None}}], 
+  Cell["Domestic consumption, investment, utilisation costs, government and \
+exports exhaust domestic output. Imported CE and CF are not separately added \
+to domestic use: domestic exports finance them. Replacing CN by composite C \
+without adjusting the accounting would misallocate imports.", "Text"], 
+  Cell["6.4 Value added, not nominal import expenditure", "Subsection"], 
+  Cell["Gross output and value added answer different questions. Gross output \
+counts the value of the goods produced by domestic firms, including \
+production that uses imported intermediate inputs. Value added asks how much \
+production value is generated domestically after those intermediate inputs \
+are removed. If a firm imports energy to produce a final good, counting the \
+whole final good as domestic value added would attribute the imported energy \
+contribution to the domestic economy as well.", "Text"], 
+  Cell["Real and nominal value added must also be separated. A current-price \
+import bill can rise because the input becomes more expensive even when its \
+volume does not change. A quantity measure should not report that pure price \
+increase as a drop in physical production. Double deflation therefore values \
+output and intermediate-input volumes at specified base prices before taking \
+the difference. The local first-order GDP equation is an implementation of \
+that convention near the steady state, not a complete chain-linked \
+national-accounts system for arbitrarily large changes.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {StyleBox["GDP", Plain, StripOnInput -> False], "real"}, 
+         "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["Y", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{FractionBox[RowBox[{FormBox["PEbase", 
+                TraditionalForm]}], RowBox[{FormBox["PDbase", 
+                TraditionalForm]}]], "\[ThinSpace]", SubscriptBox[
+             FormBox[SubscriptBox[StyleBox["E", FontSlant -> Plain, 
+                StripOnInput -> False], "n"], TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(73)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["gdp", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", FractionBox[
+       RowBox[{RowBox[{"(", RowBox[{SubscriptBox[FormBox["y", 
+               TraditionalForm], FormBox["t", TraditionalForm]], 
+             RowBox[{"-", RowBox[{FormBox[SubscriptBox["s", "En"], 
+                  TraditionalForm], "\[ThinSpace]", SubscriptBox[FormBox[
+                   SubscriptBox[StyleBox["e", Italic, StripOnInput -> False], 
+                    "n"], TraditionalForm], FormBox["t", 
+                   TraditionalForm]]}]}]}], ")"}]}], 
+       RowBox[{FormBox[SubscriptBox["s", "GDP"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(74)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "GDP"], TraditionalForm], 
+      "=", RowBox[{"1", RowBox[{"-", RowBox[{FormBox[SubscriptBox["s", "En"], 
+             TraditionalForm]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(75)"}, {None, None}}], 
+  Cell["Equation 28 is a first-order double-deflation quantity measure: \
+intermediate imported energy is subtracted at FIXED base prices. There is no \
+contemporaneous pE term in this real GDP equation. Nominal current-price \
+value added is different and contains a price contribution. Imported \
+household energy and food are final consumption imports; subtracting them \
+again from domestic value added would double count their subtraction. The \
+expenditure-side identity gives the same GDP because exports finance final \
+imports.", "Text"], Cell["Policy therefore uses gdp\[Minus]gdpf rather than \
+y\[Minus]yf. Gross domestic production and domestic value added may respond \
+differently to a commodity shock. Classic has sEn=0 and GDP=Y; the explicit \
+distinction becomes necessary with the imported intermediate input.", 
+   "Text"], Cell["7. Derive the steady-state shares and normalisations", 
+   "Section"], Cell["Set steady PD=PE=1 and steady productivity to one. The \
+sectoral calibration combines m\:0304=1/\[Psi]P with X\:0304/Y\:0304=\[Psi]P. \
+Hence m\:0304X\:0304/Y\:0304=1. These normalisations, not the exponent alone, \
+identify an output expenditure share with the production-energy elasticity.", 
+   "Text"], Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "En"], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{RowBox[{FormBox[OverscriptBox[SubscriptBox[StyleBox["P", 
+               FontSlant -> Italic, StripOnInput -> False], StyleBox["E", 
+               FontSlant -> Plain, StripOnInput -> False]], "_"], 
+            TraditionalForm], "\[ThinSpace]", FormBox[OverscriptBox[
+             SubscriptBox[StyleBox["E", FontSlant -> Plain, StripOnInput -> 
+                False], "n"], "_"], TraditionalForm]}]}], 
+       RowBox[{RowBox[{FormBox[OverscriptBox[SubscriptBox[StyleBox["P", 
+               FontSlant -> Italic, StripOnInput -> False], StyleBox["D", 
+               FontSlant -> Plain, StripOnInput -> False]], "_"], 
+            TraditionalForm], "\[ThinSpace]", FormBox[OverscriptBox["Y", 
+             "_"], TraditionalForm]}]}]], "=", 
+      RowBox[{FormBox["\[Nu]", TraditionalForm], "\[ThinSpace]", 
+        FormBox[OverscriptBox["m", "_"], TraditionalForm], "\[ThinSpace]", 
+        FractionBox[RowBox[{FormBox[OverscriptBox["X", "_"], 
+            TraditionalForm]}], RowBox[{FormBox[OverscriptBox["Y", "_"], 
+            TraditionalForm]}]]}], "=", FormBox["\[Nu]", TraditionalForm]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(76)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FractionBox["K", "Y"], "=", 
+      FractionBox[RowBox[{FormBox["\[Alpha]", TraditionalForm]}], 
+       RowBox[{FormBox[OverscriptBox[SubscriptBox["R", StyleBox["K", 
+             FontSlant -> Italic, StripOnInput -> False]], "_"], 
+          TraditionalForm]}]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(77)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[OverscriptBox[SubscriptBox["R", 
+         StyleBox["K", FontSlant -> Italic, StripOnInput -> False]], "_"], 
+       TraditionalForm], "=", 
+      RowBox[{FractionBox[RowBox[{FormBox["\[Tau]", TraditionalForm]}], 
+         RowBox[{FormBox["\[Beta]", TraditionalForm]}]], 
+        RowBox[{"+", FormBox["\[Delta]", TraditionalForm]}], 
+        RowBox[{"-", "1"}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(78)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FractionBox["I", "Y"], "=", 
+      RowBox[{RowBox[{"(", RowBox[{FormBox["\[Tau]", TraditionalForm], 
+            RowBox[{"+", FormBox["\[Delta]", TraditionalForm]}], 
+            RowBox[{"-", "1"}]}], ")"}], "\[ThinSpace]", 
+        FractionBox["K", "Y"]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(79)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "V"], TraditionalForm], "=", 
+      RowBox[{FormBox[OverscriptBox[SubscriptBox["R", StyleBox["K", 
+            FontSlant -> Italic, StripOnInput -> False]], "_"], 
+         TraditionalForm], "\[ThinSpace]", FractionBox["K", "Y"]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(80)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "G"], TraditionalForm], "=", 
+      RowBox[{FormBox["govGDP", TraditionalForm], "\[ThinSpace]", 
+        RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[{FormBox["\[Nu]", 
+                 TraditionalForm]}]}]}], ")"}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(81)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", StyleBox["C", 
+         FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], "=", 
+      RowBox[{"1", RowBox[{"-", RowBox[{FractionBox["I", "Y"]}]}], 
+        RowBox[{"-", RowBox[{FormBox[SubscriptBox["s", "G"], 
+             TraditionalForm]}]}], RowBox[
+         {"-", RowBox[{FormBox["\[Nu]", TraditionalForm]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(82)"}, {None, None}}], 
+  Cell["The rental return follows from the deterministic capital Euler \
+condition under the source's trend convention. Balanced-growth capital \
+accumulation implies the investment ratio. Government expenditure is a share \
+of GDP, so its share of domestic gross output is multiplied by \
+1\[Minus]\[Nu]. sC is total household consumption expenditure divided by \
+domestic output, not domestic consumption quantity by itself. The utilisation \
+coefficient is the marginal utilisation expenditure divided by output.", 
+   "Text"], Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "CN"], 
+       TraditionalForm], "=", 
+      RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", RowBox[{FormBox[
+                 SubscriptBox["\[Omega]", StyleBox["E", FontSlant -> Plain, 
+                   StripOnInput -> False]], TraditionalForm]}]}], 
+            RowBox[{"-", RowBox[{FormBox[SubscriptBox["\[Omega]", 
+                  StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+                 TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+        FormBox[SubscriptBox["s", StyleBox["C", FontSlant -> Italic, 
+           StripOnInput -> False]], TraditionalForm]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(83)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "Ce"], TraditionalForm], 
+      "=", RowBox[{FormBox[SubscriptBox["\[Omega]", StyleBox["E", 
+           FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+        "\[ThinSpace]", FormBox[SubscriptBox["s", StyleBox["C", 
+           FontSlant -> Italic, StripOnInput -> False]], 
+         TraditionalForm]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(84)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "CF"], TraditionalForm], 
+      "=", RowBox[{FormBox[SubscriptBox["\[Omega]", StyleBox["F", 
+           FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+        "\[ThinSpace]", FormBox[SubscriptBox["s", StyleBox["C", 
+           FontSlant -> Italic, StripOnInput -> False]], 
+         TraditionalForm]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(85)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "ME"], TraditionalForm], 
+      "=", RowBox[{FormBox[SubscriptBox["s", "En"], TraditionalForm], 
+        RowBox[{"+", FormBox[SubscriptBox["s", "Ce"], 
+           TraditionalForm]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(86)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["s", "X"], TraditionalForm], "=", 
+      RowBox[{FormBox[SubscriptBox["s", "ME"], TraditionalForm], 
+        RowBox[{"+", FormBox[SubscriptBox["s", "CF"], 
+           TraditionalForm]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(87)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Theta]", "En"], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{FormBox[SubscriptBox["s", "En"], TraditionalForm]}], 
+       RowBox[{FormBox[SubscriptBox["s", "ME"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(88)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Theta]", "Ce"], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{FormBox[SubscriptBox["s", "Ce"], TraditionalForm]}], 
+       RowBox[{FormBox[SubscriptBox["s", "ME"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(89)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Theta]", "XE"], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{FormBox[SubscriptBox["s", "ME"], TraditionalForm]}], 
+       RowBox[{FormBox[SubscriptBox["s", "X"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(90)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FormBox[SubscriptBox["\[Theta]", "XF"], 
+       TraditionalForm], "=", FractionBox[
+       RowBox[{FormBox[SubscriptBox["s", "CF"], TraditionalForm]}], 
+       RowBox[{FormBox[SubscriptBox["s", "X"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(91)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{RowBox[{FormBox[SubscriptBox["s", "CN"], 
+         TraditionalForm], RowBox[{"+", FractionBox["I", "Y"]}], 
+        RowBox[{"+", FormBox[SubscriptBox["s", "G"], TraditionalForm]}], 
+        RowBox[{"+", FormBox[SubscriptBox["s", "X"], TraditionalForm]}]}], 
+      "=", "1"}]], "DisplayFormula", CellFrameLabels -> 
+    {{None, "(92)"}, {None, None}}], Cell["In food calibration, cshareCF=sCF, \
+cshareME=sME, cweightXE=\[Theta]XE and cweightXF=\[Theta]XF. Energy-only has \
+\[Omega]F=0 and sME=sX; its cweightEn and cweightCe may therefore be divided \
+by cshareX equivalently. The generators handle zero denominators, whose \
+economic interpretation is a reduced no-import component.", "Text"], 
+  Cell["7.1 The wage and the classic-model limit", "Subsection"], 
+  Cell[BoxData[RowBox[{FormBox[OverscriptBox["w", "_"], TraditionalForm], 
+      "=", SuperscriptBox[RowBox[{"(", FractionBox[
+          RowBox[{RowBox[{SuperscriptBox[FormBox["\[Alpha]", 
+                TraditionalForm], FormBox["\[Alpha]", TraditionalForm]], 
+              "\[ThinSpace]", SuperscriptBox[FormBox[SubscriptBox["\[Alpha]", 
+                 StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+                TraditionalForm], FormBox[SubscriptBox["\[Alpha]", 
+                 StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+                TraditionalForm]], "\[ThinSpace]", SuperscriptBox[FormBox[
+                "\[Nu]", TraditionalForm], FormBox["\[Nu]", 
+                TraditionalForm]]}]}], RowBox[
+           {RowBox[{FormBox[SubscriptBox["\[Psi]", StyleBox["P", FontSlant -> 
+                  Italic, StripOnInput -> False]], TraditionalForm], 
+              "\[ThinSpace]", SuperscriptBox[FormBox[OverscriptBox[
+                 SubscriptBox["R", StyleBox["K", FontSlant -> Italic, 
+                   StripOnInput -> False]], "_"], TraditionalForm], FormBox[
+                "\[Alpha]", TraditionalForm]]}]}]], ")"}], 
+       FractionBox[RowBox[{"1"}], RowBox[{FormBox[SubscriptBox["\[Alpha]", 
+            StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+           TraditionalForm]}]]]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(93)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{FractionBox["N", "K"], "=", 
+      RowBox[{FractionBox[RowBox[{FormBox[SubscriptBox["\[Alpha]", 
+             StyleBox["N", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm]}], RowBox[{FormBox["\[Alpha]", 
+            TraditionalForm]}]], "\[ThinSpace]", FractionBox[
+         RowBox[{FormBox[OverscriptBox[SubscriptBox["R", StyleBox["K", 
+               FontSlant -> Italic, StripOnInput -> False]], "_"], 
+            TraditionalForm]}], RowBox[{FormBox[OverscriptBox["w", "_"], 
+            TraditionalForm]}]]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(94)"}, {None, None}}], 
+  Cell["This wage follows by imposing m\:0304=1/\[Psi]P in the dual cost \
+function with unit relative energy price. At \[Nu]=0 use the reduced formula \
+without \[Nu]^\[Nu], interpreted by its continuous limit. The classic \
+generator writes K/Y=\[Psi]P(N/K)^(\[Alpha]\[Minus]1); the energy generator \
+writes K/Y=\[Alpha]/R\:0304K. With the consistent classic wage these are \
+algebraically equal, as verified symbolically. Their different appearances do \
+not by themselves reveal an economic discrepancy.", "Text"], 
+  Cell["Require ccy>0, R\:0304K>0, \[Alpha]N>0, sGDP>0 and positive steady \
+output. If these fail, the intended steady allocation is not admissible. \
+Trend, units and markup/fixed-cost normalisations must remain matched in any \
+nesting comparison.", "Text"], 
+  Cell["7.2 What a calibrated share does and does not identify", 
+   "Subsection"], Cell["A calibrated share fixes a reference allocation or \
+parameter value; it is not automatically an estimate of a behavioural \
+response. omegaE is a household expenditure weight, while nu is a production \
+elasticity and a variable-cost share. Identifying nu with an \
+energy-expenditure-to-output ratio uses the additional steady markup and \
+fixed-cost normalisations derived above. Identifying it with an energy-to-GDP \
+ratio would require another denominator conversion. The numerical value of \
+the same word share therefore depends on exactly what is in the numerator and \
+denominator.", "Text"], Cell["Similarly, a policy coefficient, a shock \
+persistence and a substitution elasticity describe different mechanisms. A \
+policy coefficient determines how the central bank reacts; a persistence \
+coefficient determines how a disturbance evolves; an elasticity describes a \
+conditional response inside an optimisation problem. Comparing them only as \
+large or small numbers would obscure both units and economic meaning.", 
+   "Text"], Cell["8. Flexible prices, shocks and transmission channels", 
+   "Section"], Cell["8.1 Derive the flexible counterfactual consistently", 
+   "Subsection"], Cell["Suffix f denotes the flexible-price counterfactual. \
+Both sectoral economies face the same exogenous relative commodity prices. \
+The flexible equations remove the sticky allocation's time-varying markup \
+wedges, while retaining the steady markup normalisation. mc_f=0 means ZERO \
+DEVIATION, not a zero level of marginal cost.", "Text"], 
+  Cell["The flexible-price allocation asks what the same economy would do if \
+its nominal adjustment restrictions were removed under the maintained \
+counterfactual rules. It does not remove technology, resource constraints or \
+imported-price disturbances. Consequently, a costly energy shock can reduce \
+the flexible allocation itself. Actual output can fall while the output gap \
+moves little if natural output falls by a similar amount. Potential or \
+natural output here is therefore model dependent rather than an externally \
+observed smooth trend.", "Text"], 
+  Cell[BoxData[RowBox[{"0", "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Alpha]", StyleBox["N", 
+             FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox[TemplateBox[{"w", "f"}, 
+             "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+           FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox["\[Alpha]", TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox[TemplateBox[{SubscriptBox[
+                 StyleBox["r", Italic, StripOnInput -> False], "K"], "f"}, 
+               "Superscript", SyntaxForm -> SuperscriptBox], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}], 
+        RowBox[{"+", RowBox[{FormBox["\[Nu]", TraditionalForm], 
+            "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "E", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox["a", TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(95)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {SubscriptBox["e", "n"], "f"}, "Superscript", 
+         SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{FractionBox[RowBox[{SubscriptBox[FormBox[TemplateBox[
+              {"y", "f"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+             TraditionalForm], FormBox["t", TraditionalForm]]}], 
+         RowBox[{FormBox[SubscriptBox["\[Psi]", StyleBox["P", 
+              FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm]}]], RowBox[
+         {"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox["E", 
+                FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(96)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {SubscriptBox["c", "N"], "f"}, "Superscript", 
+         SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox[TemplateBox[{"c", "f"}, "Superscript", 
+           SyntaxForm -> SuperscriptBox], TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(97)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {SubscriptBox["c", "E"], "f"}, "Superscript", 
+         SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox[TemplateBox[{"c", "f"}, "Superscript", 
+           SyntaxForm -> SuperscriptBox], TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "E", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(98)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {SubscriptBox["c", "F"], "f"}, "Superscript", 
+         SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox[TemplateBox[{"c", "f"}, "Superscript", 
+           SyntaxForm -> SuperscriptBox], TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["C", FontSlant -> Italic, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox[
+                "F", FontSlant -> Plain, StripOnInput -> False]], 
+              TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(99)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[{"w", "f"}, 
+         "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox[SubscriptBox["p", StyleBox["C", 
+            FontSlant -> Italic, StripOnInput -> False]], TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"+", SubscriptBox[FormBox[TemplateBox[{"z", "f"}, 
+             "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+           FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", "s"], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}], 
+        RowBox[{"+", RowBox[{FormBox[SubscriptBox["\[Omega]", "U"], 
+             TraditionalForm], "\[ThinSpace]", SubscriptBox[
+             FormBox[TemplateBox[{"n", "f"}, "Superscript", SyntaxForm -> 
+                SuperscriptBox], TraditionalForm], FormBox["t", 
+              TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(100)"}, {None, None}}], 
+  Cell["The flexible real rate rf is measured in consumption units. Convert \
+it to a domestic-good real rate by adding the expected change in PC/PD before \
+discounting domestic capital returns. Since pc=0 in the classic model, the \
+conversion is invisible there but necessary in the sectoral versions.", 
+   "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[{"q", "f"}, 
+         "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{"-", RowBox[{RowBox[{"(", RowBox[{SubscriptBox[
+                 FormBox[TemplateBox[{"r", "f"}, "Superscript", SyntaxForm -> 
+                    SuperscriptBox], TraditionalForm], FormBox["t", 
+                  TraditionalForm]], RowBox[{"+", RowBox[{SubscriptBox[
+                     "\[DoubleStruckCapitalE]", FormBox["t", 
+                      TraditionalForm]], "[", SubscriptBox[FormBox[
+                      SubscriptBox["p", StyleBox["C", FontSlant -> Italic, 
+                        StripOnInput -> False]], TraditionalForm], RowBox[
+                      {FormBox["t", TraditionalForm], RowBox[{"+", "1"}]}]], 
+                    "]"}]}], RowBox[{"-", RowBox[{SubscriptBox[FormBox[
+                      SubscriptBox["p", StyleBox["C", FontSlant -> Italic, 
+                        StripOnInput -> False]], TraditionalForm], FormBox[
+                      "t", TraditionalForm]]}]}], RowBox[{"-", RowBox[
+                   {SubscriptBox[FormBox[SubscriptBox["\[Epsilon]", "b"], 
+                      TraditionalForm], FormBox["t", TraditionalForm]]}]}]}], 
+              ")"}]}]}], RowBox[{"+", RowBox[{FormBox[SubscriptBox["q", "1"], 
+             TraditionalForm], "\[ThinSpace]", RowBox[
+             {SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+                TraditionalForm]], "[", SubscriptBox[FormBox[TemplateBox[
+                 {SubscriptBox[StyleBox["r", Italic, StripOnInput -> False], 
+                   "K"], "f"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+                TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+                 RowBox[{"+", "1"}]}]], "]"}]}]}], 
+        RowBox[{"+", RowBox[{RowBox[{"(", RowBox[{"1", RowBox[{"-", 
+                  RowBox[{FormBox[SubscriptBox["q", "1"], 
+                     TraditionalForm]}]}]}], ")"}], "\[ThinSpace]", 
+            RowBox[{SubscriptBox["\[DoubleStruckCapitalE]", FormBox["t", 
+                TraditionalForm]], "[", SubscriptBox[FormBox[TemplateBox[
+                 {"q", "f"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+                TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+                 RowBox[{"+", "1"}]}]], "]"}]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(101)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[TemplateBox[
+         {StyleBox["gdp", Italic, StripOnInput -> False], "f"}, 
+         "Superscript", SyntaxForm -> SuperscriptBox], TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", FractionBox[
+       RowBox[{RowBox[{"(", RowBox[{SubscriptBox[FormBox[TemplateBox[
+                {"y", "f"}, "Superscript", SyntaxForm -> SuperscriptBox], 
+               TraditionalForm], FormBox["t", TraditionalForm]], 
+             RowBox[{"-", RowBox[{FormBox[SubscriptBox["s", "En"], 
+                  TraditionalForm], "\[ThinSpace]", SubscriptBox[FormBox[
+                   TemplateBox[{SubscriptBox["e", "n"], "f"}, "Superscript", 
+                    SyntaxForm -> SuperscriptBox], TraditionalForm], 
+                  FormBox["t", TraditionalForm]]}]}]}], ")"}]}], 
+       RowBox[{FormBox[SubscriptBox["s", "GDP"], TraditionalForm]}]]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(102)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox["gap", TraditionalForm], 
+       FormBox["t", TraditionalForm]], "=", 
+      RowBox[{SubscriptBox[FormBox["gdp", TraditionalForm], 
+         FormBox["t", TraditionalForm]], 
+        RowBox[{"-", RowBox[{SubscriptBox[FormBox[TemplateBox[{StyleBox[
+                 "gdp", Italic, StripOnInput -> False], "f"}, "Superscript", 
+               SyntaxForm -> SuperscriptBox], TraditionalForm], 
+             FormBox["t", TraditionalForm]]}]}]}]}]], "DisplayFormula", 
+   CellFrameLabels -> {{None, "(103)"}, {None, None}}], 
+  Cell["The flexible resource and export-financing equations use flexible \
+quantities, as in equations 34-36; using sticky quantities would contaminate \
+natural output. Commodity prices can change natural GDP and actual GDP \
+together, so the GDP response and the output-gap response need not have the \
+same sign or magnitude. The flexible capital, investment, utilisation, \
+employment and trend-consumption equations preserve the corresponding common \
+block.", "Text"], Cell["8.2 Commodity relative-price processes", 
+   "Subsection"], Cell["A shock innovation is the new, unpredictable \
+component arriving this period. A shock process includes both that innovation \
+and the inherited effect of earlier innovations. In pE_t=rhoE \
+pE_(t\[Minus]1)+etaE_t, rhoE measures persistence and the standard deviation \
+of etaE measures the typical innovation scale. A large one-period innovation \
+can occur in a short-lived process, and a small innovation can have a long \
+effect in a highly persistent process. These parameters should not be \
+interpreted interchangeably.", "Text"], Cell["For a positive persistence \
+below one, the conditional expected relative price gradually returns toward \
+its reference. Its approximate half-life is Log[1/2]/Log[rhoE] periods, when \
+0<rhoE<1. The restriction is needed: the formula is not meaningful at rhoE=0 \
+or one, and negative persistence implies alternating signs. The process is a \
+law for a relative price, so it cannot by itself identify a structural \
+oil-supply shock, food harvest failure or foreign-demand shock.", "Text"], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox["p", 
+         StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Rho]", StyleBox["E", 
+             FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+            TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+             RowBox[{"-", "1"}]}]]}], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["\[Eta]", 
+             StyleBox["E", FontSlant -> Plain, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(104)"}, {None, None}}], 
+  Cell[BoxData[RowBox[{SubscriptBox[FormBox[SubscriptBox["p", 
+         StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+        TraditionalForm], FormBox["t", TraditionalForm]], "=", 
+      RowBox[{RowBox[{FormBox[SubscriptBox["\[Rho]", StyleBox["F", 
+             FontSlant -> Plain, StripOnInput -> False]], TraditionalForm], 
+          "\[ThinSpace]", SubscriptBox[FormBox[SubscriptBox["p", 
+             StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+            TraditionalForm], RowBox[{FormBox["t", TraditionalForm], 
+             RowBox[{"-", "1"}]}]]}], 
+        RowBox[{"+", SubscriptBox[FormBox[SubscriptBox["\[Eta]", 
+             StyleBox["F", FontSlant -> Plain, StripOnInput -> False]], 
+            TraditionalForm], FormBox["t", TraditionalForm]]}]}]}]], 
+   "DisplayFormula", CellFrameLabels -> {{None, "(105)"}, {None, None}}], 
+  Cell["These are reduced-form relative PRICE LEVELS in domestic currency, \
+not commodity inflation rates. |\[Rho]|<1 gives a stationary AR(1). The food \
+model adds etaF and its innovation scale. Neither specification identifies \
+whether a commodity-price innovation reflects global supply, global demand or \
+exchange rates; there is no explicit foreign energy or agriculture supply \
+sector or separate retail pass-through dynamics.", "Text"], 
+  Cell["An isolated innovation \[Eta] gives p_j=\[Rho]^j\[Eta] for \
+j\[GreaterEqual]0. Its direct CPI-inflation effect is \[Omega]\[Eta] on \
+impact and \[Omega](\[Rho]\[Minus]1)\[Rho]^(j\[Minus]1)\[Eta] thereafter. For \
+0<\[Rho]<1, the later direct contribution is negative as the relative price \
+returns to baseline. Domestic inflation and equilibrium feedback add to that \
+component. A permanent price-level innovation at \[Rho]=1 is not permanently \
+higher inflation; it also changes the stationary-state interpretation.", 
+   "Text"], Cell["8.3 Inherited disturbances and sign conventions", 
+   "Subsection"], Cell["The common block contains AR(1) risk-premium, \
+investment-efficiency, productivity, labour-supply and monetary-policy \
+processes. Government spending has an AR(1) plus crhoga times the \
+contemporaneous technology innovation. Price and wage markup processes are \
+ARMA(1,1): \
+epsilonp=crhop\[CenterDot]epsilonp(\[Minus]1)+etap\[Minus]cmup\[CenterDot]eta\
+p(\[Minus]1), with the analogous wage equation. Preserve both innovation \
+scales and the explicit factors of 100. A positive epsilonr lowers the policy \
+rate directly; a positive epsilonp enters domestic inflation with the \
+negative sign written in Section 4.", "Text"], 
+  Cell["9. The requested sequence: nesting versus recalibration", "Section"], 
+  Cell["Classic to energy-food adds the consumption price basket, energy \
+input in production, import financing, GDP double deflation, CPI-based wages \
+and policy, two commodity-price processes, and the flexible counterparts. It \
+is not a food-only change. Food to energy-only sets \[Omega]F=0, removes food \
+quantities, prices, measurement variables and etaF, drops equations 61-64, \
+removes the food term from equation 01, and reduces export-financing \
+equations 11 and 35 to the energy-only identity. Recompute all affected \
+shares. Technology, marginal cost and the energy-input FOC remain \
+structurally the same.", "Text"], Cell["At matched common parameters, a zero \
+food share makes a food shock irrelevant to aggregate allocations. Recovering \
+the classic model additionally requires \[Nu]=\[Omega]E=0, removal of \
+inactive commodity variables, consistent limiting shares and units. Then \
+pc=0, wc=w, piC=pi, GDP=Y and import-financing exports disappear. This \
+nesting statement is about the equations. It does not imply equality of \
+current impulse responses across folders with different fitted parameters.", 
+   "Text"], Cell["9.1 EA20 calibration snapshot", "Subsection"], 
+  Cell["The following entries are read from the current EA20 calibration \
+modules. They identify changes in parameter values separately from structural \
+modifications. Food is a simulation prototype from a diagnostic energy \
+variant, not a fresh estimation of the whole food extension.", "Text"], 
+  Cell["Parameter                   Classic     Energy-food    \
+Energy-only\nch: external habit          0.635318    0.461469       \
+0.412019\ncthetap: price rigidity      0.842802    0.750000       \
+0.990000\ncthetaw: wage rigidity       0.696311    0.521709       \
+0.502120\ncrpi: inflation feedback     1.287264    1.500000       \
+0.438463\ncrhointr: rate smoothing     0.856383    0.967056       \
+0.957115\ncrhoE: energy persistence    absent      0.966082       \
+0.947039\ncsigmaE: energy innovation   absent      3.150063       \
+3.171694\ncrhoF: food persistence      absent      0.800000       \
+absent\ncsigmaF: food innovation     absent      5.000000       absent", 
+   "Program", FontSize -> 9, CellHorizontalScrolling -> False], 
+  Cell["The food README specifies illustrative food parameters, price \
+rigidity 0.75 and inflation feedback 1.5; its main file simulates 200-quarter \
+responses and does not execute estimation. The current energy-only file \
+supports maximum likelihood when RUN_ESTIMATION=1; its default macro is zero \
+and simulates the energy innovation. The classic file performs a stochastic \
+simulation. These execution settings are not theoretical mechanisms.", 
+   "Text"], Cell["The energy-only rigidity close to 0.99 and inflation \
+feedback below one are reported, not endorsed or altered here. Determinacy \
+cannot be inferred from that feedback coefficient alone: it requires the full \
+system's eigenvalue and rank checks at the chosen parameter vector. A \
+controlled comparison should match common parameters, shock units, timing and \
+size, and the sample/observables when estimating. Report structural and \
+recalibration effects separately.", "Text"], 
+  Cell["10. Measurement equations and empirical interpretation", "Section"], 
+  Cell["Classic measured GDP growth uses y\[Minus]y(\[Minus]1); sectoral \
+versions use gdp\[Minus]gdp(\[Minus]1), adding the same ctaubar+cebar trend. \
+Consumption and investment growth retain their own log differences. Classic \
+piobs=cpibar+pi becomes sectoral piobs=cpibar+piC. The observables pEobs=pE \
+and pFobs=pF are demeaned relative price LEVELS, not inflation series.", 
+   "Text"], Cell["Classic:      dyobs = ctaubar + cebar + y - \
+y(-1);\nSectoral:     dyobs = ctaubar + cebar + gdp - gdp(-1);\nClassic:      \
+piobs = cpibar + pi;\nSectoral:     piobs = cpibar + piC;\nAll models:   \
+robs/4 = crbar + r;", "Program", FontSize -> 9, CellHorizontalScrolling -> 
+    False], Cell["An additional measurement change is independent of \
+commodity theory. Classic uses \
+dwobs\[Minus]piobs=ctaubar+w\[Minus]w(\[Minus]1)\[Minus](pi\[Minus]pi(\
+\[Minus]1)). Sectoral versions use \
+dwobs=ctaubar+w\[Minus]w(\[Minus]1)+cpibar+pi. The latter is compatible with \
+nominal wage growth when w is the domestic-real wage. Substituting classic \
+piobs into its wage relation gives a different inflation timing. Reconcile \
+this with the actual data before attributing likelihood differences to energy \
+or food.", "Text"], Cell["The food EA20 measurement file states that no local \
+observations are available, and the main file does not estimate. Declaring \
+pFobs is an interface, not proof of a suitable dataset. A global agricultural \
+index, imported food price and retail HICP food index need not measure the \
+same object. Additional pass-through mechanisms may be needed if the selected \
+data differ from the model's import-price concept.", "Text"], 
+  Cell["ryear=4r, while piyear sums four quarterly CPI-inflation deviations \
+in the sectoral versions; piDyear sums domestic inflation. Classic sums \
+domestic inflation because CPI equals it. Restore trend intercepts before \
+comparing model deviations with observed rate levels. Country-specific \
+modules may differ from the EA20 snapshot documented here.", "Text"], 
+  Cell["11. Boundary conditions, interpretation and exercises", "Section"], 
+  Cell["Positive-domain calculations. Production requires positive \
+productivity, prices, inputs and interior shares. Its continuous extension is \
+zero if any essential input is zero. Holding other inputs positive and fixed, \
+each own marginal product tends to infinity at its zero boundary and to zero \
+at infinity. Simultaneous limits can depend on the path. Do not apply \
+logarithms or divide by a zero input directly at the boundary.", "Text"], 
+  Cell["Reduced models and feasibility. Require \[Alpha]+\[Nu]<1 and \
+\[Omega]E+\[Omega]F<1 in the interior model, positive habit surplus, \
+0<\[Beta]<1, admissible depreciation and trend, and ccy>0. At a zero input or \
+consumption share use the reduced technology/basket, not an expression \
+containing 0/0 or 0^0. For fixed \[CapitalPhi], Y\:0304 must be positive; as \
+Y\:0304 approaches zero, \[Psi]P grows and the local log approximation \
+becomes poorly behaved.", "Text"], Cell["Intertemporal boundaries. Initial \
+installed capital is predetermined. Infinite-horizon optimisation needs a \
+debt no-Ponzi admissibility condition and an appropriate transversality \
+condition under the selected asset and multiplier conventions. These economic \
+restrictions differ from Dynare's local Blanchard-Kahn conditions. Neither \
+follows from a static FOC or from the algebraic checks below.", "Text"], 
+  Cell["Transmission. Energy affects the consumption deflator and directly \
+enters the firm's unit cost. Food here affects final consumption, purchasing \
+power, policy and export financing, but does not directly enter the \
+production cost function. The trade closure and substitution toward domestic \
+goods can produce an initially positive GDP response; the identities do not \
+impose its sign. The whole dynamic system must be solved. First-order local \
+models do not automatically capture large-shock corners or nonlinear welfare \
+effects.", "Text"], Cell["Questions and short answers", "Subsection"], 
+  Cell["1. Why en=mc+y/cpsip\[Minus]pE? The FOC contains X and x=y/cpsip. 2. \
+Why no pE in real GDP? Intermediate energy is subtracted at fixed base \
+prices. 3. Is wc just a new label for the wage equation? Nominal wage growth \
+is a unit identity, but CPI indexation is a policy of wage adjustment. 4. \
+Does the final folder add production energy to the food model? No; both \
+already have production energy, and the final folder removes food. 5. Does \
+\[Omega]F=0 alone replicate current energy-only IRFs? Only after matching all \
+common parameters and shock definitions. 6. Does flexible mc=0 mean zero \
+costs? No, it means zero marginal-cost deviation around the steady markup.", 
+   "Text"], Cell["12. Equation map, sources and verification", "Section"], 
+  Cell["Block                         Classic labels     Sectoral labels\nCPI \
+and consumption basket     01                 01-07; food 61-64\nInvestment / \
+capital value     02-03              08-09\nImports and resources          04 \
+                10-12\nTechnology and factor choice   05,07,16           \
+13-16\nDomestic price Phillips curve  06                 \
+17\nWages/unemployment/trend       08-12              18-22\nCapital and \
+utilisation        13-15              23-25\nPolicy and employment          \
+17-18              26-27\nValue added                    y used as GDP      \
+28\nFlexible counterfactual        19-31              29-47; food 62\nOutput \
+gap                     32                 48\nEnergy-price process           \
+absent             49\nInherited shocks               33-40              \
+50-57\nAnnual indicators              41-42              58-60\nFood price \
+and inflation       absent             food 63-64", "Program", FontSize -> 9, 
+   CellHorizontalScrolling -> False], Cell["Numbered labels refer to the main \
+.mod files; measurement includes add equations separately. The source hashes \
+below identify the exact main-file snapshot used. These model files were read \
+only, not edited.", "Text"], Cell["G:\\M\[OAcute]j \
+dysk\\Papers\\Mateusz\\Teraz pracujemy  nad\\Artyku\[LSlash] - DSGE - Do \
+poprawy\\SWW_klasyczny\\sww_klasyczny.mod | core equations: 42 | SHA256: \
+e9979c511d44ab14fec9ce02df2db974b0c3471c26e926bf5234eeff0a838f88", "Text"], 
+  Cell["G:\\M\[OAcute]j dysk\\Papers\\Mateusz\\Teraz pracujemy  \
+nad\\Artyku\[LSlash] - DSGE - Do \
+poprawy\\SWW_energia_zywnosc\\sww_energia_zywnosc.mod | core equations: 64 | \
+SHA256: f64da977c0590ba5b5852dbaa0aa3f973c661627435fb3949a3ff2eeb4cc8caa", 
+   "Text"], Cell["G:\\M\[OAcute]j dysk\\Papers\\Mateusz\\Teraz pracujemy  \
+nad\\Artyku\[LSlash] - DSGE - Do \
+poprawy\\SWW_energia_w_produkcji\\sww_energia_w_produkcji.mod | core \
+equations: 60 | SHA256: \
+50b66a22b36b6fb6d33c6e9ee420dff12eaba587a8e911b4c34357d1162ddc32", "Text"], 
+  Cell["Additional local sources: all three \
+Estimation_Setup/EA20_calibration.mod, EA20_measurement.mod and \
+EA20_shocks.mod modules; calibration/derived_parameters.py; the food folder's \
+README.md; and the energy-only steady-state function. This is a derivation of \
+the local specifications, not an assertion that every extension or parameter \
+value belongs to the original published SWW model.", "Text"], 
+  Cell["Symbolic and source checks", "Subsection"], 
+  Cell["The checks cover expenditure duality, optimal input demand, Euler's \
+production identity, marginal cost, resource-share adding up, classic \
+capital-output equivalence, habit algebra, wage deflators, zero-food CPI \
+reduction, and the exact food-versus-energy equation differences. They do not \
+establish empirical fit or a stable stochastic equilibrium.", "Text"], 
+  Cell["Numbered core equation counts : True\nFood changes only CPI and \
+sticky/flexible export financing among shared equations : True\nFour added \
+food equations : True\nProduction shares add to one : True\nEuler identity : \
+True\nCost-minimising inputs reproduce output : True\nMinimal variable cost : \
+True\nTwo-good expenditure duality : True\nThree-good expenditure duality : \
+True\nRelative CPI identity : True\nWeighted factor FOCs imply marginal cost \
+: True\nResource shares add up : True\nEquivalent classic capital-output \
+formulas : True\nHabit coefficient algebra : True\nWage-deflator identity : \
+True\nZero-food log-price limit : True", "Program", FontSize -> 9, 
+   CellHorizontalScrolling -> False]}, StyleDefinitions -> "Default.nb", 
+ WindowTitle -> "SWW: energy and food derivation", WindowSize -> {1150, 900}, 
+ ShowCellLabel -> False]

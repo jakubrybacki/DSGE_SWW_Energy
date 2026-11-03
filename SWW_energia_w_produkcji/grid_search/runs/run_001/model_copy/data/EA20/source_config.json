@@ -1,0 +1,20 @@
+{
+  "options": {
+    "geo": "EA",
+    "start": "2009Q1",
+    "end": "2025Q4",
+    "price-sa": "x13",
+    "rate-csv": "",
+    "rate-code": "IRT_M3",
+    "rate-source": "bis",
+    "out": "",
+    "install": "false",
+    "employment-sa": "auto"
+  },
+  "effective_geo": "EA20",
+  "energy_center": -8.0261,
+  "omegaE_candidate": 0.1012,
+  "rate_note": "BIS WS_CBPOL D. XM : calendar-day quarterly mean; nominal percent per year; robs is annual, model robs/4=crbar+r. Source: European Central Bank Weekend carries: 32 Compilation: From 18 Sep 2024 onwards: official central bank steering rate is the deposit facility rate, fixed rate; from 15 Oct 2008 to 17 Sep 2024: official central bank liquidity providing, main refinancing operations, fixed rate; from 28 Jun 2000 to 14 Oct 2008: official central bank liquidity providing, main refinancing operations, minimum bid rate; from 5 Jan 1999 to 27 Jun 2000: official central bank liquidity providing, main refinancing operations, fixed rate.",
+  "rate_unit": "annual_percent",
+  "rate_measurement": "robs/4=crbar+r"
+}

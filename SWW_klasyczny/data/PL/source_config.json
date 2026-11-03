@@ -1,0 +1,18 @@
+{
+  "options": {
+    "geo": "PL",
+    "start": "2009Q1",
+    "end": "2025Q4",
+    "price-sa": "x13",
+    "rate-csv": "",
+    "rate-code": "IRT_M3",
+    "out": "",
+    "install": "false",
+    "employment-sa": "auto"
+  },
+  "effective_geo": "PL",
+  "energy_center": -9.0706,
+  "omegaE_candidate": 0.1379,
+  "rate_note": "PROXY ONLY: Eurostat IRT_M3 money market rate, not a central-bank policy rate. Geography: PL",
+  "rate_measurement": "robs/4=crbar+r"
+}

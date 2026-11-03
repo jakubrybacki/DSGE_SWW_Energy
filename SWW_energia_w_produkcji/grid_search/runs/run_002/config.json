@@ -1,0 +1,26 @@
+{
+  "country": "EA20",
+  "axes": {
+    "cnu": [
+      -0.01,
+      0,
+      0.8
+    ],
+    "comegaE": [
+      0,
+      0.1,
+      1
+    ],
+    "crhoE": [
+      0.9,
+      1.01
+    ],
+    "crpi": [
+      0.1,
+      1.287264
+    ]
+  },
+  "include_ml_point": false,
+  "checkpoint_every": 10,
+  "max_points": 100
+}

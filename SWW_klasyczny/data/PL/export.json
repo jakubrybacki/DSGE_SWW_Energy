@@ -1,0 +1,7 @@
+{
+  "model": "SWW_klasyczny",
+  "geo": "PL",
+  "source_md5": "84582e447f608adc4fa332e4bf7e8ff5",
+  "generated_utc": "2026-09-25 12:38:00 UTC",
+  "wage_mapping": "Legacy classical equation: dwobs = nominal growth - (piobs(t)-piobs(t-1)); headline HICP used as common inflation proxy."
+}

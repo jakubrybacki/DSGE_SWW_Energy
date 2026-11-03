@@ -1,0 +1,7 @@
+{
+  "independent_inputs": 50,
+  "invalid_calibrations_rejected": 4,
+  "generation_deterministic": true,
+  "three_includes": true,
+  "declarations_match_spec": true
+}

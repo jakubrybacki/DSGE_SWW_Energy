@@ -1,0 +1,20 @@
+{
+  "zero_food_max_irf_difference": 2.3692159345500841E-13,
+  "zero_food_aggregate_effect": 1.2344274619207458E-15,
+  "identity_max_error": 1.9930010686867687E-15,
+  "steady_state_share_error": 0,
+  "common_irf_series_compared": 639,
+  "irf_horizon": 200,
+  "unstable_roots": 14,
+  "forward_variables": 14,
+  "estimated": false,
+  "p_f_impact": 5,
+  "pi_c_impact": 0.25235490341020445,
+  "pi_impact": 0.0023549034102045264,
+  "r_year_impact": 0.053021426713206019,
+  "c_impact": -0.15390900897686682,
+  "gdp_impact": 0.065790564189858833,
+  "c_food_impact": -4.9039090089768678,
+  "y_gap_impact": 0.11413085042633098,
+  "pi_year_impact": 0.25235490341020445
+}

@@ -1,0 +1,942 @@
+Notebook[
+ {Cell[CellGroupData[{Cell["Cobb\[Dash]Douglas Production with Energy", 
+      "Title", CellChangeTimes -> {{3.980245892339329*^9, 
+         3.980245900842783*^9}}, ExpressionUUID -> 
+       "8b62bdc6-2299-4e9d-b669-9ae2594025c2"], Cell["Reading guide", 
+      "Subtitle"], Cell["This annotated notebook explains the existing \
+calculations step by step. Read each text cell before evaluating the \
+following Input cell. All original Input and Output cells are preserved, \
+including the original saved results; they have not been recomputed or \
+certified by this editorial update. Use a fresh kernel when rerunning the \
+notebook. Notes flag notation and algebraic issues that should be addressed \
+in a later code revision.", "Text"], Cell["We begin with a Cobb\[Dash]Douglas \
+production function containing three inputs: capital K[t], labour L[t], and \
+energy used by firms Ef[t]. A[t] denotes total factor productivity. The input \
+elasticities are \[Alpha], 1\[Minus]\[Alpha]\[Minus]\[Nu], and \[Nu]. \
+Throughout the production derivation, assume A[t]>0, positive inputs, \
+\[Alpha]>0, \[Nu]>0, and \[Alpha]+\[Nu]<1. These restrictions make all three \
+inputs productive and essential, with constant returns to scale. Ef is the \
+actual energy symbol used in the code; E and N already have built-in meanings \
+in Wolfram Language.", "Text", CellChangeTimes -> 
+       {{3.980245926032797*^9, 3.980245937776352*^9}, 3.980246061142292*^9, 
+        {3.980246302432684*^9, 3.9802463283935337*^9}, {3.980247124534992*^9, 
+         3.9802471258680973*^9}}, ExpressionUUID -> 
+       "0f6a0a5a-4a97-8a4a-aef3-42017108d002"], Cell["Step 1 \[LongDash] \
+Define the technology. The delayed assignment := tells Wolfram to reconstruct \
+Y[t] whenever it is used. This allows later derivatives to act on the \
+underlying production expression. The exponents sum to one: scaling all \
+inputs by the same factor scales output by that factor.", "Text"], 
+     Cell[BoxData[RowBox[{RowBox[{"Y", "[", "t", "]"}], ":=", 
+         RowBox[{RowBox[{"A", "[", "t", "]"}], " ", 
+           RowBox[{RowBox[{"K", "[", "t", "]"}], "^", "\[Alpha]"}], " ", 
+           RowBox[{RowBox[{"L", "[", "t", "]"}], "^", 
+             RowBox[{"(", RowBox[{"1", "-", "\[Alpha]", "-", "\[Nu]"}], 
+               ")"}]}], " ", RowBox[{RowBox[{"Ef", "[", "t", "]"}], "^", 
+             "\[Nu]"}]}]}]], "Input", CellChangeTimes -> 
+       {{3.9802459545156326*^9, 3.9802459675059624*^9}, 
+        {3.9802460104170456*^9, 3.9802460118672504*^9}, 
+        {3.980246047474972*^9, 3.9802460518218136*^9}, 
+        {3.9802461727807503*^9, 3.9802461910125656*^9}, 3.980246242108822*^9, 
+        {3.9802462909594173*^9, 3.9802462986392517*^9}, 
+        3.9802482109488907*^9, 3.9802483457766647*^9, {3.98024846470994*^9, 
+         3.9802484676420574*^9}, {3.980248498188572*^9, 
+         3.980248498428705*^9}, {3.9802501613963203*^9, 
+         3.9802501753818455*^9}, 3.980253858102192*^9}, 
+      CellLabel -> "In[1]:= ", ExpressionUUID -> 
+       "d201dd63-42d4-5144-92f0-d9ae5df4d78c"], 
+     Cell[CellGroupData[{Cell["Optional symbol inspection. ?L asks Wolfram \
+for information about the symbol L and any definitions it currently has. It \
+does not derive an economic equation. This diagnostic is useful when checking \
+for definitions left over from earlier work.", "Text"], 
+        Cell[BoxData[RowBox[{"?", "L"}]], "Input", CellChangeTimes -> 
+          {{3.98024809983638*^9, 3.980248109964239*^9}}, 
+         ExpressionUUID -> "745f173b-81c7-4158-b2e7-f745b32eca0d"], 
+        Cell[BoxData[InterpretationBox[StyleBox[FrameBox[DynamicModuleBox[
+              {System`InformationDump`open$$ = True, 
+               System`InformationDump`mouseOver$$ = False}, PaneSelectorBox[{
+                True -> TagBox[GridBox[{{ItemBox[PaneBox[StyleBox[TagBox[
+                         TooltipBox[StyleBox["\" Symbol\"", 
+                          "InformationRowLabel", StripOnInput -> False], 
+                          "\"Symbol\"", TooltipStyle -> "TextStyling"], 
+                         Annotation[#1, "Symbol", "Tooltip"] & ], 
+                        "InformationTitleText", StripOnInput -> False, 
+                        BaseStyle -> None], FrameMargins -> {{4, 0}, 
+                         {-1, 1}}], BaseStyle -> 
+                       "InformationTitleBackground", StripOnInput -> False], 
+                     ItemBox["\"\"", BaseStyle -> 
+                       "InformationTitleBackground", StripOnInput -> False]}, 
+                    {ItemBox[PaneBox[StyleBox["\"Global`L\"", 
+                        "InformationUsageText", StripOnInput -> False, 
+                        LineSpacing -> {1.5, 1.5, 3.}], FrameMargins -> 
+                        {{10, 10}, {8, 10}}], BaseStyle -> 
+                       "InformationUsageSubtitleBackground", StripOnInput -> 
+                       False], ItemBox["\"\"", BaseStyle -> 
+                       "InformationUsageSubtitleBackground", StripOnInput -> 
+                       False]}, {PaneBox[GridBox[{{DynamicModuleBox[
+                          {System`InformationDump`open$$ = {False, False, 
+                          False, False, False, False}}, StyleBox[GridBox[
+                          {{TagBox[TooltipBox[StyleBox["\" Full Name\"", 
+                          "InformationRowLabel", StripOnInput -> False], 
+                          "\"FullName\"", TooltipStyle -> "TextStyling"], 
+                          Annotation[#1, "FullName", "Tooltip"] & ], 
+                          "\"Global`L\""}}, AutoDelete -> False, 
+                          GridBoxAlignment -> {"Columns" -> {Right, Left}}, 
+                          GridBoxDividers -> None, GridBoxItemSize -> 
+                          {"Columns" -> {Automatic, Automatic}}, 
+                          GridBoxSpacings -> {"Columns" -> {Offset[
+                          0.27999999999999997], {Offset[0.5599999999999999]}, 
+                          Offset[0.27999999999999997]}, "Rows" -> {Offset[
+                          0.2], {Offset[0.8]}, Offset[0.2]}}], "DialogStyle", 
+                          StripOnInput -> False], DynamicModuleValues :> 
+                          {}]}}, DefaultBaseStyle -> "Column", 
+                       GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                       GridBoxDividers -> {"Columns" -> {{False}}, "Rows" -> 
+                          {{False}}}, GridBoxItemSize -> {"Columns" -> 
+                          {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                       GridBoxSpacings -> {"Columns" -> {Offset[
+                          0.27999999999999997], {Offset[0.5599999999999999]}, 
+                          Offset[0.27999999999999997]}, "Rows" -> 
+                          {Offset[0.2], {Offset[3.6]}, Offset[0.2]}}], 
+                      FrameMargins -> {{6, 6}, {6, 3}}], ""}, 
+                    {ItemBox[TagBox[ButtonBox[PaneSelectorBox[{False -> 
+                          DynamicBox[FEPrivate`FrontEndResource["FEBitmaps", 
+                          "UpPointerOpener"], ImageSizeCache -> 
+                          {7.199999999999999, {1.9210448824614286, 
+                          5.278955117538571}}], True -> DynamicBox[
+                          FEPrivate`FrontEndResource["FEBitmaps", 
+                          "UpPointerOpenerHot"], ImageSizeCache -> 
+                          {7.199999999999999, {1.9210448824614286, 
+                          5.278955117538571}}]}, Dynamic[
+                          System`InformationDump`mouseOver$$]], Alignment -> 
+                         Left, Appearance -> {"Default" -> None}, 
+                        ButtonFunction :> FEPrivate`Set[
+                          System`InformationDump`open$$, False], Evaluator -> 
+                         Automatic, FrameMargins -> {{9, 0}, {0, 0}}, 
+                        ImageMargins -> 0, ImageSize -> Full, Method -> 
+                         "Preemptive"], EventHandlerTag[{"MouseEntered" :> 
+                          FEPrivate`Set[System`InformationDump`mouseOver$$, 
+                          True], "MouseExited" :> FEPrivate`Set[
+                          System`InformationDump`mouseOver$$, False], 
+                         Method -> "Preemptive", PassEventsDown -> Automatic, 
+                         PassEventsUp -> True}]], BaseStyle -> 
+                       "InformationTitleBackground", StripOnInput -> False], 
+                     "\[SpanFromLeft]"}}, AutoDelete -> False, FrameStyle -> 
+                    Directive[LightDarkSwitched[GrayLevel[0.8]], Thickness[
+                      Tiny]], GridBoxAlignment -> {"Columns" -> {Left, 
+                       Right}, "Rows" -> {{Center}}}, GridBoxDividers -> 
+                    {"Columns" -> {{None}}, "Rows" -> {False, {True}, 
+                       False}}, GridBoxItemSize -> {"Columns" -> 
+                      {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                False -> TagBox[GridBox[{{ItemBox[PaneBox[StyleBox[TagBox[
+                         TooltipBox[StyleBox["\" Symbol\"", 
+                          "InformationRowLabel", StripOnInput -> False], 
+                          "\"Symbol\"", TooltipStyle -> "TextStyling"], 
+                         Annotation[#1, "Symbol", "Tooltip"] & ], 
+                        "InformationTitleText", StripOnInput -> False], 
+                       FrameMargins -> {{4, 0}, {-1, 1}}], BaseStyle -> 
+                       "InformationTitleBackground", StripOnInput -> False], 
+                     ItemBox["\"\"", BaseStyle -> 
+                       "InformationTitleBackground", StripOnInput -> False]}, 
+                    {ItemBox[PaneBox[StyleBox["\"Global`L\"", 
+                        "InformationUsageText", StripOnInput -> False, 
+                        LineSpacing -> {1.5, 1.5, 3.}], FrameMargins -> 
+                        {{10, 10}, {8, 10}}], BaseStyle -> 
+                       "InformationUsageSubtitleBackground", StripOnInput -> 
+                       False], ItemBox["\"\"", BaseStyle -> 
+                       "InformationUsageSubtitleBackground", StripOnInput -> 
+                       False]}, {ItemBox[TagBox[ButtonBox[PaneSelectorBox[
+                         {False -> DynamicBox[FEPrivate`FrontEndResource[
+                          "FEBitmaps", "DownPointerOpener"]], True -> 
+                          DynamicBox[FEPrivate`FrontEndResource["FEBitmaps", 
+                          "DownPointerOpenerHot"]]}, Dynamic[
+                          System`InformationDump`mouseOver$$]], Alignment -> 
+                         Left, Appearance -> {"Default" -> None}, 
+                        ButtonFunction :> FEPrivate`Set[
+                          System`InformationDump`open$$, True], Evaluator -> 
+                         Automatic, FrameMargins -> {{9, 0}, {0, 0}}, 
+                        ImageMargins -> 0, ImageSize -> Full, Method -> 
+                         "Preemptive"], EventHandlerTag[{"MouseEntered" :> 
+                          FEPrivate`Set[System`InformationDump`mouseOver$$, 
+                          True], "MouseExited" :> FEPrivate`Set[
+                          System`InformationDump`mouseOver$$, False], 
+                         Method -> "Preemptive", PassEventsDown -> Automatic, 
+                         PassEventsUp -> True}]], BaseStyle -> 
+                       "InformationTitleBackground", StripOnInput -> False], 
+                     "\[SpanFromLeft]"}}, AutoDelete -> False, FrameStyle -> 
+                    Directive[LightDarkSwitched[GrayLevel[0.8]], Thickness[
+                      Tiny]], GridBoxAlignment -> {"Columns" -> {Left, 
+                       Right}, "Rows" -> {{Center}}}, GridBoxDividers -> 
+                    {"Columns" -> {{None}}, "Rows" -> {False, {True}, 
+                       False}}, GridBoxItemSize -> {"Columns" -> 
+                      {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, 
+               Dynamic[System`InformationDump`open$$], BaselinePosition -> 
+                Baseline, FrameMargins -> 0, ImageSize -> Automatic], 
+              ExpressionUUID -> "21f99ca0-0b12-48a8-b8e2-c536a8a0ca4a", 
+              DynamicModuleValues :> {}], BaseStyle -> 
+              "InformationGridFrame", StripOnInput -> False], 
+            "InformationGridPlain", StripOnInput -> False], 
+           InformationData[Association["ObjectType" -> "Symbol", 
+             "Usage" -> "Global`L", "Documentation" -> None, 
+             "OwnValues" -> None, "UpValues" -> None, "DownValues" -> None, 
+             "SubValues" -> None, "DefaultValues" -> None, "NValues" -> None, 
+             "FormatValues" -> None, "Options" -> None, "Attributes" -> {}, 
+             "FullName" -> "Global`L"], False]]], "Output", 
+         CellLabel -> "Out[2]= ", ExpressionUUID -> 
+          "f81ce072-bcbd-4bc3-a6ca-5cb1f7e3b1bc"]}, Open]], 
+     Cell[CellGroupData[
+       {Cell["The production function and the firm's first-order conditions", 
+         "Section", CellChangeTimes -> {{3.9802506172788486*^9, 
+            3.980250626862728*^9}}, ExpressionUUID -> 
+          "69673263-b007-4450-a5a7-2e241f4db94d"], Cell["We first compute the \
+marginal product of each input by differentiating output while holding the \
+other inputs and productivity fixed. We then derive the firm's interior \
+first-order conditions from its profit function. These are distinct steps: \
+marginal products describe the technology; optimality conditions also \
+incorporate input prices and the firm's objective.", "Text", 
+         CellChangeTimes -> {{3.980246056346855*^9, 3.980246057184185*^9}, 
+           {3.980246095397167*^9, 3.980246115454357*^9}, 
+           {3.9802464101609592*^9, 3.980246421685089*^9}, 
+           {3.980246633444002*^9, 3.9802466660278625*^9}, 
+           {3.9802469949882145*^9, 3.9802469977151413*^9}}, 
+         ExpressionUUID -> "5732d65e-f6bd-a643-8e46-cf0374502e26"], 
+        Cell[CellGroupData[{Cell["Step 2 \[LongDash] Marginal product of \
+capital. D[Y[t],K[t]] differentiates only with respect to capital. The power \
+rule gives \
+MPK=\[Alpha]A[t]K[t]^(\[Alpha]\[Minus]1)L[t]^(1\[Minus]\[Alpha]\[Minus]\[Nu])\
+Ef[t]^\[Nu]=\[Alpha]Y[t]/K[t]. It is positive under our assumptions, and it \
+declines as K[t] rises with the other inputs fixed.", "Text"], 
+           Cell[BoxData[StyleBox[RowBox[{"MPK", " ", "=", " ", 
+                RowBox[{"D", "[", RowBox[{RowBox[{"Y", "[", "t", "]"}], ",", 
+                    " ", RowBox[{"K", "[", "t", "]"}]}], "]"}]}], 
+              FontSlant -> "Italic"]], "Input", CellChangeTimes -> 
+             {{3.9802464188761864*^9, 3.9802464188761864*^9}, 
+              {3.980248518618372*^9, 3.9802485211515694*^9}, 
+              {3.980250220820614*^9, 3.980250225481886*^9}}, 
+            ExpressionUUID -> "10c13271-288a-4215-9e16-35c8460af594"], 
+           Cell[BoxData[RowBox[{"\[Alpha]", " ", RowBox[{"A", "[", "t", 
+                 "]"}], " ", SuperscriptBox[RowBox[{"Ef", "[", "t", "]"}], 
+                "\[Nu]"], " ", SuperscriptBox[RowBox[{"K", "[", "t", "]"}], 
+                RowBox[{RowBox[{"-", "1"}], "+", "\[Alpha]"}]], " ", 
+               SuperscriptBox[RowBox[{"L", "[", "t", "]"}], RowBox[
+                 {"1", "-", "\[Alpha]", "-", "\[Nu]"}]]}]], "Output", 
+            CellLabel -> "Out[3]= ", ExpressionUUID -> 
+             "92bae3d7-4fc7-46dc-8813-2a1b6b126dee"]}, Open]], 
+        Cell[CellGroupData[{Cell["Step 3 \[LongDash] Marginal product of \
+labour. Apply the same power rule to L[t]. The resulting \
+MPL=(1\[Minus]\[Alpha]\[Minus]\[Nu])Y[t]/L[t] is positive because the labour \
+exponent is positive. A smaller labour exponent means a smaller output \
+elasticity with respect to labour, not necessarily a smaller marginal product \
+at every possible allocation.", "Text"], Cell[BoxData[
+             RowBox[{"MPL", "=", RowBox[{"D", "[", RowBox[{RowBox[{"Y", "[", 
+                     "t", "]"}], ",", RowBox[{"L", "[", "t", "]"}]}], 
+                 "]"}]}]], "Input", CellChangeTimes -> 
+             {{3.980246073437332*^9, 3.980246075159975*^9}, 
+              {3.9802465409687576*^9, 3.9802465495665283*^9}, 
+              3.980248249476305*^9, {3.9802485264624157*^9, 
+               3.9802485284659977*^9}, {3.9802502325283947*^9, 
+               3.980250233814064*^9}}, ExpressionUUID -> 
+             "8623ec64-044d-43ed-ade1-be6cc4f7f2ca"], 
+           Cell[BoxData[RowBox[{RowBox[{"(", RowBox[{"1", "-", "\[Alpha]", 
+                   "-", "\[Nu]"}], ")"}], " ", RowBox[{"A", "[", "t", "]"}], 
+               " ", SuperscriptBox[RowBox[{"Ef", "[", "t", "]"}], "\[Nu]"], 
+               " ", SuperscriptBox[RowBox[{"K", "[", "t", "]"}], "\[Alpha]"], 
+               " ", SuperscriptBox[RowBox[{"L", "[", "t", "]"}], 
+                RowBox[{RowBox[{"-", "\[Alpha]"}], "-", "\[Nu]"}]]}]], 
+            "Output", CellLabel -> "Out[4]= ", ExpressionUUID -> 
+             "bf62b36c-2e14-4096-9247-f7dbb78657e2"]}, Open]], 
+        Cell[CellGroupData[{Cell["Step 4 \[LongDash] Marginal product of \
+energy. Differentiation gives MPE=\[Nu]Y[t]/Ef[t]. Because 0<\[Nu]<1, \
+increasing energy raises output at a decreasing rate when capital and labour \
+are held fixed. This Ef[t] belongs to firms and must be distinguished from \
+household energy Eh[t] below.", "Text"], Cell[BoxData[
+             RowBox[{"MPE", "=", RowBox[{"D", "[", RowBox[{RowBox[{"Y", "[", 
+                     "t", "]"}], ",", RowBox[{"Ef", "[", "t", "]"}]}], 
+                 "]"}]}]], "Input", CellChangeTimes -> 
+             {{3.9802465575619164*^9, 3.9802465604477825*^9}, 
+              3.980248251238415*^9, {3.980248537557644*^9, 
+               3.9802485392745743*^9}, {3.9802502369417877*^9, 
+               3.9802502387881336*^9}, {3.980253864024729*^9, 
+               3.980253864167469*^9}}, ExpressionUUID -> 
+             "9051e3fa-7bf5-4e26-9182-bb81eb30c23d"], 
+           Cell[BoxData[RowBox[{"\[Nu]", " ", RowBox[{"A", "[", "t", "]"}], 
+               " ", SuperscriptBox[RowBox[{"Ef", "[", "t", "]"}], 
+                RowBox[{RowBox[{"-", "1"}], "+", "\[Nu]"}]], " ", 
+               SuperscriptBox[RowBox[{"K", "[", "t", "]"}], "\[Alpha]"], " ", 
+               SuperscriptBox[RowBox[{"L", "[", "t", "]"}], RowBox[
+                 {"1", "-", "\[Alpha]", "-", "\[Nu]"}]]}]], "Output", 
+            CellLabel -> "Out[5]= ", ExpressionUUID -> 
+             "644ac18c-e941-417b-b677-d50a81f1948d"]}, Open]], 
+        Cell["The following expression defines real profit Z[t], rather than \
+a budget constraint. The output price is normalised to one, so revenue is \
+Y[t]. The firm pays w[t]L[t] for labour, r[t]K[t] for capital services, and \
+pe[t]Ef[t] for energy. In this block, r[t] must be interpreted as the rental \
+price of capital services.", "Text", CellChangeTimes -> 
+          {{3.9802468213028507*^9, 3.9802468307469864*^9}}, 
+         ExpressionUUID -> "e43bef68-12ca-424e-b9b6-f916eeb4f410"], 
+        Cell[CellGroupData[{Cell["Step 5 \[LongDash] Construct the objective. \
+Z[t] subtracts the payments for all three inputs from output revenue. The \
+assignment = evaluates this expression immediately. The following derivatives \
+therefore recover how real profit changes when the firm changes one input \
+while treating factor prices as given.", "Text"], 
+           Cell[BoxData[RowBox[{RowBox[{"Z", "[", "t", "]"}], "=", RowBox[
+                {RowBox[{"Y", "[", "t", "]"}], "-", RowBox[
+                  {RowBox[{"w", "[", "t", "]"}], "*", RowBox[{"L", "[", "t", 
+                     "]"}]}], "-", RowBox[{RowBox[{"r", "[", "t", "]"}], "*", 
+                   RowBox[{"K", "[", "t", "]"}]}], "-", RowBox[
+                  {RowBox[{"pe", "[", "t", "]"}], "*", RowBox[{"Ef", "[", 
+                     "t", "]"}]}]}]}]], "Input", CellChangeTimes -> 
+             {{3.980246743378992*^9, 3.980246743378992*^9}, 
+              {3.980246795676405*^9, 3.980246861707678*^9}, 
+              3.980248208640644*^9, {3.980248543635004*^9, 
+               3.9802485669275837*^9}, {3.9802502411510696*^9, 
+               3.9802502550894012*^9}, {3.980253874576042*^9, 
+               3.9802538746889267*^9}}, ExpressionUUID -> 
+             "dbd5480f-2cb4-4959-8c7a-08e51159f278"], 
+           Cell[BoxData[RowBox[{RowBox[{RowBox[{"A", "[", "t", "]"}], " ", 
+                 SuperscriptBox[RowBox[{"Ef", "[", "t", "]"}], "\[Nu]"], " ", 
+                 SuperscriptBox[RowBox[{"K", "[", "t", "]"}], "\[Alpha]"], 
+                 " ", SuperscriptBox[RowBox[{"L", "[", "t", "]"}], 
+                  RowBox[{"1", "-", "\[Alpha]", "-", "\[Nu]"}]]}], "-", 
+               RowBox[{RowBox[{"Ef", "[", "t", "]"}], " ", RowBox[{"pe", "[", 
+                   "t", "]"}]}], "-", RowBox[{RowBox[{"K", "[", "t", "]"}], 
+                 " ", RowBox[{"r", "[", "t", "]"}]}], "-", RowBox[
+                {RowBox[{"L", "[", "t", "]"}], " ", RowBox[{"w", "[", "t", 
+                   "]"}]}]}]], "Output", CellLabel -> "Out[6]= ", 
+            ExpressionUUID -> "cc190c73-fe2d-4b41-9589-126fa409d2d6"]}, 
+          Open]], Cell["Differentiate profit with respect to labour and set \
+the derivative equal to zero. Solve then expresses the real wage as a \
+function of the marginal product of labour. This gives \
+w[t]=(1\[Minus]\[Alpha]\[Minus]\[Nu])Y[t]/L[t]. The result concerns an \
+interior optimum with positive labour and treats the wage as given to the \
+firm.", "Text", CellChangeTimes -> {{3.980246986950325*^9, 
+            3.980247025228632*^9}, {3.9802488304628735*^9, 
+            3.9802488739913044*^9}}, ExpressionUUID -> 
+          "dd2b7dd1-b482-2d4e-9ed9-aa5b05639af2"], 
+        Cell[CellGroupData[{Cell["Step 6 \[LongDash] Solve the labour \
+condition. D computes the derivative of profit, Simplify rewrites it, and \
+Solve[...==0,w[t]] expresses the wage implied by the first-order condition. \
+First selects the first returned list of replacement rules. The rule is \
+stored in solFirmFOCL for later substitution with /..", "Text"], 
+           Cell[BoxData[{RowBox[{RowBox[{"FirmFOCL", "=", RowBox[
+                   {RowBox[{"D", "[", RowBox[{RowBox[{"Z", "[", "t", "]"}], 
+                        ",", RowBox[{"L", "[", "t", "]"}]}], "]"}], " ", 
+                    "//", "Simplify"}]}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{"solFirmFOCL", "=", RowBox[{"First", "@", RowBox[
+                   {"Solve", "[", RowBox[{RowBox[{"FirmFOCL", "==", "0"}], 
+                      ",", RowBox[{"w", "[", "t", "]"}]}], "]"}]}]}]}], 
+            "Input", CellChangeTimes -> {{3.980247037049431*^9, 
+               3.980247044621315*^9}, {3.980247637612484*^9, 
+               3.9802476672814693*^9}, 3.9802481424503574*^9, 
+              {3.98024833082946*^9, 3.980248332385069*^9}, 
+              3.9802483792670403*^9, {3.980248413146879*^9, 
+               3.9802484302017975*^9}, {3.98024858129348*^9, 
+               3.980248619541937*^9}, {3.9802487015092316*^9, 
+               3.980248727819786*^9}, {3.9802487610607395*^9, 
+               3.9802488015859203*^9}, {3.9802489058161755*^9, 
+               3.9802489200756245*^9}, {3.980248957393545*^9, 
+               3.9802489749098797*^9}, {3.980249049419445*^9, 
+               3.980249050048315*^9}, {3.980249121985449*^9, 
+               3.9802491234829865*^9}, {3.980249272452385*^9, 
+               3.980249272780903*^9}, {3.9802493656167145*^9, 
+               3.9802493721735783*^9}, {3.980250261198496*^9, 
+               3.980250265447361*^9}, {3.980253877579973*^9, 
+               3.980253896759695*^9}}, ExpressionUUID -> 
+             "1241d671-3d1a-4e63-ac2a-ec366ca603b3"], 
+           Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"w", "[", "t", "]"}], 
+                 "\[Rule]", RowBox[{"-", RowBox[{"(", RowBox[{RowBox[
+                        {"(", RowBox[{RowBox[{"-", "1"}], "+", "\[Alpha]", 
+                          "+", "\[Nu]"}], ")"}], " ", RowBox[{"A", "[", "t", 
+                         "]"}], " ", SuperscriptBox[RowBox[{"Ef", "[", "t", 
+                          "]"}], "\[Nu]"], " ", SuperscriptBox[RowBox[
+                         {"K", "[", "t", "]"}], "\[Alpha]"], " ", 
+                       SuperscriptBox[RowBox[{"L", "[", "t", "]"}], RowBox[
+                         {RowBox[{"-", "\[Alpha]"}], "-", "\[Nu]"}]]}], 
+                     ")"}]}]}], "}"}]], "Output", CellLabel -> "Out[8]= ", 
+            ExpressionUUID -> "c2bab18c-de16-42f4-9098-c9fe5975ab13"]}, 
+          Open]], Cell["Repeat the profit differentiation for capital. The \
+resulting condition is r[t]=\[Alpha]Y[t]/K[t]. Here r[t] is the rental return \
+per unit of capital services. A bond interest rate is a different object; \
+relating the two requires a separate investment or asset-pricing argument, \
+usually involving depreciation and capital gains.", "Text", 
+         CellChangeTimes -> {{3.9802488605697575*^9, 3.980248880522087*^9}}, 
+         ExpressionUUID -> "994c7c3d-2a78-d54d-abc0-069aef3bcd2e"], 
+        Cell[CellGroupData[{Cell["Step 7 \[LongDash] Solve the capital \
+condition. The same sequence now differentiates with respect to K[t] and \
+solves for its rental price. The replacement rule is stored in solFOCK. This \
+is a static input-choice condition, rather than an intertemporal Euler \
+equation for saving.", "Text"], Cell[BoxData[{RowBox[{RowBox[{"FirmFOCK", 
+                  "=", RowBox[{RowBox[{"D", "[", RowBox[{RowBox[{"Z", "[", 
+                          "t", "]"}], ",", RowBox[{"K", "[", "t", "]"}]}], 
+                      "]"}], " ", "//", "Simplify"}]}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{"solFOCK", "=", RowBox[
+                 {"First", "@", RowBox[{"Solve", "[", RowBox[{RowBox[
+                       {"FirmFOCK", "==", "0"}], ",", RowBox[{"r", "[", "t", 
+                        "]"}]}], "]"}]}]}]}], "Input", CellChangeTimes -> 
+             {{3.980248889449087*^9, 3.9802489036106815*^9}, 
+              {3.980249391864958*^9, 3.9802493971533737*^9}, 
+              {3.9802502830683575*^9, 3.9802502899802113*^9}, 
+              {3.9802503965584717*^9, 3.980250410901985*^9}, 
+              {3.9802539153091526*^9, 3.9802539206025143*^9}}, 
+            ExpressionUUID -> "9d71bba5-5505-4e7f-a39c-a2ed406e61c1"], 
+           Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"r", "[", "t", "]"}], 
+                 "\[Rule]", RowBox[{"\[Alpha]", " ", RowBox[{"A", "[", "t", 
+                     "]"}], " ", SuperscriptBox[RowBox[{"Ef", "[", "t", 
+                      "]"}], "\[Nu]"], " ", SuperscriptBox[RowBox[{"K", "[", 
+                      "t", "]"}], RowBox[{RowBox[{"-", "1"}], "+", 
+                      "\[Alpha]"}]], " ", SuperscriptBox[RowBox[{"L", "[", 
+                      "t", "]"}], RowBox[{"1", "-", "\[Alpha]", "-", 
+                      "\[Nu]"}]]}]}], "}"}]], "Output", CellLabel -> 
+             "Out[10]= ", ExpressionUUID -> 
+             "4d44d490-ed6d-4638-ba7b-e4f3b9d4bc9d"]}, Open]], 
+        Cell["Differentiate profit with respect to the firm's energy input. \
+The interior condition pe[t]=\[Nu]Y[t]/Ef[t] equates the real energy price to \
+its marginal product. This is a condition for the demand for energy by the \
+goods-producing firm; an energy supply sector would require its own \
+technology and optimisation problem.", "Text", CellChangeTimes -> 
+          {{3.9802495893265495*^9, 3.9802495915808754*^9}}, 
+         ExpressionUUID -> "1712b31c-5bfc-9244-8047-50089ca61c7a"], 
+        Cell[CellGroupData[{Cell["Step 8 \[LongDash] Solve the energy \
+condition. The calculation differentiates with respect to Ef[t] and solves \
+for pe[t]. Code note: this cell stores the energy-price rule in solFOCK, \
+overwriting the capital rule from the previous cell. The present annotation \
+leaves that original code unchanged; when revising the computation, a \
+distinct name such as solFOCE would preserve both rules.", "Text"], 
+           Cell[BoxData[{RowBox[{RowBox[{"FirmFOCE", "=", RowBox[
+                   {RowBox[{"D", "[", RowBox[{RowBox[{"Z", "[", "t", "]"}], 
+                        ",", RowBox[{"Ef", "[", "t", "]"}]}], "]"}], "//", 
+                    "Simplify"}]}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{"solFOCK", "=", RowBox[{"First", "@", RowBox[
+                   {"Solve", "[", RowBox[{RowBox[{"FirmFOCE", "==", "0"}], 
+                      ",", RowBox[{"pe", "[", "t", "]"}]}], "]"}]}]}]}], 
+            "Input", CellChangeTimes -> {{3.980249525768196*^9, 
+               3.980249540016445*^9}, {3.9802502997703915*^9, 
+               3.980250305398878*^9}, {3.980250421520626*^9, 
+               3.9802504292928257*^9}, {3.9802539236145134*^9, 
+               3.9802539345608025*^9}}, ExpressionUUID -> 
+             "bdf44174-5143-45e4-a854-f1eb422f474a"], 
+           Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"pe", "[", "t", "]"}], 
+                 "\[Rule]", RowBox[{"\[Nu]", " ", RowBox[{"A", "[", "t", 
+                     "]"}], " ", SuperscriptBox[RowBox[{"Ef", "[", "t", 
+                      "]"}], RowBox[{RowBox[{"-", "1"}], "+", "\[Nu]"}]], 
+                   " ", SuperscriptBox[RowBox[{"K", "[", "t", "]"}], 
+                    "\[Alpha]"], " ", SuperscriptBox[RowBox[{"L", "[", "t", 
+                      "]"}], RowBox[{"1", "-", "\[Alpha]", "-", 
+                      "\[Nu]"}]]}]}], "}"}]], "Output", CellLabel -> 
+             "Out[12]= ", ExpressionUUID -> 
+             "c8592194-26ee-4b5c-93ca-250e1d06119e"]}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell["Household preferences and energy consumption", 
+         "Section", CellChangeTimes -> {{3.980250692943754*^9, 
+            3.980250700276682*^9}, {3.980250814393503*^9, 
+            3.980250823984577*^9}}, ExpressionUUID -> 
+          "41bd3032-4c1a-4ccc-9cf2-75c52b23b386"], Cell["We now move to \
+households. Total consumption Ct[t] is a CES composite of non-energy \
+consumption Cne[t] and household energy Eh[t]. The weight \[Omega] lies \
+between zero and one, and \[Sigma]>0 measures the elasticity of substitution. \
+The code defines \[Rho]=(\[Sigma]\[Minus]1)/\[Sigma]. This algebraic \
+representation requires \[Sigma]\[NotEqual]1; its continuous limit at \
+\[Sigma]=1 is Cne[t]^(1\[Minus]\[Omega]) Eh[t]^\[Omega]. Household utility is \
+CRRA utility of the composite minus the disutility of work. Assume \
+\[Gamma]>0, \[Chi]>0, and \[Phi]\[GreaterEqual]0. The displayed CRRA formula \
+requires \[Gamma]\[NotEqual]1; its limit at \[Gamma]=1 is Log[Ct[t]].", 
+         "Text", CellChangeTimes -> {{3.980250862217804*^9, 
+            3.980250882354471*^9}, {3.9802513517374344*^9, 
+            3.980251367070345*^9}, {3.9802514873518295*^9, 
+            3.9802514957662296*^9}, {3.9802520805438004*^9, 
+            3.980252102503767*^9}}, ExpressionUUID -> 
+          "3b506933-da24-684c-aaa9-d1d7b9b185a8"], 
+        Cell[CellGroupData[{Cell["Step 9 \[LongDash] Define preferences. \
+Ct[t] combines two consumption goods through the CES formula. u[t] then \
+applies CRRA utility to that composite and subtracts a work-disutility term. \
+TraditionalForm only changes how the expression is displayed. Code note: the \
+work term uses N[t], although the budget and production blocks use L[t]. N is \
+also a built-in Wolfram symbol. Before deriving labour supply, this notation \
+should be made consistent, for example by using L[t] in the work term.", 
+            "Text"], Cell[BoxData[{RowBox[{RowBox[{"\[Rho]", "=", 
+                  RowBox[{RowBox[{"(", RowBox[{"\[Sigma]", "-", "1"}], ")"}], 
+                    "/", "\[Sigma]"}]}], ";"}], "\n", RowBox[{RowBox[
+                 {RowBox[{"Ct", "[", "t", "]"}], ":=", RowBox[
+                   {RowBox[{"(", RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", 
+                          "-", "\[Omega]"}], ")"}], "*", RowBox[{RowBox[
+                          {"Cne", "[", "t", "]"}], "^", "\[Rho]"}]}], "+", 
+                        RowBox[{"\[Omega]", "*", RowBox[{RowBox[{"Eh", "[", 
+                          "t", "]"}], "^", "\[Rho]"}]}]}], ")"}], "^", 
+                    RowBox[{"(", RowBox[{"1", "/", "\[Rho]"}], ")"}]}]}], 
+                ";"}], "\n", RowBox[{RowBox[{RowBox[{"u", "[", "t", "]"}], 
+                  ":=", RowBox[{RowBox[{RowBox[{"(", RowBox[{RowBox[
+                          {RowBox[{"Ct", "[", "t", "]"}], "^", RowBox[{"(", 
+                          RowBox[{"1", "-", "\[Gamma]"}], ")"}]}], "-", 
+                          "1"}], ")"}], "/", RowBox[{"(", RowBox[{"1", "-", 
+                          "\[Gamma]"}], ")"}]}], "-", RowBox[{"\[Chi]", "*", 
+                      RowBox[{RowBox[{RowBox[{"N", "[", "t", "]"}], "^", 
+                          RowBox[{"(", RowBox[{"1", "+", "\[Phi]"}], ")"}]}], 
+                        "/", RowBox[{"(", RowBox[{"1", "+", "\[Phi]"}], 
+                          ")"}]}]}]}]}], ";"}], "\n", RowBox[{RowBox[
+                 {"u", "[", "t", "]"}], " ", "//", "TraditionalForm"}]}], 
+            "Input", CellChangeTimes -> {{3.980251490433134*^9, 
+               3.9802514935594387*^9}, {3.9802515350053673*^9, 
+               3.980251612069172*^9}, {3.980251654079214*^9, 
+               3.9802516610315533*^9}, {3.980251753003271*^9, 
+               3.9802518411748867*^9}, {3.9802518727626934*^9, 
+               3.980251879147541*^9}, {3.9802541245651665*^9, 
+               3.9802541248885937*^9}, {3.980255002625042*^9, 
+               3.980255004057148*^9}}, ExpressionUUID -> 
+             "8086cd89-2581-4ca1-9a84-aebccde1f2c6"], 
+           Cell[BoxData[FormBox[RowBox[{FractionBox[RowBox[{SuperscriptBox[
+                    RowBox[{"(", SuperscriptBox[RowBox[{"(", RowBox[
+                          {RowBox[{RowBox[{"(", RowBox[{"1", "-", 
+                          "\[Omega]"}], ")"}], " ", SuperscriptBox[RowBox[
+                          {"Cne", "(", "t", ")"}], FractionBox[RowBox[
+                          {"\[Sigma]", "-", "1"}], "\[Sigma]"]]}], "+", 
+                          RowBox[{"\[Omega]", " ", SuperscriptBox[RowBox[
+                          {"Eh", "(", "t", ")"}], FractionBox[RowBox[
+                          {"\[Sigma]", "-", "1"}], "\[Sigma]"]]}]}], ")"}], 
+                       FractionBox["\[Sigma]", RowBox[{"\[Sigma]", "-", 
+                          "1"}]]], ")"}], RowBox[{"1", "-", "\[Gamma]"}]], 
+                   "-", "1"}], RowBox[{"1", "-", "\[Gamma]"}]], "-", 
+                FractionBox[RowBox[{"\[Chi]", " ", SuperscriptBox["t", 
+                    RowBox[{"\[Phi]", "+", "1"}]]}], RowBox[{"\[Phi]", "+", 
+                   "1"}]]}], TraditionalForm]], "Output", 
+            CellLabel -> "Out[16]//TraditionalForm= ", ExpressionUUID -> 
+             "11487301-0c80-4559-9b28-19a8263995e6"]}, Open]], 
+        Cell["The household budget residual bc[t] is expenditure minus \
+income. Non-energy consumption is the numeraire, household energy costs \
+pe[t]Eh[t], and B[t+1] is saving in bonds. Income consists of labour \
+earnings, the gross payoff on existing bonds, and distributed firm profits \
+Z[t]. Feasibility requires bc[t]=0. The interpretation here is deterministic; \
+a stochastic intertemporal model would also specify expectations and the \
+information available when choices are made.", "Text", CellChangeTimes -> 
+          {{3.980252114616228*^9, 3.980252123831539*^9}}, 
+         ExpressionUUID -> "985f8566-b974-f848-bf9d-a0c2f9498f1f"], 
+        Cell[CellGroupData[{Cell["Step 10 \[LongDash] Write the budget \
+residual. The definition bc[t] puts expenditures on the positive side and \
+incomes on the negative side; the equation to impose is bc[t]==0. Code note: \
+r[t] now appears as a bond interest rate inside 1+r[t], whereas it denoted \
+the capital rental price above. These should be separate symbols in a fully \
+specified model. This cell also omits direct household capital income; that \
+is consistent only with a suitable ownership and income-accounting \
+convention, which the model must specify.", "Text"], 
+           Cell[BoxData[{RowBox[{RowBox[{"bc", "[", "t", "]"}], ":=", 
+                RowBox[{RowBox[{"Cne", "[", "t", "]"}], "+", RowBox[
+                   {RowBox[{"pe", "[", "t", "]"}], " ", RowBox[{"Eh", "[", 
+                      "t", "]"}]}], "+", RowBox[{"B", "[", RowBox[{"t", "+", 
+                      "1"}], "]"}], "-", RowBox[{"(", RowBox[{RowBox[
+                       {RowBox[{"w", "[", "t", "]"}], " ", RowBox[{"L", "[", 
+                          "t", "]"}]}], "+", RowBox[{RowBox[{"(", RowBox[
+                          {"1", "+", RowBox[{"r", "[", "t", "]"}]}], ")"}], 
+                        " ", RowBox[{"B", "[", "t", "]"}]}], "+", RowBox[
+                       {"Z", "[", "t", "]"}]}], ")"}]}]}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"bc", "[", "t", "]"}], 
+                " ", "//", "TraditionalForm"}]}], "Input", CellChangeTimes -> 
+             {{3.980254103344734*^9, 3.9802541368300056*^9}, 
+              {3.9802541744061775*^9, 3.9802542053490906*^9}}, 
+            ExpressionUUID -> "431b5642-a0ea-4028-b7c4-de33bfe2fa6f"], 
+           Cell[BoxData[FormBox[RowBox[{RowBox[{"-", RowBox[
+                   {RowBox[{"A", "(", "t", ")"}], " ", SuperscriptBox[
+                     RowBox[{"Ef", "(", "t", ")"}], "\[Nu]"], " ", 
+                    SuperscriptBox[RowBox[{"L", "(", "t", ")"}], RowBox[
+                      {RowBox[{"-", "\[Alpha]"}], "-", "\[Nu]", "+", "1"}]], 
+                    " ", SuperscriptBox[RowBox[{"K", "[", "t", "]"}], 
+                     "\[Alpha]"]}]}], "+", RowBox[{RowBox[{"r", "(", "t", 
+                    ")"}], " ", RowBox[{"K", "[", "t", "]"}]}], "-", 
+                RowBox[{RowBox[{"B", "(", "t", ")"}], " ", RowBox[
+                   {"(", RowBox[{RowBox[{"r", "(", "t", ")"}], "+", "1"}], 
+                    ")"}]}], "+", RowBox[{"B", "(", RowBox[{"t", "+", "1"}], 
+                  ")"}], "+", RowBox[{"Cne", "(", "t", ")"}], "+", 
+                RowBox[{RowBox[{"Ef", "(", "t", ")"}], " ", RowBox[
+                   {"pe", "(", "t", ")"}]}], "+", RowBox[{RowBox[{"Eh", "(", 
+                    "t", ")"}], " ", RowBox[{"pe", "(", "t", ")"}]}]}], 
+              TraditionalForm]], "Output", CellLabel -> 
+             "Out[18]//TraditionalForm= ", ExpressionUUID -> 
+             "c671e45a-53ec-4e5c-ab8a-a736da15f429"]}, Open]], 
+        Cell["The lifetime Lagrangian sums discounted utility and the budget \
+constraint over time. \[Beta] is the household discount factor, with \
+0<\[Beta]<1; it is unrelated to any labour-share notation used elsewhere. \
+Because bc[t] is expenditure minus income, the term \[Minus]\[Lambda][t]bc[t] \
+gives \[Lambda][t] the interpretation of the marginal utility of an \
+additional unit of income in current utility units. The expression below is a \
+formal representation, not a proof that the infinite sum converges.", "Text", 
+         CellChangeTimes -> {{3.980254269619608*^9, 3.980254278635353*^9}, 
+           {3.9802543194850388*^9, 3.9802543200882416*^9}}, 
+         ExpressionUUID -> "e871d5ac-f8df-c844-9b1c-d9fcea473763"], 
+        Cell[CellGroupData[{Cell["Step 11 \[LongDash] Form the lifetime \
+objective. Sum adds the discounted period contributions from t=0 to infinity. \
+The constraint is entered as \[Lambda][t](\[Minus]bc[t]), consistent with the \
+sign convention above. These formal expressions alone do not deliver a bond \
+Euler equation or a transversality condition; both require the appropriate \
+intertemporal variations and admissibility conditions.", "Text"], 
+           Cell[BoxData[{RowBox[{RowBox[{"Lagrangian", "=", RowBox[
+                   {"Sum", "[", RowBox[{RowBox[{RowBox[{"\[Beta]", "^", 
+                          "t"}], " ", RowBox[{"(", RowBox[{RowBox[{"u", "[", 
+                          "t", "]"}], "+", RowBox[{RowBox[{"\[Lambda]", "[", 
+                          "t", "]"}], " ", RowBox[{"(", RowBox[{"-", RowBox[
+                          {"bc", "[", "t", "]"}]}], ")"}]}]}], ")"}]}], ",", 
+                      RowBox[{"{", RowBox[{"t", ",", "0", ",", "Infinity"}], 
+                        "}"}]}], "]"}]}], ";"}], "\n", RowBox[{"Lagrangian", 
+                " ", "//", "TraditionalForm"}], "\[IndentingNewLine]"}], 
+            "Input", CellChangeTimes -> {{3.980254210773817*^9, 
+               3.980254215336237*^9}, {3.9802543225296936*^9, 
+               3.9802543582761497*^9}, 3.980254390086281*^9, 
+              {3.9802545201884327*^9, 3.9802545514570084*^9}, 
+              3.980255007346426*^9}, ExpressionUUID -> 
+             "441eb391-c04c-4e9c-b251-ffd2efb454c7"], 
+           Cell[BoxData[FormBox[RowBox[{UnderoverscriptBox["\[Sum]", 
+                 RowBox[{"t", "=", "0"}], "\[Infinity]"], RowBox[
+                 {SuperscriptBox["\[Beta]", "t"], " ", RowBox[{"(", 
+                    RowBox[{RowBox[{RowBox[{"\[Lambda]", "(", "t", ")"}], 
+                        " ", RowBox[{"(", RowBox[{RowBox[{RowBox[{"A", "(", 
+                          "t", ")"}], " ", SuperscriptBox[RowBox[{"Ef", "(", 
+                          "t", ")"}], "\[Nu]"], " ", SuperscriptBox[RowBox[
+                          {"L", "(", "t", ")"}], RowBox[{RowBox[{"-", 
+                          "\[Alpha]"}], "-", "\[Nu]", "+", "1"}]], " ", 
+                          SuperscriptBox[RowBox[{"K", "[", "t", "]"}], 
+                          "\[Alpha]"]}], "-", RowBox[{RowBox[{"r", "(", "t", 
+                          ")"}], " ", RowBox[{"K", "[", "t", "]"}]}], "+", 
+                          RowBox[{RowBox[{"B", "(", "t", ")"}], " ", RowBox[
+                          {"(", RowBox[{RowBox[{"r", "(", "t", ")"}], "+", 
+                          "1"}], ")"}]}], "-", RowBox[{"B", "(", RowBox[
+                          {"t", "+", "1"}], ")"}], "-", RowBox[{"Cne", "(", 
+                          "t", ")"}], "-", RowBox[{RowBox[{"Ef", "(", "t", 
+                          ")"}], " ", RowBox[{"pe", "(", "t", ")"}]}], "-", 
+                          RowBox[{RowBox[{"Eh", "(", "t", ")"}], " ", RowBox[
+                          {"pe", "(", "t", ")"}]}]}], ")"}]}], "+", 
+                      FractionBox[RowBox[{SuperscriptBox[RowBox[{"(", 
+                          SuperscriptBox[RowBox[{"(", RowBox[{RowBox[{RowBox[
+                          {"(", RowBox[{"1", "-", "\[Omega]"}], ")"}], " ", 
+                          SuperscriptBox[RowBox[{"Cne", "(", "t", ")"}], 
+                          FractionBox[RowBox[{"\[Sigma]", "-", "1"}], 
+                          "\[Sigma]"]]}], "+", RowBox[{"\[Omega]", " ", 
+                          SuperscriptBox[RowBox[{"Eh", "(", "t", ")"}], 
+                          FractionBox[RowBox[{"\[Sigma]", "-", "1"}], 
+                          "\[Sigma]"]]}]}], ")"}], FractionBox["\[Sigma]", 
+                          RowBox[{"\[Sigma]", "-", "1"}]]], ")"}], RowBox[
+                          {"1", "-", "\[Gamma]"}]], "-", "1"}], RowBox[
+                        {"1", "-", "\[Gamma]"}]], "-", FractionBox[RowBox[
+                        {"\[Chi]", " ", SuperscriptBox["t", RowBox[{"\[Phi]", 
+                          "+", "1"}]]}], RowBox[{"\[Phi]", "+", "1"}]]}], 
+                    ")"}]}]}], TraditionalForm]], "Output", 
+            CellLabel -> "Out[20]//TraditionalForm= ", ExpressionUUID -> 
+             "a163607e-f2af-4e4a-a259-6495e1626bac"]}, Open]], 
+        Cell["For the within-period consumption allocation, we work with the \
+period-t Lagrangian contribution Lt. Differentiation with respect to Cne[t] \
+gives \
+\[Beta]^t{Ct[t]^(\[Minus]\[Gamma])\[CenterDot]\[PartialD]Ct[t]/\[PartialD]Cne\
+[t]\[Minus]\[Lambda][t]}=0. The common discount factor cancels. Solve \
+isolates \[Lambda][t], the marginal utility of income, using the non-energy \
+consumption condition.", "Text", CellChangeTimes -> 
+          {{3.9802544126254387*^9, 3.980254432840664*^9}}, 
+         ExpressionUUID -> "9e9c6132-5202-d845-a77f-05a5f72e950a"], 
+        Cell[CellGroupData[{Cell["Step 12 \[LongDash] Differentiate with \
+respect to non-energy consumption. Lt is the single-period contribution, \
+including \[Beta]^t. householdsFOCCne stores its derivative; \
+solhouseholdsFOCCne stores the solution for \[Lambda][t]. For positive \
+consumption, the chain rule separates the marginal utility of the composite \
+from the marginal contribution of Cne[t] to that composite.", "Text"], 
+           Cell[BoxData[{RowBox[{RowBox[{"Lt", "=", RowBox[{RowBox[
+                     {"\[Beta]", "^", "t"}], " ", RowBox[{"(", RowBox[
+                       {RowBox[{"u", "[", "t", "]"}], "-", RowBox[
+                         {RowBox[{"\[Lambda]", "[", "t", "]"}], " ", RowBox[
+                          {"bc", "[", "t", "]"}]}]}], ")"}]}]}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"householdsFOCCne", "=", 
+                  RowBox[{"D", "[", RowBox[{"Lt", ",", RowBox[{"Cne", "[", 
+                        "t", "]"}]}], "]"}]}], ";"}], "\n", 
+              RowBox[{"solhouseholdsFOCCne", " ", "=", "  ", RowBox[
+                 {"First", "@", RowBox[{"Solve", "[", RowBox[{RowBox[
+                       {"householdsFOCCne", "==", "0"}], ",", RowBox[
+                       {"\[Lambda]", "[", "t", "]"}]}], "]"}]}]}]}], "Input", 
+            CellChangeTimes -> {3.9802544030763187*^9, 
+              {3.9802544468167114*^9, 3.980254469409603*^9}, 
+              {3.9802546880058327*^9, 3.9802547065201187*^9}, 
+              {3.980254810886698*^9, 3.9802548305613213*^9}, 
+              {3.9802549396556187*^9, 3.980254951889105*^9}, 
+              {3.980255050864649*^9, 3.9802550609035625*^9}, 
+              {3.980255132149889*^9, 3.980255133622013*^9}}, 
+            ExpressionUUID -> "643de2d9-b208-4fac-9070-05d3316afc71"], 
+           Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"\[Lambda]", "[", "t", 
+                   "]"}], "\[Rule]", RowBox[{RowBox[{"(", RowBox[{"1", "-", 
+                       "\[Omega]"}], ")"}], " ", SuperscriptBox[RowBox[
+                     {"Cne", "[", "t", "]"}], RowBox[{RowBox[{"-", "1"}], 
+                      "+", FractionBox[RowBox[{RowBox[{"-", "1"}], "+", 
+                         "\[Sigma]"}], "\[Sigma]"]}]], " ", SuperscriptBox[
+                    RowBox[{"(", RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", 
+                          "-", "\[Omega]"}], ")"}], " ", SuperscriptBox[
+                          RowBox[{"Cne", "[", "t", "]"}], FractionBox[RowBox[
+                          {RowBox[{"-", "1"}], "+", "\[Sigma]"}], 
+                          "\[Sigma]"]]}], "+", RowBox[{"\[Omega]", " ", 
+                          SuperscriptBox[RowBox[{"Eh", "[", "t", "]"}], 
+                          FractionBox[RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Sigma]"}], "\[Sigma]"]]}]}], ")"}], RowBox[
+                     {RowBox[{"-", "1"}], "+", FractionBox["\[Sigma]", 
+                       RowBox[{RowBox[{"-", "1"}], "+", "\[Sigma]"}]]}]], 
+                   " ", SuperscriptBox[RowBox[{"(", SuperscriptBox[RowBox[
+                        {"(", RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", "-", 
+                          "\[Omega]"}], ")"}], " ", SuperscriptBox[RowBox[
+                          {"Cne", "[", "t", "]"}], FractionBox[RowBox[
+                          {RowBox[{"-", "1"}], "+", "\[Sigma]"}], 
+                          "\[Sigma]"]]}], "+", RowBox[{"\[Omega]", " ", 
+                          SuperscriptBox[RowBox[{"Eh", "[", "t", "]"}], 
+                          FractionBox[RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Sigma]"}], "\[Sigma]"]]}]}], ")"}], FractionBox[
+                        "\[Sigma]", RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Sigma]"}]]], ")"}], RowBox[{"-", 
+                      "\[Gamma]"}]]}]}], "}"}]], "Output", 
+            CellLabel -> "Out[23]= ", ExpressionUUID -> 
+             "ffbb9014-d71a-41fc-930f-e017cc5ead3f"]}, Open]], 
+        Cell["The corresponding condition for household energy is \
+\[Beta]^t{Ct[t]^(\[Minus]\[Gamma])\[CenterDot]\[PartialD]Ct[t]/\[PartialD]Eh[\
+t]\[Minus]\[Lambda][t]pe[t]}=0. Solving for \[Lambda][t] gives marginal \
+utility from energy divided by its price. Both consumption conditions use the \
+same multiplier because the two goods compete for the same household budget."\
+, "Text", CellChangeTimes -> {{3.980255352876911*^9, 3.9802553708523464*^9}}, 
+         ExpressionUUID -> "8917a858-4bdc-7b4b-a200-c4913a896f86"], 
+        Cell[CellGroupData[{Cell["Step 13 \[LongDash] Differentiate with \
+respect to household energy. householdsFOCEh is the analogous derivative with \
+respect to Eh[t]. The budget derivative contributes pe[t], which is why the \
+expression for \[Lambda][t] contains division by the energy price. We require \
+pe[t]>0 when interpreting this interior allocation.", "Text"], 
+           Cell[BoxData[{RowBox[{RowBox[{"householdsFOCEh", "=", 
+                  RowBox[{"D", "[", RowBox[{"Lt", ",", RowBox[{"Eh", "[", 
+                        "t", "]"}]}], "]"}]}], ";"}], "\n", 
+              RowBox[{"solhouseholdsFOCEh", " ", "=", "  ", RowBox[
+                 {"First", "@", RowBox[{"Solve", "[", RowBox[{RowBox[
+                       {"householdsFOCEh", "==", "0"}], ",", RowBox[
+                       {"\[Lambda]", "[", "t", "]"}]}], "]"}]}]}]}], "Input", 
+            CellChangeTimes -> {{3.980255387760992*^9, 3.980255397966486*^9}, 
+              3.980255599825592*^9}, ExpressionUUID -> 
+             "9c1ffea6-e3ec-4aff-8d88-d1623ba9c73b"], 
+           Cell[BoxData[RowBox[{"{", RowBox[{RowBox[{"\[Lambda]", "[", "t", 
+                   "]"}], "\[Rule]", FractionBox[RowBox[{"\[Omega]", " ", 
+                    SuperscriptBox[RowBox[{"Eh", "[", "t", "]"}], RowBox[
+                      {RowBox[{"-", "1"}], "+", FractionBox[RowBox[
+                         {RowBox[{"-", "1"}], "+", "\[Sigma]"}], 
+                        "\[Sigma]"]}]], " ", SuperscriptBox[RowBox[{"(", 
+                       RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", "-", 
+                          "\[Omega]"}], ")"}], " ", SuperscriptBox[RowBox[
+                          {"Cne", "[", "t", "]"}], FractionBox[RowBox[
+                          {RowBox[{"-", "1"}], "+", "\[Sigma]"}], 
+                          "\[Sigma]"]]}], "+", RowBox[{"\[Omega]", " ", 
+                          SuperscriptBox[RowBox[{"Eh", "[", "t", "]"}], 
+                          FractionBox[RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Sigma]"}], "\[Sigma]"]]}]}], ")"}], RowBox[
+                      {RowBox[{"-", "1"}], "+", FractionBox["\[Sigma]", 
+                        RowBox[{RowBox[{"-", "1"}], "+", "\[Sigma]"}]]}]], 
+                    " ", SuperscriptBox[RowBox[{"(", SuperscriptBox[RowBox[
+                         {"(", RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", "-", 
+                          "\[Omega]"}], ")"}], " ", SuperscriptBox[RowBox[
+                          {"Cne", "[", "t", "]"}], FractionBox[RowBox[
+                          {RowBox[{"-", "1"}], "+", "\[Sigma]"}], 
+                          "\[Sigma]"]]}], "+", RowBox[{"\[Omega]", " ", 
+                          SuperscriptBox[RowBox[{"Eh", "[", "t", "]"}], 
+                          FractionBox[RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Sigma]"}], "\[Sigma]"]]}]}], ")"}], FractionBox[
+                         "\[Sigma]", RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Sigma]"}]]], ")"}], RowBox[{"-", 
+                       "\[Gamma]"}]]}], RowBox[{"pe", "[", "t", "]"}]]}], 
+               "}"}]], "Output", CellLabel -> "Out[25]= ", ExpressionUUID -> 
+             "e5824df6-1495-450c-abe7-8b3c534f06f0"]}, Open]], 
+        Cell["Substitute the two solutions for \[Lambda][t] into rhs1 and \
+rhs2 and equate them. This eliminates the multiplier. The common marginal \
+utility of the consumption composite also cancels, leaving a condition \
+equating the marginal rate of substitution to the relative energy price. For \
+positive quantities, the transparent relation is \
+Cne[t]/Eh[t]=((1\[Minus]\[Omega])pe[t]/\[Omega])^\[Sigma]. Thus a higher \
+energy price raises non-energy consumption relative to household energy, \
+conditional on the other parameters.", "Text", CellChangeTimes -> 
+          {{3.980255520325876*^9, 3.9802555711804256*^9}}, 
+         ExpressionUUID -> "f37d0c46-c785-a344-bb13-d15789518f58"], 
+        Cell[CellGroupData[{Cell["Step 14 \[LongDash] Eliminate the \
+multiplier. /. applies each replacement rule to \[Lambda][t]. Equating rhs1 \
+and rhs2 removes the shadow value of income and isolates the household's \
+intratemporal trade-off. FullSimplify may return a complicated equivalent \
+expression because positivity and parameter restrictions have not yet been \
+supplied at this point in the original code.", "Text"], 
+           Cell[BoxData[{RowBox[{RowBox[{"rhs1", "=", RowBox[
+                   {RowBox[{"\[Lambda]", "[", "t", "]"}], "/.", " ", 
+                    "solhouseholdsFOCCne"}]}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{RowBox[{"rhs2", "=", RowBox[{RowBox[{"\[Lambda]", "[", 
+                      "t", "]"}], "/.", " ", "solhouseholdsFOCEh"}]}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"eqRel", "=", 
+                  RowBox[{"FullSimplify", "[", RowBox[{"rhs1", "==", 
+                      "rhs2"}], "]"}]}], "\n"}], "\[IndentingNewLine]"}], 
+            "Input", CellChangeTimes -> {{3.980255581679878*^9, 
+               3.980255590146969*^9}, {3.980255620673197*^9, 
+               3.980255625276226*^9}, {3.980255691547308*^9, 
+               3.980255705499998*^9}, {3.980255767755062*^9, 
+               3.9802557849708347*^9}, {3.980255836717472*^9, 
+               3.980255948349989*^9}, {3.9802561434777966*^9, 
+               3.9802562627135544*^9}, 3.980256384515871*^9, 
+              {3.9802564166513577*^9, 3.980256454037657*^9}, 
+              {3.9802566827023563*^9, 3.980256697534872*^9}}, 
+            ExpressionUUID -> "b86830aa-f42d-432d-a02d-cfbbe9177cd6"], 
+           Cell[BoxData[RowBox[{FractionBox[RowBox[{SuperscriptBox[
+                   RowBox[{"(", SuperscriptBox[RowBox[{"(", RowBox[
+                         {RowBox[{"-", RowBox[{"(", RowBox[{RowBox[{"(", 
+                          RowBox[{RowBox[{"-", "1"}], "+", "\[Omega]"}], 
+                          ")"}], " ", SuperscriptBox[RowBox[{"Cne", "[", "t", 
+                          "]"}], FractionBox[RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Sigma]"}], "\[Sigma]"]]}], ")"}]}], "+", 
+                          RowBox[{"\[Omega]", " ", SuperscriptBox[RowBox[
+                          {"Eh", "[", "t", "]"}], FractionBox[RowBox[
+                          {RowBox[{"-", "1"}], "+", "\[Sigma]"}], 
+                          "\[Sigma]"]]}]}], ")"}], FractionBox["\[Sigma]", 
+                       RowBox[{RowBox[{"-", "1"}], "+", "\[Sigma]"}]]], 
+                     ")"}], RowBox[{"1", "-", "\[Gamma]"}]], " ", 
+                  RowBox[{"(", RowBox[{RowBox[{"\[Omega]", " ", 
+                        SuperscriptBox[RowBox[{"Cne", "[", "t", "]"}], 
+                         FractionBox["1", "\[Sigma]"]]}], "+", RowBox[
+                       {RowBox[{"(", RowBox[{RowBox[{"-", "1"}], "+", 
+                          "\[Omega]"}], ")"}], " ", SuperscriptBox[RowBox[
+                          {"Eh", "[", "t", "]"}], FractionBox["1", 
+                          "\[Sigma]"]], " ", RowBox[{"pe", "[", "t", 
+                          "]"}]}]}], ")"}]}], RowBox[{RowBox[{"(", 
+                    RowBox[{RowBox[{RowBox[{"-", "\[Omega]"}], " ", 
+                        SuperscriptBox[RowBox[{"Cne", "[", "t", "]"}], 
+                         FractionBox["1", "\[Sigma]"]], " ", RowBox[{"Eh", 
+                          "[", "t", "]"}]}], "+", RowBox[{RowBox[{"(", 
+                          RowBox[{RowBox[{"-", "1"}], "+", "\[Omega]"}], 
+                          ")"}], " ", RowBox[{"Cne", "[", "t", "]"}], " ", 
+                        SuperscriptBox[RowBox[{"Eh", "[", "t", "]"}], 
+                         FractionBox["1", "\[Sigma]"]]}]}], ")"}], " ", 
+                  RowBox[{"pe", "[", "t", "]"}]}]], "\[Equal]", "0"}]], 
+            "Output", CellLabel -> "Out[28]= ", ExpressionUUID -> 
+             "b453f1af-9918-429a-bbae-48dc62971e71"]}, Open]], 
+        Cell[CellGroupData[{Cell["Step 15 \[LongDash] Simplify the \
+relative-demand relation. The next cell performs several algebraic operations \
+in one block. (1) $Assumptions records positive quantities and prices, \
+0<\[Omega]<1, \[Sigma]>0 and \[Sigma]\[NotEqual]1. (2) Together collects \
+fractions. (3) Numerator extracts the numerator of the left-hand expression, \
+and Cancel removes common factors. A denominator may be discarded only when \
+it is nonzero on the admissible domain. (4) FactorList separates factors; the \
+fixed selection fac[[3,1]] assumes a particular factor ordering and is \
+therefore fragile. (5) The substitution x=Cne[t]^(1/\[Sigma]) makes the \
+selected relation linear in x. Solve obtains its value. (6) Raising the \
+positive solution to \[Sigma] returns to Cne[t]. PowerExpand can ignore \
+branch restrictions, so its output should be checked against the original \
+positive-domain condition. The expected real-valued result is \
+Cne[t]=Eh[t]((1\[Minus]\[Omega])pe[t]/\[Omega])^\[Sigma]. In particular, \
+products of separately written negative-base fractional powers in the saved \
+output should be recombined through the positive ratio before any numerical \
+interpretation.", "Text"], Cell[BoxData[RowBox[{RowBox[{"(*", " ", 
+                 RowBox[{"===", RowBox[{"==", " ", 
+                     "ZA\[CapitalLSlash]O\:017bENIA"}], " ", "===", "=="}], 
+                 " ", "*)"}], "\n", RowBox[{RowBox[{RowBox[{"$Assumptions", 
+                     " ", "=", " ", "\n", "  ", RowBox[{RowBox[{"0", " ", 
+                         "<", " ", "\[Omega]", " ", "<", " ", "1"}], " ", 
+                       "&&", " ", "\n", "  ", RowBox[{"\[Sigma]", " ", ">", 
+                         " ", "0"}], " ", "&&", " ", RowBox[{"\[Sigma]", " ", 
+                         "\[NotEqual]", " ", "1"}], " ", "&&", "\n", "  ", 
+                       RowBox[{RowBox[{"Cne", "[", "t", "]"}], " ", ">", " ", 
+                         "0"}], " ", "&&", " ", RowBox[{RowBox[{"Eh", "[", 
+                          "t", "]"}], " ", ">", " ", "0"}], " ", "&&", " ", 
+                       RowBox[{RowBox[{"pe", "[", "t", "]"}], " ", ">", " ", 
+                         "0"}]}]}], ";"}], "\n", "\n", RowBox[{"(*", " ", 
+                   RowBox[{"===", RowBox[{"==", " ", RowBox[{"1.", " ", 
+                         "ZBIERZ", " ", "DO", " ", "JEDNEJ", " ", 
+                         "FRACJI"}]}], " ", "===", "=="}], " ", "*)"}], "\n", 
+                 RowBox[{RowBox[{"expr2", " ", "=", " ", RowBox[{"Together", 
+                       "[", "eqRel", "]"}]}], ";"}], "\n", "\n", 
+                 RowBox[{"(*", " ", RowBox[{"===", RowBox[{"==", " ", 
+                       RowBox[{"2.", " ", "WE\:0179", " ", "TYLKO", " ", 
+                         "LICZNIK"}]}], " ", "===", "=="}], " ", "*)"}], 
+                 "\n", RowBox[{RowBox[{"num", " ", "=", " ", RowBox[
+                      {RowBox[{"Numerator", "[", RowBox[{"expr2", "[", 
+                          RowBox[{"[", "1", "]"}], "]"}], "]"}], " ", "//", 
+                       " ", "FullSimplify"}]}], ";"}], "\n", RowBox[
+                  {RowBox[{"num", " ", "=", " ", RowBox[{"Together", "[", 
+                       "num", "]"}]}], ";"}], "\n", RowBox[
+                  {RowBox[{"num2", " ", "=", " ", RowBox[{RowBox[
+                        {RowBox[{"PowerExpand", "[", "num", "]"}], " ", "//", 
+                         " ", "Cancel"}], " ", "//", " ", "FullSimplify"}]}], 
+                   ";"}], "\n", "\n", RowBox[{"(*", " ", RowBox[
+                    {RowBox[{"===", RowBox[{"==", " ", RowBox[{"3.", " ", 
+                          "WE\:0179", " ", "T\:0104", " ", 
+                          "CZ\:0118\:015a\[CapitalCAcute]", " ", 
+                          "LICZNIKA"}]}]}], ",", " ", RowBox[{RowBox[
+                        {"KT\[CapitalOAcute]RA", " ", "MO\:017bE", " ", 
+                         "BY\[CapitalCAcute]", " ", "ZEROWA"}], " ", "===", 
+                       "=="}]}], " ", "*)"}], "\n", RowBox[
+                  {RowBox[{"fac", "  ", "=", " ", RowBox[{"FactorList", "[", 
+                       "num2", "]"}]}], ";"}], "\n", RowBox[
+                  {RowBox[{"secondBracket", " ", "=", " ", RowBox[{"fac", 
+                       "[", RowBox[{"[", RowBox[{"3", ",", "1"}], "]"}], 
+                       "]"}]}], ";"}], "\n", RowBox[{RowBox[{"secondBracket", 
+                     " ", "//", " ", "Simplify"}], ";"}], "\n", "\n", 
+                 RowBox[{"(*", " ", RowBox[{RowBox[{"===", RowBox[{"==", " ", 
+                         RowBox[{"4.", " ", "PODSTAWIENIE", " ", "x"}]}]}], 
+                     " ", "=", " ", RowBox[{RowBox[{RowBox[{"Cne", "[", "t", 
+                          "]"}], "^", RowBox[{"(", RowBox[{"1", "/", 
+                          "\[Sigma]"}], ")"}]}], " ", "===", "=="}]}], " ", 
+                   "*)"}], "\n", RowBox[{RowBox[{"eqSub", " ", "=", " ", 
+                     RowBox[{RowBox[{"secondBracket", " ", "==", " ", "0"}], 
+                       " ", "/.", " ", RowBox[{RowBox[{RowBox[{"Cne", "[", 
+                          "t", "]"}], "^", RowBox[{"(", RowBox[{"1", "/", 
+                          "\[Sigma]"}], ")"}]}], " ", "\[Rule]", " ", 
+                         "x"}]}]}], ";"}], "\n", "\n", RowBox[{"(*", " ", 
+                   RowBox[{"===", RowBox[{"==", " ", RowBox[{"5.", " ", 
+                         "ROZWI\:0104\:017b", " ", "LINIOWO", " ", 
+                         "WZGL\:0118DEM", " ", "x"}]}], " ", "===", "=="}], 
+                   " ", "*)"}], "\n", RowBox[{RowBox[{"solx", " ", "=", " ", 
+                     RowBox[{RowBox[{"Solve", "[", RowBox[{"eqSub", ",", " ", 
+                          "x"}], "]"}], "[", RowBox[{"[", RowBox[{"1", ",", 
+                          "1"}], "]"}], "]"}]}], ";"}], "\n", "\n", 
+                 RowBox[{"(*", " ", RowBox[{"===", RowBox[{"==", " ", 
+                       RowBox[{"6.", " ", 
+                         "WR\[CapitalOAcute]\[CapitalCAcute]", " ", "DO", 
+                         " ", RowBox[{"Cne", "[", "t", "]"}]}]}], " ", "===", 
+                     "=="}], " ", "*)"}], "\n", RowBox[{RowBox[{"rhs", " ", 
+                     "=", " ", RowBox[{"x", " ", "/.", " ", "solx"}]}], 
+                   ";"}], "\n", "\n", RowBox[{"CneSolution", " ", "=", " ", 
+                   "\n", " ", RowBox[{RowBox[{RowBox[{RowBox[{"Cne", "[", 
+                          "t", "]"}], " ", "==", "  ", RowBox[{RowBox[{"(", 
+                          "rhs", ")"}], "^", "\[Sigma]"}]}], " ", "//", " ", 
+                       "PowerExpand"}], " ", "//", " ", "FullSimplify"}]}], 
+                 "\n", "\n"}]}]], "Input", CellChangeTimes -> 
+             {{3.9805099370504665*^9, 3.9805099387315598*^9}}, 
+            NumberMarks -> False, ExpressionUUID -> 
+             "fe9e0299-01f4-45d6-9ff8-2a63ff9bdb45"], 
+           Cell[BoxData[RowBox[{RowBox[{"Cne", "[", "t", "]"}], "\[Equal]", 
+               RowBox[{SuperscriptBox[RowBox[{"(", RowBox[{"-", FractionBox[
+                       "1", "\[Omega]"]}], ")"}], "\[Sigma]"], " ", 
+                 RowBox[{"Eh", "[", "t", "]"}], " ", SuperscriptBox[
+                  RowBox[{"(", RowBox[{RowBox[{"(", RowBox[{RowBox[{"-", 
+                          "1"}], "+", "\[Omega]"}], ")"}], " ", RowBox[
+                       {"pe", "[", "t", "]"}]}], ")"}], "\[Sigma]"]}]}]], 
+            "Output", CellLabel -> "Out[222]= ", ExpressionUUID -> 
+             "cca790a7-77cd-4a25-a538-85077bc5bd4d"]}, Open]]}, Open]], 
+     Cell["Capital accumulation \[LongDash] section to be developed", 
+      "Section", CellChangeTimes -> {{3.980250692943754*^9, 
+         3.980250700276682*^9}}, ExpressionUUID -> 
+       "97abff34-4ba6-3a47-a64f-fae068292a82"]}, Open]], 
+  Cell["Boundary cases and what remains to be derived", "Section"], 
+  Cell["Production: the continuous extension of the Cobb\[Dash]Douglas \
+function is zero when any essential input is zero. With the other inputs \
+positive and fixed, each marginal product tends to infinity as its own input \
+approaches zero from above and tends to zero as its own input tends to \
+infinity. These are one-variable Inada limits; a limit in which several \
+inputs change together need not have the same behaviour. The interior \
+derivative formulas and logarithms should not be evaluated directly at a zero \
+input.", "Text"], Cell["Optimality: the technology is concave and has \
+constant returns to scale. With all factor prices given and the output price \
+normalised to one, the firm's first-order conditions do not uniquely \
+determine its scale. If the unit production cost is above one, the firm \
+chooses zero output; if it equals one, every scale has zero variable profit; \
+if it is below one, unrestricted profit is unbounded. Demand, factor-market \
+clearing, or another restriction is needed to determine finite production.", 
+   "Text"], Cell["CES boundaries: \[Sigma]=1 must be handled through the \
+Cobb\[Dash]Douglas limit, and \[Gamma]=1 through logarithmic utility. A \
+positive CES weight on energy does not always make energy essential: for \
+\[Sigma]>1, composite consumption can remain positive when household energy \
+is zero; for 0<\[Sigma]\[LessEqual]1, the continuous extension gives zero \
+composite consumption when either good is absent. The multiplier-elimination \
+argument in this notebook concerns positive quantities and finite positive \
+prices, not corner solutions.", "Text"], Cell["Capital accumulation: the \
+original final section contains no calculation. A standard next step is \
+K[t+1]=(1\[Minus]\[Delta])K[t]+I[t], with 0\[LessEqual]\[Delta]\[LessEqual]1 \
+and a specified timing convention. Deriving optimal saving or investment \
+would also require its budget treatment, an Euler equation, and appropriate \
+no-Ponzi or transversality conditions. These intertemporal conditions are not \
+implied by the static firm FOCs or the within-period CES allocation derived \
+here.", "Text"]}, WindowSize -> {1428, 729.75}, 
+ WindowMargins -> {{0, Automatic}, {Automatic, 0}}, 
+ FrontEndVersion -> "14.3 for Microsoft Windows (64-bit) (July 8, 2025)", 
+ StyleDefinitions -> "Default.nb", ExpressionUUID -> 
+  "4f347b5f-d9d2-b24b-ae90-6d465c963d0e"]

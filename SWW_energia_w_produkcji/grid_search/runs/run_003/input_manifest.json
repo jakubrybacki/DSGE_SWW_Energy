@@ -1,0 +1,140 @@
+[
+  {
+    "source": "SWW_energia_w_produkcji\\sww_energia_w_produkcji.mod",
+    "sha256": "78980c676a39311b46e631d7bd8d70800c76d1f73bffb50c44f68bc54dc7ac04",
+    "copy_sha256": "78980c676a39311b46e631d7bd8d70800c76d1f73bffb50c44f68bc54dc7ac04",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\sww_energia_w_produkcji_steadystate.m",
+    "sha256": "273d73ddd7a79041440fd2b93384db61c684c6ebe58bc5c557b69dc95e32e0ab",
+    "copy_sha256": "273d73ddd7a79041440fd2b93384db61c684c6ebe58bc5c557b69dc95e32e0ab",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\Estimation_Setup\\EA20_calibration.mod",
+    "sha256": "e93dc39c800f8e670f83645569e0072b942231ed83ade1dbf00fcdd83314bcc6",
+    "copy_sha256": "e93dc39c800f8e670f83645569e0072b942231ed83ade1dbf00fcdd83314bcc6",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\Estimation_Setup\\EA20_measurement.mod",
+    "sha256": "222320ae48c47517e48b233fd6a1276877b4a39099038e5b51686600854a2735",
+    "copy_sha256": "222320ae48c47517e48b233fd6a1276877b4a39099038e5b51686600854a2735",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\Estimation_Setup\\EA20_shocks.mod",
+    "sha256": "10a1d6d201b51ae2e27ab7610b12acc2992d0caf6c835da6af3f41522d7b3dd3",
+    "copy_sha256": "10a1d6d201b51ae2e27ab7610b12acc2992d0caf6c835da6af3f41522d7b3dd3",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\dane.mat",
+    "sha256": "8ad7912ec1230067f1ea0ab70b1e56f79b7f94df3d965df950f146dce46167d9",
+    "copy_sha256": "8ad7912ec1230067f1ea0ab70b1e56f79b7f94df3d965df950f146dce46167d9",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\dane.m",
+    "sha256": "cd3b9c29e49560bd02f73412cab518964def60cb539e8abc07bb5a0ac55a378c",
+    "copy_sha256": "cd3b9c29e49560bd02f73412cab518964def60cb539e8abc07bb5a0ac55a378c",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\observables.csv",
+    "sha256": "6b3d0f50bdd6ee331d650dfc8fd184a06d320d4c938db875196a3c59f8f26e57",
+    "copy_sha256": "6b3d0f50bdd6ee331d650dfc8fd184a06d320d4c938db875196a3c59f8f26e57",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\source_config.json",
+    "sha256": "264b5abc730018e5d8b57b4f83e310824cc0ffaa90c163a70771bc1375c8b526",
+    "copy_sha256": "264b5abc730018e5d8b57b4f83e310824cc0ffaa90c163a70771bc1375c8b526",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\source_sources.json",
+    "sha256": "b7e40b67ab3297c7f6c545f82551212be2361ebd0c49bc64f20f75636405ce6b",
+    "copy_sha256": "b7e40b67ab3297c7f6c545f82551212be2361ebd0c49bc64f20f75636405ce6b",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\source_report.txt",
+    "sha256": "8de3f6541723adea67c1d9fcf8da8513af354c8d152da5a97d9806c304fc8679",
+    "copy_sha256": "8de3f6541723adea67c1d9fcf8da8513af354c8d152da5a97d9806c304fc8679",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\README.txt",
+    "sha256": "453f2e9a11f79c372e131ddbbac05322d0615bd4e398b03863e61a1dbf74ee33",
+    "copy_sha256": "453f2e9a11f79c372e131ddbbac05322d0615bd4e398b03863e61a1dbf74ee33",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\export.json",
+    "sha256": "e4e0f08a7a82b10255dd9d57b15ec11eb2271e4f27e40ae4ba3ba55e501cb055",
+    "copy_sha256": "e4e0f08a7a82b10255dd9d57b15ec11eb2271e4f27e40ae4ba3ba55e501cb055",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\EA20\\.sww_generated",
+    "sha256": "1758f4796881cebf1d015df3866301db4fbca9f38e960a6052ce8c4e4c7e9325",
+    "copy_sha256": "1758f4796881cebf1d015df3866301db4fbca9f38e960a6052ce8c4e4c7e9325",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\dane.mat",
+    "sha256": "1f4ff7f66058c0968036f41e5670ba9de230d006e372e3d85551c6b92ce0c988",
+    "copy_sha256": "1f4ff7f66058c0968036f41e5670ba9de230d006e372e3d85551c6b92ce0c988",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\dane.m",
+    "sha256": "3ec2d254ffa7863ad1771072acb335af2ebe69725369d14685e8ca77d9385271",
+    "copy_sha256": "3ec2d254ffa7863ad1771072acb335af2ebe69725369d14685e8ca77d9385271",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\observables.csv",
+    "sha256": "f3ff388ea50e57709929ea71204337d8e01da23417e30b0826229cfbdd81e65d",
+    "copy_sha256": "f3ff388ea50e57709929ea71204337d8e01da23417e30b0826229cfbdd81e65d",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\source_config.json",
+    "sha256": "5343233e11760561accb60cb346fd1893f11d6714adf15f905058da2b0811dae",
+    "copy_sha256": "5343233e11760561accb60cb346fd1893f11d6714adf15f905058da2b0811dae",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\source_sources.json",
+    "sha256": "fa8be6d627524c86ab0912f38e6d399ebf0d669380d29419f15d6fd81966c6c1",
+    "copy_sha256": "fa8be6d627524c86ab0912f38e6d399ebf0d669380d29419f15d6fd81966c6c1",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\source_report.txt",
+    "sha256": "aae9fc31b822a716d5530ee12cf655228babcd56022e5a639fd38405bd4b3b26",
+    "copy_sha256": "aae9fc31b822a716d5530ee12cf655228babcd56022e5a639fd38405bd4b3b26",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\README.txt",
+    "sha256": "d0c549e13b358a4a886c865f0152153c5a02775176f33c1e0847e250d3a08f54",
+    "copy_sha256": "d0c549e13b358a4a886c865f0152153c5a02775176f33c1e0847e250d3a08f54",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\export.json",
+    "sha256": "5c6aa0c5b8fd566820e78222fb9c1b8e10b829f1652c1ffda487b9edb7889195",
+    "copy_sha256": "5c6aa0c5b8fd566820e78222fb9c1b8e10b829f1652c1ffda487b9edb7889195",
+    "matches": true
+  },
+  {
+    "source": "SWW_energia_w_produkcji\\data\\PL\\.sww_generated",
+    "sha256": "1758f4796881cebf1d015df3866301db4fbca9f38e960a6052ce8c4e4c7e9325",
+    "copy_sha256": "1758f4796881cebf1d015df3866301db4fbca9f38e960a6052ce8c4e4c7e9325",
+    "matches": true
+  }
+]

@@ -1,0 +1,239 @@
+{
+  "gdp": {
+    "dataset": "namq_10_gdp",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "CLV20_MNAC",
+      "s_adj": "SCA",
+      "na_item": "B1GQ",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?lang=EN&geo=PL&freq=Q&unit=CLV20_MNAC&s_adj=SCA&na_item=B1GQ&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:03:58 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "abf257090270a81f993010ffc3923b05",
+    "label": "Gross domestic product (GDP) and main components (output, expenditure and income) - quarterly data"
+  },
+  "consumption": {
+    "dataset": "namq_10_gdp",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "CLV20_MNAC",
+      "s_adj": "SCA",
+      "na_item": "P31_S14_S15",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?lang=EN&geo=PL&freq=Q&unit=CLV20_MNAC&s_adj=SCA&na_item=P31_S14_S15&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:03:58 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "a8799271e148a1cdb606a578f9cd7f92",
+    "label": "Gross domestic product (GDP) and main components (output, expenditure and income) - quarterly data"
+  },
+  "investment": {
+    "dataset": "namq_10_gdp",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "CLV20_MNAC",
+      "s_adj": "SCA",
+      "na_item": "P51G",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?lang=EN&geo=PL&freq=Q&unit=CLV20_MNAC&s_adj=SCA&na_item=P51G&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:03:59 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "bec4b680d4cb32c1518b4beccf6f0e0a",
+    "label": "Gross domestic product (GDP) and main components (output, expenditure and income) - quarterly data"
+  },
+  "compensation": {
+    "dataset": "namq_10_gdp",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "CP_MNAC",
+      "s_adj": "SCA",
+      "na_item": "D1",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_gdp?lang=EN&geo=PL&freq=Q&unit=CP_MNAC&s_adj=SCA&na_item=D1&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:03:59 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "c3b706db9d78f89027c1fbb4d71e8ed6",
+    "label": "Gross domestic product (GDP) and main components (output, expenditure and income) - quarterly data"
+  },
+  "employment": {
+    "dataset": "namq_10_a10_e",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "THS_PER",
+      "s_adj": "SCA",
+      "nace_r2": "TOTAL",
+      "na_item": "EMP_DC",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_a10_e?lang=EN&geo=PL&freq=Q&unit=THS_PER&s_adj=SCA&nace_r2=TOTAL&na_item=EMP_DC&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:03:59 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "d40d9dc74cec48c85e516e6a4b84e424",
+    "label": "Employment by main industry (NACE Rev.2) - national accounts - quarterly data"
+  },
+  "employment_SA": {
+    "dataset": "namq_10_a10_e",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "THS_PER",
+      "s_adj": "SA",
+      "nace_r2": "TOTAL",
+      "na_item": "EMP_DC",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_a10_e?lang=EN&geo=PL&freq=Q&unit=THS_PER&s_adj=SA&nace_r2=TOTAL&na_item=EMP_DC&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:03:59 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "7eec3f424a6c4e9a2afc64216ce8a6ab",
+    "label": "Employment by main industry (NACE Rev.2) - national accounts - quarterly data"
+  },
+  "employees": {
+    "dataset": "namq_10_a10_e",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "THS_PER",
+      "s_adj": "SCA",
+      "nace_r2": "TOTAL",
+      "na_item": "SAL_DC",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_a10_e?lang=EN&geo=PL&freq=Q&unit=THS_PER&s_adj=SCA&nace_r2=TOTAL&na_item=SAL_DC&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:00 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "7ff6028ad1e36d9a70d0e80483ed0282",
+    "label": "Employment by main industry (NACE Rev.2) - national accounts - quarterly data"
+  },
+  "employees_SA": {
+    "dataset": "namq_10_a10_e",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "THS_PER",
+      "s_adj": "SA",
+      "nace_r2": "TOTAL",
+      "na_item": "SAL_DC",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/namq_10_a10_e?lang=EN&geo=PL&freq=Q&unit=THS_PER&s_adj=SA&nace_r2=TOTAL&na_item=SAL_DC&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:00 UTC",
+    "updated": "2026-09-24T23:00:00+0200",
+    "md5": "c7080ee5daa9af690bae11e503698212",
+    "label": "Employment by main industry (NACE Rev.2) - national accounts - quarterly data"
+  },
+  "unemployment": {
+    "dataset": "une_rt_q",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "Q",
+      "unit": "PC_ACT",
+      "s_adj": "SA",
+      "age": "Y15-74",
+      "sex": "T",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/une_rt_q?lang=EN&geo=PL&freq=Q&unit=PC_ACT&s_adj=SA&age=Y15-74&sex=T&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:00 UTC",
+    "updated": "2026-09-10T23:00:00+0200",
+    "md5": "873f20e9b2dfeb7d63362d9afac31627",
+    "label": "Unemployment by sex and age - quarterly data"
+  },
+  "hicp": {
+    "dataset": "prc_hicp_minr",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "M",
+      "unit": "I25",
+      "coicop18": "TOTAL",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?lang=EN&geo=PL&freq=M&unit=I25&coicop18=TOTAL&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:00 UTC",
+    "updated": "2026-09-17T11:00:00+0200",
+    "md5": "351a603695282fb6b2ef03df4d736bf5",
+    "label": "Harmonised index of consumer prices (HICP) - ECOICOP ver.2 - indices and rates of change, monthly data"
+  },
+  "energy": {
+    "dataset": "prc_hicp_minr",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "M",
+      "unit": "I25",
+      "coicop18": "NRG",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?lang=EN&geo=PL&freq=M&unit=I25&coicop18=NRG&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:01 UTC",
+    "updated": "2026-09-17T11:00:00+0200",
+    "md5": "820429f5849519d67262fbb70d7fd91f",
+    "label": "Harmonised index of consumer prices (HICP) - ECOICOP ver.2 - indices and rates of change, monthly data"
+  },
+  "nonenergy": {
+    "dataset": "prc_hicp_minr",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "M",
+      "unit": "I25",
+      "coicop18": "TOT_X_NRG",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?lang=EN&geo=PL&freq=M&unit=I25&coicop18=TOT_X_NRG&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:03 UTC",
+    "updated": "2026-09-17T11:00:00+0200",
+    "md5": "276c7f70719ab3271379fc9eec94b8e8",
+    "label": "Harmonised index of consumer prices (HICP) - ECOICOP ver.2 - indices and rates of change, monthly data"
+  },
+  "money_market_rate": {
+    "dataset": "irt_st_m",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "M",
+      "int_rt": "IRT_M3",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/irt_st_m?lang=EN&geo=PL&freq=M&int_rt=IRT_M3&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:04 UTC",
+    "updated": "2026-09-11T11:00:00+0200",
+    "md5": "8b38ea414ce8429f7cd5bb15c75f0cad",
+    "label": "Money market interest rates - monthly data"
+  },
+  "energy_weight": {
+    "dataset": "prc_hicp_iw",
+    "filters": {
+      "lang": "EN",
+      "geo": "PL",
+      "freq": "A",
+      "coicop18": "NRG",
+      "statinfo": "IW",
+      "untilTimePeriod": "2025-12"
+    },
+    "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_iw?lang=EN&geo=PL&freq=A&coicop18=NRG&statinfo=IW&untilTimePeriod=2025-12",
+    "fetched_utc": "2026-09-25 06:04:04 UTC",
+    "updated": "2026-09-17T11:00:00+0200",
+    "md5": "e61512c9358cdaf55351aa29889834e0",
+    "label": "Harmonised index of consumer prices (HICP) - ECOICOP ver.2 - item weights"
+  }
+}

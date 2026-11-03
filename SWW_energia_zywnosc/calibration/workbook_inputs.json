@@ -1,0 +1,359 @@
+[
+  [
+    "Variable",
+    "Description",
+    "Model",
+    "EA20",
+    "Source"
+  ],
+  [
+    "cdelta",
+    "Capital depreciation rate",
+    "both",
+    0.025,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cepsp",
+    "Price aggregator curvature",
+    "both",
+    10,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhos",
+    "Labour supply persistence",
+    "both",
+    0.999,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "ch",
+    "External consumption habit",
+    "energy",
+    0.46146917446997554,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cphi",
+    "Investment adjustment cost curvature",
+    "both",
+    4.630882,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cpsip",
+    "Price markup and fixed cost factor",
+    "both",
+    1.490662,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "calpha",
+    "Capital production elasticity",
+    "both",
+    0.226791,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cgammap",
+    "Price indexation",
+    "both",
+    0.250432,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cthetap",
+    "Calvo price rigidity",
+    "energy",
+    0.75,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cgammaw",
+    "Wage indexation",
+    "both",
+    0.251781,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cthetaw",
+    "Calvo wage rigidity",
+    "energy",
+    0.5217087520935746,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cpsiw",
+    "Steady state wage markup",
+    "both",
+    1.48687530452941,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "comega",
+    "Inverse labour supply elasticity",
+    "both",
+    5.385964,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cv",
+    "Consumption trend adjustment",
+    "both",
+    0.085281,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cpsi",
+    "Capital utilization cost parameter",
+    "both",
+    0.47281,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhointr",
+    "Interest rate smoothing",
+    "energy",
+    0.9670555781243374,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crpi",
+    "Inflation response in policy rule",
+    "energy",
+    1.5,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cry",
+    "Output gap response in policy rule",
+    "both",
+    0.192124,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crdy",
+    "Output gap growth response",
+    "both",
+    0.016608,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cthetae",
+    "Employment adjustment rigidity",
+    "both",
+    0.705567,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cpibar",
+    "Quarterly trend inflation in percent",
+    "both",
+    0.510556853356593,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cbetabar",
+    "Inverse discount factor in percent",
+    "both",
+    1.01010101010102,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cebar",
+    "Quarterly employment trend in percent",
+    "both",
+    0.155296293489155,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "ctaubar",
+    "Quarterly productivity trend in percent",
+    "both",
+    0.11083348682282,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhob",
+    "Risk premium persistence",
+    "both",
+    0.915697,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhoq",
+    "Investment efficiency persistence",
+    "both",
+    0.345078,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhog",
+    "Government spending persistence",
+    "both",
+    0.992875,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhoa",
+    "Technology persistence",
+    "both",
+    0.982716,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhoga",
+    "Technology loading in spending shock",
+    "both",
+    0.196454,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhop",
+    "Price markup persistence",
+    "both",
+    0.624064,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cmup",
+    "Price markup moving average coefficient",
+    "both",
+    0.570707,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhow",
+    "Wage markup persistence",
+    "both",
+    0.90539,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cmuw",
+    "Wage markup moving average coefficient",
+    "both",
+    0.82667,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhor",
+    "Monetary policy persistence",
+    "both",
+    0.316487,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etaa",
+    "Technology innovation standard deviation",
+    "energy",
+    0.7309375596036032,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etab",
+    "Risk premium innovation standard deviation",
+    "energy",
+    0.6555868949186312,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etag",
+    "Government spending innovation standard deviation",
+    "energy",
+    0.7152916687945188,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etaq",
+    "Investment efficiency innovation standard deviation",
+    "energy",
+    1.4082286244567292,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etar",
+    "Monetary policy innovation standard deviation",
+    "energy",
+    0.06428601466288074,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etap",
+    "Price markup innovation standard deviation",
+    "energy",
+    0.2306571979478309,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etaw",
+    "Wage markup innovation standard deviation",
+    "energy",
+    0.2621138788253729,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "sigma_etas",
+    "Labour supply innovation standard deviation",
+    "energy",
+    2.1564732303014646,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cnu",
+    "Energy production elasticity",
+    "energy",
+    0.05,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "comegaE",
+    "Energy consumption budget share",
+    "energy",
+    0.07751399582042293,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "crhoE",
+    "Relative energy price persistence",
+    "energy",
+    0.9660819027887338,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "csigmaE",
+    "Energy innovation standard deviation",
+    "energy",
+    3.1500633879660684,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "cgovGDP",
+    "Government expenditure to GDP ratio",
+    "both",
+    0.18,
+    "Inherited annual-price energy calibration / restricted ML"
+  ],
+  [
+    "comegaF",
+    "Imported food consumption budget share",
+    "energy",
+    0.05,
+    "Illustrative assumption; not estimated"
+  ],
+  [
+    "crhoF",
+    "Relative food price persistence",
+    "energy",
+    0.8,
+    "Illustrative assumption; not estimated"
+  ],
+  [
+    "csigmaF",
+    "Food innovation standard deviation in log percent",
+    "energy",
+    5,
+    "Illustrative assumption; not estimated"
+  ]
+]

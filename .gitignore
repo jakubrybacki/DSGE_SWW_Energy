@@ -1,0 +1,40 @@
+# Excluded folders as requested by user
+Literatura/
+literatura/
+Wysylka/
+Wysyłka/
+wysylka/
+wysyłka/
+
+# OS and Google Drive sync artifacts
+desktop.ini
+Desktop.ini
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+env/
+
+# R session artifacts
+.Rhistory
+.RData
+.Ruserdata
+
+# Dynare compilation and runtime artifacts
++*/
+**/+*/
+**/model/bytecode/
+**/model/bytecode*/
+**/Output/
+*.cod
+*.bin
+*.log
+*.tmp
+*.bak

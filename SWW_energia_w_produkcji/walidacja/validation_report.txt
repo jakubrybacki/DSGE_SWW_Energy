@@ -1,0 +1,6 @@
+PASS: structural identities and finite IRFs.
+PASS: zero-energy recovery; maximum IRF difference = 1.08713038571e-12.
+Compared 39 variables x 8 original shocks.
+dw_obs excluded intentionally: contemporaneous nominal wage identity corrected.
+Illustrative energy shock impact (log-percent quantities; quarterly pp inflation):
+p_e=3.15006339; GDP=0.13079358; C=-0.28768965; En=-3.00533895; pi_c=0.25909174; piD=0.01491774.

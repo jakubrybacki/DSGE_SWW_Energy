@@ -1,0 +1,533 @@
+Notebook[{Cell["Consumption, Labour Supply, and Capital Accumulation", 
+   "Title"], 
+  Cell["An annotated guide to the household first-order conditions", 
+   "Subtitle"], Cell["Reading guide. This document explains each step of the \
+original working notebook in English. Original Input and Output cells have \
+been preserved and have not been re-evaluated. Saved results are historical \
+calculations; notes identify where definitions or assumptions require \
+revision. Read the discussion around each output before treating it as a \
+model equation.", "Text"], Cell["1. The consumption-labour condition", 
+   "Section"], Cell["This notebook derives the household's consumption-labour \
+condition and then introduces capital accumulation. The consumption term is \
+CRRA (constant relative risk aversion), separable from labour disutility. \
+Unlike the companion energy notebook, this file does not explicitly define a \
+CES consumption aggregator. C[t] may be interpreted as a consumption \
+composite only after its price and budget treatment have been specified. We \
+first derive an interior, within-period condition and then distinguish it \
+from an intertemporal capital Euler equation.", "Text", 
+   CellChangeTimes -> {{3.9805142564555645*^9, 3.9805143062284527*^9}}, 
+   ExpressionUUID -> "316c05d9-29c6-244b-81c2-95c48f45d6af"], 
+  Cell["Step 1 - Reset the working symbols. ClearAll[\"Global`*\"] removes \
+definitions and attributes from symbols in the Global context. This helps \
+avoid results contaminated by earlier calculations, but it also clears \
+unrelated user definitions in that context. Start from a fresh kernel when \
+evaluating this working notebook.", "Text"], 
+  Cell[BoxData[RowBox[{"ClearAll", "[", "\"Global`*\"", "]"}]], "Input", 
+   CellChangeTimes -> {{3.9805124571522846*^9, 3.9805125634969406*^9}, 
+     {3.980512639852337*^9, 3.9805126404741383*^9}, 
+     {3.980513143519253*^9, 3.980513147958416*^9}, 3.9805160944264812*^9}, 
+   CellLabel -> "In[1]:=", ExpressionUUID -> 
+    "1e29adaa-5ced-e24b-94e1-b21afcd74668"], Cell["Step 2 - Define \
+preferences, resources, and the Lagrangian. Utility is \
+u(C,L)=(C^(1\[Minus]\[Gamma])\[Minus]1)/(1\[Minus]\[Gamma])\[Minus]\[Chi]L^(1\
++\[CurlyPhi])/(1+\[CurlyPhi]). Assume C[t]>0, \[Chi]>0, \[Gamma]>0 and \
+\[CurlyPhi]\[GreaterEqual]0; the CRRA expression as written requires \
+\[Gamma]\[NotEqual]1 and has the limit Log[C[t]] at \[Gamma]=1. The budget \
+residual is income minus spending, so feasibility is budget[t]==0 and the \
+sign +\[Lambda][t]budget[t] makes \[Lambda][t] the marginal utility of \
+resources. All quantities are measured in units of the consumption numeraire. \
+The code uses r[t] both for the rental return on capital and the bond \
+interest rate; a fully specified model should distinguish rK[t] from rB[t].", 
+   "Text"], 
+  Cell[BoxData[{RowBox[{RowBox[{RowBox[{"u", "[", "t_", "]"}], ":=", 
+         RowBox[{RowBox[{RowBox[{"(", RowBox[{RowBox[{RowBox[{"C", "[", "t", 
+                     "]"}], "^", RowBox[{"(", RowBox[{"1", "-", "\[Gamma]"}], 
+                     ")"}]}], "-", "1"}], ")"}], "/", 
+             RowBox[{"(", RowBox[{"1", "-", "\[Gamma]"}], ")"}]}], "-", 
+           RowBox[{"\[Chi]", " ", RowBox[{RowBox[{RowBox[{"L", "[", "t", 
+                   "]"}], "^", RowBox[{"(", RowBox[{"1", "+", 
+                     "\[CurlyPhi]"}], ")"}]}], "/", RowBox[{"(", 
+                 RowBox[{"1", "+", "\[CurlyPhi]"}], ")"}]}]}]}]}], ";"}], 
+     "\n", RowBox[{RowBox[{RowBox[{"budget", "[", "t_", "]"}], ":=", 
+         RowBox[{RowBox[{RowBox[{"w", "[", "t", "]"}], " ", 
+             RowBox[{"L", "[", "t", "]"}]}], " ", "+", " ", 
+           RowBox[{RowBox[{"r", "[", "t", "]"}], "*", 
+             RowBox[{"K", "[", "t", "]"}]}], "+", 
+           RowBox[{RowBox[{"(", RowBox[{"1", "+", RowBox[{"r", "[", "t", 
+                   "]"}]}], ")"}], " ", RowBox[{"B", "[", "t", "]"}]}], "-", 
+           RowBox[{"B", "[", RowBox[{"t", "+", "1"}], "]"}], "-", 
+           RowBox[{"C", "[", "t", "]"}], "-", RowBox[{"Inv", "[", "t", 
+             "]"}]}]}], ";"}], "\n", RowBox[{RowBox[{"Lag", "[", "t_", "]"}], 
+       ":=", RowBox[{RowBox[{"u", "[", "t", "]"}], "+", 
+         RowBox[{RowBox[{"\[Lambda]", " ", "[", "t", "]"}], 
+           RowBox[{"budget", "[", "t", "]"}]}]}]}]}], "Input", 
+   CellChangeTimes -> {{3.980512647287943*^9, 3.980512651107189*^9}, 
+     {3.9805131386092377*^9, 3.980513139599636*^9}, 
+     {3.980513507000992*^9, 3.980513526117483*^9}, 3.980513601948641*^9, 
+     {3.980514643217409*^9, 3.980514715560316*^9}, 3.9805147825869846*^9, 
+     {3.980515121974491*^9, 3.9805151389777946*^9}, 
+     {3.9805152654792633*^9, 3.9805152656534824*^9}, 
+     {3.9805159282882233*^9, 3.9805159563057175*^9}, 
+     {3.9805160118860435*^9, 3.9805160171243362*^9}, 
+     {3.9805161770404053*^9, 3.980516177966799*^9}, 
+     {3.980516644019293*^9, 3.980516644314783*^9}, {3.980517687904169*^9, 
+      3.980517692584425*^9}, {3.980517823326576*^9, 3.980517826090475*^9}}, 
+   CellLabel -> "In[53]:=", ExpressionUUID -> 
+    "77aa15b9-81a6-e94d-aa8f-ab878bb509cb"], 
+  Cell[CellGroupData[{Cell["Step 3 - Differentiate with respect to \
+consumption. D[Lag[t],C[t]] gives \
+C[t]^(\[Minus]\[Gamma])\[Minus]\[Lambda][t]. Setting this equal to zero \
+yields \[Lambda][t]=C[t]^(\[Minus]\[Gamma]). An extra unit of consumption \
+gives marginal utility C[t]^(\[Minus]\[Gamma]), while its resource cost is \
+valued at \[Lambda][t]. The variable name FOCCne is inherited from the \
+original code; the differentiation is with respect to C[t], not a separately \
+defined non-energy good.", "Text"], 
+     Cell[BoxData[RowBox[{"FOCCne", "=", 
+         RowBox[{RowBox[{"D", "[", RowBox[{RowBox[{"Lag", "[", "t", "]"}], 
+               ",", RowBox[{"C", "[", "t", "]"}]}], "]"}], "//", 
+           "Simplify"}]}]], "Input", CellChangeTimes -> 
+       {{3.98051265796208*^9, 3.98051266053998*^9}, {3.9805135222671833*^9, 
+         3.980513522955406*^9}, {3.980514791690569*^9, 
+         3.9805147922965374*^9}, {3.9805159882464924*^9, 
+         3.9805159885169945*^9}}, CellLabel -> "In[56]:=", 
+      ExpressionUUID -> "ee38e891-a488-4d4e-a8fe-6f83bb0c329b"], 
+     Cell[BoxData[RowBox[{SuperscriptBox[TemplateBox[{"t"}, "C"], 
+          RowBox[{"-", "\[Gamma]"}]], "-", RowBox[{"\[Lambda]", "[", "t", 
+           "]"}]}]], "Output", CellChangeTimes -> {3.9805127090411263*^9, 
+        3.9805131549745064*^9, {3.980513512667307*^9, 3.9805135298716164*^9}, 
+        {3.9805147730959644*^9, 3.9805147933191013*^9}, 
+        3.9805151443532887*^9, 3.9805152702658157*^9, 3.9805153103231945*^9, 
+        3.9805159342044983*^9, {3.9805159795778027*^9, 3.980515988966116*^9}, 
+        {3.980516019796253*^9, 3.980516035532526*^9}, 3.9805161054382915*^9, 
+        3.980516196522339*^9, 3.9805166472507877*^9, 3.980517398445877*^9, 
+        3.980517697208946*^9, 3.980517828944475*^9}, CellLabel -> "Out[56]=", 
+      ExpressionUUID -> "f2ac81a7-251c-9344-ab96-374f3ad64089"]}, Open]], 
+  Cell[CellGroupData[{Cell["Step 4 - Differentiate with respect to labour. \
+The derivative is \[Minus]\[Chi]L[t]^\[CurlyPhi]+\[Lambda][t]w[t]. An \
+interior choice therefore satisfies \[Chi]L[t]^\[CurlyPhi]=\[Lambda][t]w[t]: \
+the marginal disutility of work equals the utility value of its wage income. \
+The wage is taken as given. This equality is not the appropriate condition \
+for a binding time limit or another labour-supply corner.", "Text"], 
+     Cell[BoxData[RowBox[{RowBox[{"FOCL", "=", 
+           RowBox[{RowBox[{"D", "[", RowBox[{RowBox[{"Lag", "[", "t", "]"}], 
+                 ",", RowBox[{"L", "[", "t", "]"}]}], "]"}], "//", 
+             "Simplify"}]}], "\n"}]], "Input", CellChangeTimes -> 
+       {{3.9805127363652077*^9, 3.980512738186678*^9}, {3.98051479643651*^9, 
+         3.9805147968143196*^9}, {3.980515991637596*^9, 
+         3.9805159963431625*^9}}, CellLabel -> "In[57]:=", 
+      ExpressionUUID -> "5eba0b59-4647-9c4d-8d89-c29b0edab95e"], 
+     Cell[BoxData[RowBox[{RowBox[{RowBox[{"-", "\[Chi]"}], " ", 
+           SuperscriptBox[RowBox[{"L", "[", "t", "]"}], "\[CurlyPhi]"]}], 
+         "+", RowBox[{RowBox[{"w", "[", "t", "]"}], " ", 
+           RowBox[{"\[Lambda]", "[", "t", "]"}]}]}]], "Output", 
+      CellChangeTimes -> {3.980512738567024*^9, 3.980513157282055*^9, 
+        3.9805135310383015*^9, 3.980514797398775*^9, 3.980515146862585*^9, 
+        3.9805152711863804*^9, 3.9805153103310337*^9, 3.980515936690872*^9, 
+        {3.980515996847677*^9, 3.980516036795803*^9}, 3.980516107388489*^9, 
+        3.980516200480547*^9, 3.980516648683523*^9, 3.980517398476782*^9, 
+        3.9805177036684513*^9, 3.9805178299598675*^9}, 
+      CellLabel -> "Out[57]=", ExpressionUUID -> 
+       "e244ae1a-7e1b-6b4c-80c2-506e670b92ec"]}, Open]], 
+  Cell[CellGroupData[{Cell["Step 5 - Isolate the consumption multiplier. \
+Solve returns a list of lists of replacement rules for \[Lambda][t]. The part \
+selection [[1,1,2]] extracts the right-hand side of the first rule, giving \
+C[t]^(\[Minus]\[Gamma]). This selection assumes that the required solution \
+exists and appears first; a more robust implementation would inspect the \
+returned rules before selecting a branch.", "Text"], 
+     Cell[BoxData[RowBox[{"lambdaExpr1", "=", 
+         RowBox[{RowBox[{"Solve", "[", RowBox[{RowBox[{"FOCCne", "==", "0"}], 
+               ",", RowBox[{"\[Lambda]", "[", "t", "]"}]}], "]"}], "[", 
+           RowBox[{"[", RowBox[{"1", ",", "1", ",", "2"}], "]"}], "]"}]}]], 
+      "Input", CellChangeTimes -> {{3.9805127709497814*^9, 
+         3.980512794439308*^9}, {3.980512837139702*^9, 3.980512839427353*^9}, 
+        {3.980512889457142*^9, 3.980512923067196*^9}, {3.9805129908681164*^9, 
+         3.980513019450014*^9}, {3.9805135548166866*^9, 
+         3.9805135642389183*^9}, {3.9805137455849667*^9, 
+         3.9805137857455273*^9}, {3.9805148264695683*^9, 
+         3.980514830590317*^9}, {3.980516128833191*^9, 3.980516139456869*^9}, 
+        {3.9805162047136803*^9, 3.9805162339681206*^9}}, 
+      CellLabel -> "In[58]:=", ExpressionUUID -> 
+       "7c613da4-286c-7c43-a9d6-8fd8e7de8dc4"], 
+     Cell[BoxData[SuperscriptBox[TemplateBox[{"t"}, "C"], 
+        RowBox[{"-", "\[Gamma]"}]]], "Output", CellChangeTimes -> 
+       {3.980512799725775*^9, 3.980512839980747*^9, 3.9805128952635*^9, 
+        3.9805129255725727*^9, {3.9805130100382347*^9, 
+         3.9805130201377163*^9}, 3.9805131600642357*^9, 
+        {3.9805135327321835*^9, 3.9805135489154778*^9}, 
+        {3.980513752262089*^9, 3.9805137864228344*^9}, 3.980514800417753*^9, 
+        3.9805148313609257*^9, 3.980515148175396*^9, 3.9805152722200184*^9, 
+        3.980515310362217*^9, 3.980515938739443*^9, {3.9805159996772633*^9, 
+         3.9805160398498936*^9}, 3.980516109583843*^9, 3.9805161398177204*^9, 
+        {3.980516205825777*^9, 3.980516234325962*^9}, 3.980516649696348*^9, 
+        3.9805173985094833*^9, 3.9805177045983105*^9, 3.980517831167927*^9}, 
+      CellLabel -> "Out[58]=", ExpressionUUID -> 
+       "827c9f75-68d1-3747-bb08-a48d26899a26"]}, Open]], 
+  Cell[CellGroupData[{Cell["Step 6 - Isolate the same multiplier using \
+labour. The labour condition gives \[Lambda][t]=\[Chi]L[t]^\[CurlyPhi]/w[t], \
+provided w[t] is nonzero. For the positive interior interpretation used here, \
+assume w[t]>0 and L[t]>0. Since both expressions refer to the same shadow \
+value of resources, they can be equated in the next step.", "Text"], 
+     Cell[BoxData[RowBox[{RowBox[{"lambdaExpr2", "=", 
+           RowBox[{RowBox[{"Solve", "[", RowBox[{RowBox[{"FOCL", "==", "0"}], 
+                 ",", RowBox[{"\[Lambda]", "[", "t", "]"}]}], "]"}], "[", 
+             RowBox[{"[", RowBox[{"1", ",", "1", ",", "2"}], "]"}], "]"}]}], 
+         "\[IndentingNewLine]"}]], "Input", CellChangeTimes -> 
+       {3.980516141727825*^9, {3.980516227885021*^9, 3.9805162545499287*^9}}, 
+      CellLabel -> "In[59]:=", ExpressionUUID -> 
+       "c10bf6fa-ec9f-2c4a-99a4-39de50f21253"], 
+     Cell[BoxData[FractionBox[RowBox[{"\[Chi]", " ", SuperscriptBox[
+           RowBox[{"L", "[", "t", "]"}], "\[CurlyPhi]"]}], 
+        RowBox[{"w", "[", "t", "]"}]]], "Output", CellChangeTimes -> 
+       {3.98051625572637*^9, 3.9805166506310616*^9, 3.9805173985125465*^9, 
+        3.9805177053653603*^9, 3.9805178323127403*^9}, 
+      CellLabel -> "Out[59]=", ExpressionUUID -> 
+       "3d9b731e-aebd-804a-a337-943df0b99451"]}, Open]], 
+  Cell[CellGroupData[{Cell["Step 7 - Eliminate the multiplier. Equating \
+lambdaExpr1 and lambdaExpr2 gives \
+C[t]^(\[Minus]\[Gamma])=\[Chi]L[t]^\[CurlyPhi]/w[t], or \
+w[t]=\[Chi]L[t]^\[CurlyPhi] C[t]^\[Gamma]. This is the intratemporal \
+consumption-labour condition. When \[CurlyPhi]>0 it can also be written \
+L[t]=(w[t]/(\[Chi]C[t]^\[Gamma]))^(1/\[CurlyPhi]). Holding C fixed, higher \
+wages increase desired labour; holding wages fixed, higher consumption \
+reduces it. These are conditional comparisons, not a full equilibrium \
+response. The assumptions \[Rho]>0 and 0<\[Omega]<1 in the original cell do \
+not enter the CRRA-labour calculation; the relevant domain restrictions are \
+positivity of C, L, w and \[Chi], together with the preference restrictions \
+above.", "Text"], Cell[BoxData[RowBox[{"laborClean", "=", 
+         RowBox[{RowBox[{"Simplify", "[", RowBox[{RowBox[{"lambdaExpr1", " ", 
+                 "==", " ", "lambdaExpr2"}], ",", RowBox[{"Assumptions", 
+                 "->", RowBox[{"{", RowBox[{RowBox[{"\[Rho]", ">", "0"}], 
+                     ",", RowBox[{"\[Gamma]", ">", "0"}], ",", RowBox[
+                      {"0", "<", "\[Omega]", "<", "1"}]}], "}"}]}]}], "]"}], 
+           "//", "Factor"}]}]], "Input", CellChangeTimes -> 
+       {{3.980513235851492*^9, 3.980513240883217*^9}, {3.9805162654713364*^9, 
+         3.980516272889057*^9}}, CellLabel -> "In[60]:=", 
+      ExpressionUUID -> "a9b6b1c4-3eb0-334a-a8f9-8082263bbf1b"], 
+     Cell[BoxData[RowBox[{FractionBox[RowBox[{"\[Chi]", " ", 
+            SuperscriptBox[RowBox[{"L", "[", "t", "]"}], "\[CurlyPhi]"]}], 
+          RowBox[{"w", "[", "t", "]"}]], "\[Equal]", SuperscriptBox[
+          TemplateBox[{"t"}, "C"], RowBox[{"-", "\[Gamma]"}]]}]], "Output", 
+      CellChangeTimes -> {3.980513243460039*^9, {3.9805137659466953*^9, 
+         3.9805137877988663*^9}, {3.9805148037400494*^9, 
+         3.98051483346566*^9}, 3.980515149348461*^9, 3.980515273188999*^9, 
+        3.980515310431137*^9, 3.980515942880913*^9, {3.9805160024129295*^9, 
+         3.9805160423564568*^9}, 3.980516273369442*^9, 3.9805166518673763*^9, 
+        3.980517398592907*^9, 3.980517706520548*^9, 3.9805178334734154*^9}, 
+      CellLabel -> "Out[60]=", ExpressionUUID -> 
+       "98aba505-3bd8-3941-81a6-d346f00b13bf"]}, Open]], 
+  Cell[CellGroupData[{Cell["Step 8 - Take logarithms on the positive domain. \
+Replacing an equality a==b by Log[a]==Log[b] preserves it only when both \
+sides are positive in this real-valued derivation. Expanding the logarithms \
+gives log w[t]=log \[Chi]+\[CurlyPhi] log L[t]+\[Gamma] log C[t]. PowerExpand \
+does not itself establish these domain restrictions. Around a positive steady \
+state and with \[Chi] constant, the exact log-deviation relation is \
+\:0175[t]=\[CurlyPhi] L\:0302[t]+\[Gamma] \:0108[t]. For \[CurlyPhi]=0, the \
+condition becomes w[t]=\[Chi]C[t]^\[Gamma] and cannot be solved for L by \
+dividing by \[CurlyPhi].", "Text"], 
+     Cell[BoxData[{RowBox[{RowBox[{"logLabor", "=", 
+            RowBox[{"laborClean", "/.", " ", RowBox[{RowBox[{"Equal", "[", 
+                  RowBox[{"a_", ",", "b_"}], "]"}], ":>", RowBox[
+                 {RowBox[{"Log", "[", "a", "]"}], "==", RowBox[{"Log", "[", 
+                    "b", "]"}]}]}]}]}], ";"}], "\n", 
+        RowBox[{RowBox[{"logLabor", "//", "PowerExpand"}], "//", 
+          "Simplify"}]}], "Input", CellChangeTimes -> 
+       {{3.9805139908016853*^9, 3.980514009187086*^9}, 
+        {3.9805140433508644*^9, 3.980514044774391*^9}, {3.980514196760401*^9, 
+         3.980514200351349*^9}}, CellLabel -> "In[61]:=", 
+      ExpressionUUID -> "3e0169d2-5f71-404e-9176-b6be69c3542d"], 
+     Cell[BoxData[RowBox[{RowBox[{RowBox[{"Log", "[", "\[Chi]", "]"}], "+", 
+           RowBox[{"\[Gamma]", " ", RowBox[{"Log", "[", TemplateBox[{"t"}, 
+                "C"], "]"}]}], "+", RowBox[{"\[CurlyPhi]", " ", 
+             RowBox[{"Log", "[", RowBox[{"L", "[", "t", "]"}], "]"}]}]}], 
+         "\[Equal]", RowBox[{"Log", "[", RowBox[{"w", "[", "t", "]"}], 
+           "]"}]}]], "Output", CellChangeTimes -> 
+       {{3.980513993982424*^9, 3.980514010373989*^9}, 3.9805142007482185*^9, 
+        3.9805148371558*^9, 3.980515150293337*^9, 3.980515274119108*^9, 
+        3.980515310459156*^9, 3.980515943656492*^9, {3.9805160038519096*^9, 
+         3.9805160439888477*^9}, 3.9805162792975426*^9, 
+        3.9805166528012486*^9, 3.9805173986226673*^9, 3.980517707656313*^9, 
+        3.9805178352145863*^9}, CellLabel -> "Out[62]=", 
+      ExpressionUUID -> "40c51d33-6135-3449-aa91-f1c41ecf32e1"]}, Open]], 
+  Cell[CellGroupData[
+    {Cell["2. Capital accumulation and intertemporal optimality", "Section", 
+      CellChangeTimes -> {{3.980514351478277*^9, 3.9805143555682163*^9}, 
+        {3.9805144798750343*^9, 3.98051448495496*^9}}, 
+      ExpressionUUID -> "90e6b696-4bfc-484d-954f-0a676c22227b"], 
+     Cell["We now add the law of motion for capital as a second constraint in \
+the household's optimisation problem. This does not change utility itself. A \
+multiplier \[Mu][t] values an additional unit of installed capital in current \
+utility units; \[Lambda][t] continues to value an additional unit of \
+resources in the budget. The code below is preserved as originally written, \
+so the notes distinguish the intended economic derivation from implementation \
+issues.", "Text", CellChangeTimes -> {{3.9805144907170296*^9, 
+         3.9805145338064537*^9}, {3.9805177088561783*^9, 
+         3.9805177108065224*^9}}, ExpressionUUID -> 
+       "f887882a-a082-954b-b14c-71eaa21a3781"], 
+     Cell[CellGroupData[{Cell["Step 9 - Define the capital law of motion. \
+capitalConstraint[t]=(1\[Minus]\[Delta])K[t]+Inv[t]\[Minus]K[t+1] is zero for \
+a feasible allocation. Here K[t] is capital available for production in \
+period t, Inv[t] is current investment, and K[t+1] is next period's stock. \
+Assume 0\[LessEqual]\[Delta]\[LessEqual]1. Whether investment must be \
+nonnegative and whether capital has an upper bound are additional modelling \
+choices; they affect the relevant corner conditions.", "Text"], 
+        Cell[BoxData[{RowBox[{RowBox[{"capitalConstraint", "[", "t_", "]"}], 
+             ":=", RowBox[{RowBox[{RowBox[{"(", RowBox[{"1", "-", 
+                     "\[Delta]"}], ")"}], " ", RowBox[{"K", "[", "t", 
+                   "]"}]}], "+", RowBox[{"Inv", "[", "t", "]"}], "-", " ", 
+               RowBox[{"K", "[", RowBox[{"t", "+", "1"}], "]"}]}]}], "\n", 
+           RowBox[{"capitalConstraint", "[", "t", "]"}], "\n"}], "Input", 
+         CellChangeTimes -> {{3.9805145442599144*^9, 3.9805145619256535*^9}, 
+           {3.9805146227739277*^9, 3.9805146254800777*^9}, 
+           {3.980515277002226*^9, 3.9805152771567764*^9}, 
+           {3.980515895468466*^9, 3.9805159082189255*^9}, 
+           3.980516072837036*^9, {3.9805163384013176*^9, 
+            3.9805163425473785*^9}, {3.9805170255035763*^9, 
+            3.980517036153919*^9}, 3.980517184665407*^9, 
+           {3.9805172974010105*^9, 3.980517297653244*^9}}, 
+         CellLabel -> "In[63]:=", ExpressionUUID -> 
+          "4bc8d40d-3b51-9546-946f-56d1cc0c72a1"], 
+        Cell[BoxData[RowBox[{RowBox[{"Inv", "[", "t", "]"}], "+", 
+            RowBox[{RowBox[{"(", RowBox[{"1", "-", "\[Delta]"}], ")"}], " ", 
+              RowBox[{"K", "[", "t", "]"}]}], "-", 
+            RowBox[{"K", "[", RowBox[{"1", "+", "t"}], "]"}]}]], "Output", 
+         CellChangeTimes -> {3.9805178371573143*^9}, CellLabel -> "Out[64]=", 
+         ExpressionUUID -> "b43241c1-9669-8147-a0aa-5d7b88b190b0"]}, Open]], 
+     Cell[CellGroupData[{Cell["Step 10 - Add the capital constraint to the \
+period Lagrangian. The intended contribution is \
+\[ScriptCapitalL]_t=u[t]+\[Lambda][t]budget[t]+\[Mu][t]capitalConstraint[t]. \
+Investment costs resources today but creates capital for tomorrow. \
+Implementation note: the earlier definition is Lag[t_], whereas this cell \
+defines Lag[t] for a literal symbol t. This is not a general replacement of \
+Lag[s_] for every date s. In particular, Lag[t+1] may still use the earlier \
+definition and omit its capital-constraint term. This issue is retained in \
+the working code and must be corrected before interpreting its saved Euler \
+output as the intended model.", "Text"], 
+        Cell[BoxData[{RowBox[{RowBox[{"Lag", "[", "t", "]"}], ":=", 
+             RowBox[{RowBox[{"u", "[", "t", "]"}], "+", RowBox[
+                {RowBox[{"\[Lambda]", "[", "t", "]"}], " ", RowBox[
+                  {"budget", "[", "t", "]"}]}], "+", RowBox[
+                {RowBox[{"\[Mu]", "[", "t", "]"}], " ", RowBox[
+                  {"capitalConstraint", "[", "t", "]"}]}]}]}], "\n", 
+           RowBox[{"Lag", "[", "t", "]"}]}], "Input", CellChangeTimes -> 
+          {{3.9805148656484585*^9, 3.9805148656484585*^9}, 
+           {3.980514920136814*^9, 3.9805149384303646*^9}, 
+           {3.9805153769634876*^9, 3.980515377432575*^9}, 
+           {3.980515814327633*^9, 3.9805158379469624*^9}, 
+           {3.980516058155937*^9, 3.9805160599825993*^9}, 
+           {3.9805163559062843*^9, 3.980516356826792*^9}, 
+           {3.980517306326845*^9, 3.980517309237913*^9}, 
+           {3.980517854420044*^9, 3.980517860013283*^9}}, 
+         CellLabel -> "In[68]:=", ExpressionUUID -> 
+          "2258c6ce-f9c9-9045-b803-ac208c757327"], 
+        Cell[BoxData[RowBox[{FractionBox[RowBox[{RowBox[{"-", "1"}], "+", 
+               SuperscriptBox[TemplateBox[{"t"}, "C"], RowBox[{"1", "-", 
+                  "\[Gamma]"}]]}], RowBox[{"1", "-", "\[Gamma]"}]], "-", 
+            FractionBox[RowBox[{"\[Chi]", " ", SuperscriptBox[RowBox[
+                 {"L", "[", "t", "]"}], RowBox[{"1", "+", "\[CurlyPhi]"}]]}], 
+             RowBox[{"1", "+", "\[CurlyPhi]"}]], "+", 
+            RowBox[{RowBox[{"(", RowBox[{RowBox[{"-", RowBox[{"B", "[", 
+                      RowBox[{"1", "+", "t"}], "]"}]}], "-", TemplateBox[
+                   {"t"}, "C"], "-", RowBox[{"Inv", "[", "t", "]"}], "+", 
+                  RowBox[{RowBox[{"K", "[", "t", "]"}], " ", RowBox[
+                     {"r", "[", "t", "]"}]}], "+", RowBox[{RowBox[{"B", "[", 
+                      "t", "]"}], " ", RowBox[{"(", RowBox[{"1", "+", 
+                        RowBox[{"r", "[", "t", "]"}]}], ")"}]}], "+", 
+                  RowBox[{RowBox[{"L", "[", "t", "]"}], " ", RowBox[
+                     {"w", "[", "t", "]"}]}]}], ")"}], " ", 
+              RowBox[{"\[Lambda]", "[", "t", "]"}]}], "+", 
+            RowBox[{RowBox[{"(", RowBox[{RowBox[{"Inv", "[", "t", "]"}], "+", 
+                  RowBox[{RowBox[{"(", RowBox[{"1", "-", "\[Delta]"}], ")"}], 
+                    " ", RowBox[{"K", "[", "t", "]"}]}], "-", RowBox[
+                   {"K", "[", RowBox[{"1", "+", "t"}], "]"}]}], ")"}], " ", 
+              RowBox[{"\[Mu]", "[", "t", "]"}]}]}]], "Output", 
+         CellChangeTimes -> {3.9805163572656937*^9, 3.980516656639921*^9, 
+           3.980517038490446*^9, 3.9805171893770695*^9, 3.980517309997423*^9, 
+           3.9805173986584034*^9, 3.9805177152708225*^9, 
+           {3.9805178409266453*^9, 3.9805178607097588*^9}}, 
+         CellLabel -> "Out[69]=", ExpressionUUID -> 
+          "aa8ea889-3a8a-1e46-b0c5-cc20ab76ce84"]}, Open]], 
+     Cell[CellGroupData[{Cell["Step 11 - Inspect the current-period capital \
+derivative. Differentiating \[ScriptCapitalL]_t with respect to K[t] gives \
+\[Lambda][t]rK[t]+\[Mu][t](1\[Minus]\[Delta]) under the intended notation. \
+This is only the period-t contribution, not a full FOC to set to zero for \
+inherited capital. K[t] also appears negatively in the preceding period's \
+accumulation constraint. For t\[GreaterEqual]1 the full condition includes \
+\[Minus]\[Mu][t\[Minus]1]/\[Beta]; initial K[0] is normally given rather than \
+optimised.", "Text"], Cell[BoxData[RowBox[{"FOCK", "=", 
+            RowBox[{RowBox[{"D", "[", RowBox[{RowBox[{"Lag", "[", "t", "]"}], 
+                  ",", RowBox[{"K", "[", "t", "]"}]}], "]"}], "//", 
+              "Simplify"}]}]], "Input", CellChangeTimes -> 
+          {{3.9805151733454247*^9, 3.9805151905645943*^9}, 
+           {3.980516364626438*^9, 3.980516364758684*^9}}, 
+         CellLabel -> "In[70]:=", ExpressionUUID -> 
+          "fcf1113f-be27-d040-873d-0ca7956d0cbb"], 
+        Cell[BoxData[RowBox[{RowBox[{RowBox[{"r", "[", "t", "]"}], " ", 
+              RowBox[{"\[Lambda]", "[", "t", "]"}]}], "+", 
+            RowBox[{"\[Mu]", "[", "t", "]"}], "-", RowBox[{"\[Delta]", " ", 
+              RowBox[{"\[Mu]", "[", "t", "]"}]}]}]], "Output", 
+         CellChangeTimes -> {3.980515191448868*^9, {3.9805152846448154*^9, 
+            3.980515310521202*^9}, 3.980515383249838*^9, 3.9805158167682*^9, 
+           {3.980516360458807*^9, 3.9805163652810936*^9}, 
+           3.9805166860507603*^9, 3.9805170404741096*^9, 
+           3.9805171916350613*^9, 3.980517312121666*^9, 
+           3.9805173986614666*^9, 3.9805177168385277*^9, 
+           3.9805178621462708*^9}, CellLabel -> "Out[70]=", 
+         ExpressionUUID -> "05c32633-1db5-7f4b-81e9-7b9dbbd5892d"]}, Open]], 
+     Cell[CellGroupData[{Cell["Step 12 - Differentiate with respect to next \
+period's capital. A choice of K[t+1] enters both \[ScriptCapitalL]_t and \
+\[Beta]\[ScriptCapitalL]_(t+1). With a consistent date-indexed Lagrangian, \
+the intended derivative is \
+\[Minus]\[Mu][t]+\[Beta]{\[Lambda][t+1]rK[t+1]+(1\[Minus]\[Delta])\[Mu][t+1]}\
+. Setting it to zero equates the current utility cost of installed capital to \
+its discounted future rental income and undepreciated value. Because of the \
+Lag[t] versus Lag[t_] definition issue above, the original calculation may \
+omit the continuation term (1\[Minus]\[Delta])\[Mu][t+1].", "Text"], 
+        Cell[BoxData[RowBox[{"FOCK1", "=", RowBox[{RowBox[{"D", "[", 
+                RowBox[{RowBox[{RowBox[{"Lag", "[", "t", "]"}], " ", "+", 
+                    RowBox[{"\[Beta]", " ", RowBox[{"Lag", "[", RowBox[
+                         {"t", "+", "1"}], "]"}]}]}], ",", RowBox[{"K", "[", 
+                    RowBox[{"t", "+", "1"}], "]"}]}], "]"}], "//", 
+              "Simplify"}]}]], "Input", CellChangeTimes -> 
+          {{3.980515198910303*^9, 3.9805152285804214*^9}, 
+           {3.980515289112322*^9, 3.9805152893312855*^9}, 
+           {3.980515401534008*^9, 3.9805154071441116*^9}, 
+           {3.980515643261919*^9, 3.9805156471578693*^9}, 
+           {3.980516370599182*^9, 3.9805163761808167*^9}}, 
+         CellLabel -> "In[71]:=", ExpressionUUID -> 
+          "b5cc19a6-e0ce-e44f-8040-c1aa3a991ec7"], 
+        Cell[BoxData[RowBox[{RowBox[{"\[Beta]", " ", RowBox[{"r", "[", 
+                RowBox[{"1", "+", "t"}], "]"}], " ", RowBox[{"\[Lambda]", 
+                "[", RowBox[{"1", "+", "t"}], "]"}]}], "-", 
+            RowBox[{"\[Mu]", "[", "t", "]"}]}]], "Output", 
+         CellChangeTimes -> {{3.980515203623308*^9, 3.980515228992161*^9}, 
+           {3.980515289895632*^9, 3.9805153105490665*^9}, 
+           {3.9805153858859825*^9, 3.980515407718151*^9}, 
+           3.9805156505446243*^9, 3.9805158185315304*^9, 
+           3.9805163786809998*^9, 3.980516688092783*^9, 3.980517042706934*^9, 
+           3.9805171929292793*^9, 3.9805173136714134*^9, 
+           3.9805173986891766*^9, 3.9805177198717976*^9, 
+           3.980517865083147*^9}, CellLabel -> "Out[71]=", 
+         ExpressionUUID -> "90921c1e-dce9-de44-a1ee-b30f50d0d2e3"]}, Open]], 
+     Cell[CellGroupData[{Cell["Step 13 - Differentiate with respect to \
+investment. One additional unit of Inv[t] reduces current budget resources by \
+one and raises next period's capital by one. The derivative is \
+\[Minus]\[Lambda][t]+\[Mu][t]; for an unconstrained interior choice, \
+\[Mu][t]=\[Lambda][t]. Investment adjustment costs, a different \
+investment-goods price, or binding nonnegativity constraints would change \
+this condition.", "Text"], Cell[BoxData[RowBox[{"FOCInv", "=", 
+            RowBox[{RowBox[{"D", "[", RowBox[{RowBox[{"Lag", "[", "t", "]"}], 
+                  ",", RowBox[{"Inv", "[", "t", "]"}]}], "]"}], "//", 
+              "Simplify"}]}]], "Input", CellChangeTimes -> 
+          {{3.980515420269476*^9, 3.9805154260331364*^9}, 
+           {3.9805163893561134*^9, 3.980516389658924*^9}}, 
+         CellLabel -> "In[72]:=", ExpressionUUID -> 
+          "6abdf1a6-b156-0540-ab6d-acbb40afe018"], 
+        Cell[BoxData[RowBox[{RowBox[{"-", RowBox[{"\[Lambda]", "[", "t", 
+                "]"}]}], "+", RowBox[{"\[Mu]", "[", "t", "]"}]}]], "Output", 
+         CellChangeTimes -> {3.980515426468729*^9, 3.980515820112591*^9, 
+           3.9805163902624664*^9, 3.9805166932626705*^9, 
+           3.9805170438489246*^9, 3.9805171946429653*^9, 
+           3.980517315123371*^9, 3.9805173986937885*^9, 3.980517721374172*^9, 
+           3.9805178663655815*^9}, CellLabel -> "Out[72]=", 
+         ExpressionUUID -> "eb91215f-7ebc-204c-b36d-3b950f1f68f3"]}, Open]], 
+     Cell[CellGroupData[{Cell["Step 14 - Form equations and eliminate the \
+current capital multiplier. eqInv, eqK and eqK1 turn stored derivatives into \
+equalities to zero. Eliminate uses eqInv and eqK1 to remove \[Mu][t]. Note \
+that eqK is created but is not used in this elimination. The intended full \
+Euler equation also requires \[Mu][t+1]=\[Lambda][t+1], obtained from the \
+next-period investment FOC. Eliminating only \[Mu][t] is an intermediate \
+step. Using the incomplete literal-date Lag definition can instead produce an \
+incomplete return formula.", "Text"], 
+        Cell[BoxData[{RowBox[{RowBox[{"eqInv", "=", RowBox[{"FOCInv", "==", 
+                 "0"}]}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"eqK", "=", RowBox[{"FOCK", "==", "0"}]}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"eqK1", "=", RowBox[
+                {"FOCK1", "==", "0"}]}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{"euler", "=", RowBox[{"FullSimplify", "[", RowBox[
+                {"Eliminate", "[", RowBox[{RowBox[{"{", RowBox[{"eqInv", ",", 
+                       "eqK1"}], "}"}], ",", RowBox[{"{", RowBox[{"\[Mu]", 
+                       "[", "t", "]"}], "}"}]}], "]"}], "]"}]}]}], "Input", 
+         CellChangeTimes -> {{3.980516741397312*^9, 3.9805167504107*^9}, 
+           {3.980516784873678*^9, 3.980516792194227*^9}, 
+           3.980517257547882*^9, {3.9805175045936584*^9, 
+            3.980517507602337*^9}}, CellLabel -> "In[73]:=", 
+         ExpressionUUID -> "28453487-4b35-2a49-9d58-2b0a0606e252"], 
+        Cell[BoxData[RowBox[{RowBox[{"\[Lambda]", "[", "t", "]"}], 
+            "\[Equal]", RowBox[{"\[Beta]", " ", RowBox[{"r", "[", 
+                RowBox[{"1", "+", "t"}], "]"}], " ", RowBox[{"\[Lambda]", 
+                "[", RowBox[{"1", "+", "t"}], "]"}]}]}]], "Output", 
+         CellChangeTimes -> {3.980517562098242*^9, 3.9805177230166054*^9, 
+           3.9805178674550686*^9}, CellLabel -> "Out[76]=", 
+         ExpressionUUID -> "7be3812d-f70f-e146-95ed-a7b0f29e8927"]}, Open]], 
+     Cell[CellGroupData[{Cell["Step 15 - Check the elimination by \
+substitution. Solve[FOCInv==0,\[Mu][t]] gives a replacement rule; /. inserts \
+it directly into FOCK1==0. This is an alternative way of removing \[Mu][t] \
+and should agree with the previous elimination on their common domain. It \
+does not repair a missing continuation term or impose the next-period \
+investment condition. Under the intended consistent definitions, \
+\[Mu][t]=\[Lambda][t] and \[Mu][t+1]=\[Lambda][t+1] give \
+C[t]^(\[Minus]\[Gamma])=\[Beta] \
+C[t+1]^(\[Minus]\[Gamma])(rK[t+1]+1\[Minus]\[Delta]).", "Text"], 
+        Cell[BoxData[RowBox[{"euler2", "=", RowBox[{"FullSimplify", "[", 
+              RowBox[{RowBox[{"(", RowBox[{"FOCK1", "==", "0"}], ")"}], "/.", 
+                " ", RowBox[{"(", RowBox[{RowBox[{"Solve", "[", RowBox[
+                       {RowBox[{"FOCInv", "==", "0"}], ",", RowBox[{"\[Mu]", 
+                          "[", "t", "]"}]}], "]"}], "[", RowBox[{"[", "1", 
+                      "]"}], "]"}], ")"}]}], "]"}]}]], "Input", 
+         CellChangeTimes -> {{3.98051755848505*^9, 3.98051755848505*^9}}, 
+         CellLabel -> "In[77]:=", ExpressionUUID -> 
+          "53605180-7b37-424d-ad19-a488b98cf9e8"], 
+        Cell[BoxData[RowBox[{RowBox[{"\[Lambda]", "[", "t", "]"}], 
+            "\[Equal]", RowBox[{"\[Beta]", " ", RowBox[{"r", "[", 
+                RowBox[{"1", "+", "t"}], "]"}], " ", RowBox[{"\[Lambda]", 
+                "[", RowBox[{"1", "+", "t"}], "]"}]}]}]], "Output", 
+         CellChangeTimes -> {3.9805175740659657*^9, 3.9805177292813854*^9, 
+           3.9805178700612926*^9}, CellLabel -> "Out[77]=", 
+         ExpressionUUID -> "c9856a5c-14c0-6b4e-8a69-815782080ed4"]}, Open]]}, 
+    Open]], Cell["3. Boundary conditions and interpretation", "Section"], 
+  Cell["Labour boundaries. If feasible labour lies in [0,Lmax], an interior \
+equality is replaced at L=0 by a nonpositive feasible right derivative of the \
+objective, and at L=Lmax by a nonnegative feasible left derivative. At an \
+interior point the derivative is zero. These signs refer to a maximisation \
+problem after accounting for the resource constraint. For \[CurlyPhi]>0, \
+positive consumption and a positive wage, the marginal disutility at L=0 is \
+zero and the marginal gain from work is positive, so the zero-labour corner \
+is excluded in the unconstrained model. An upper time endowment can still \
+bind. For \[CurlyPhi]=0, constant marginal disutility makes corner or \
+indifference cases possible.", "Text"], Cell["Consumption boundaries. C[t]>0 \
+is required for the displayed derivatives and logarithms. For \[Gamma]>0, \
+marginal utility C[t]^(\[Minus]\[Gamma]) diverges as consumption approaches \
+zero from above. The logarithmic case \[Gamma]=1 is a continuous utility \
+limit, not a permissible direct substitution into the displayed 0/0 formula. \
+These facts alone do not prove existence of a feasible infinite-horizon \
+optimum.", "Text"], Cell["The intended Euler equation. With 0<\[Beta]<1, no \
+adjustment costs, an interior investment choice, and a correctly indexed \
+Lagrangian, \[Lambda][t]=\[Beta]\[Lambda][t+1](rK[t+1]+1\[Minus]\[Delta]). \
+Under uncertainty the right side becomes \[Beta] times the conditional \
+expectation of \[Lambda][t+1](rK[t+1]+1\[Minus]\[Delta]); marginal utility \
+and the return must remain together inside the expectation. A separate bond \
+choice gives \[Lambda][t]=\[Beta] E_t[\[Lambda][t+1](1+rB[t+1])] under the \
+payoff convention that rB[t+1] is the return on saving chosen at t. The \
+original budget instead labels the payoff on B[t] by r[t]; timing and \
+notation must be fixed consistently.", "Text"], 
+  Cell["Initial and terminal conditions. Initial K[0] and initial bond \
+holdings are normally predetermined. A finite-horizon model needs a terminal \
+or salvage-value specification. In an infinite-horizon model, a common \
+capital transversality condition, under appropriate regularity assumptions \
+and this multiplier convention, is lim(T\[RightArrow]\[Infinity]) \
+E_0[\[Beta]^T \[Mu][T] K[T+1]]=0. A debt no-Ponzi condition is a separate \
+admissibility restriction preventing consumption from being financed by \
+endlessly rolled-over debt. Neither condition follows merely from setting a \
+one-period derivative equal to zero.", "Text"], 
+  Cell["What to revise in the computational model. Use distinct \
+capital-rental and bond-return symbols. Define the augmented Lagrangian for \
+every date with a consistent pattern and avoid competing literal-date \
+definitions. Include both the current and next-period investment conditions \
+when eliminating capital multipliers. The notes explain these changes, but \
+the present editorial update intentionally preserves the original calculation \
+cells so that the original derivation remains traceable.", "Text"]}, 
+ WindowSize -> {1440, 741.75}, WindowMargins -> 
+  {{-6, Automatic}, {Automatic, -6}}, FrontEndVersion -> 
+  "14.3 for Microsoft Windows (64-bit) (July 8, 2025)", 
+ StyleDefinitions -> "Default.nb", ExpressionUUID -> 
+  "5e6f2c4b-b4b2-1548-aa93-45ca966041d9"]

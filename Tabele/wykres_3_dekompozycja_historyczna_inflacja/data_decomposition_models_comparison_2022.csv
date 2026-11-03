@@ -1,0 +1,7 @@
+model_id,model_name,price_markup,energy_shock,food_shock,wage_markup,monetary_policy,demand_other,total_inflation
+classic,"Classic SWW
+(Smets et al. 2014)",7.5871,0.0,0.0,-0.7482,0.7468,1.949,9.5346
+energy,"SWW with Energy
+in Production ($\nu$=0.05)",4.1298,2.124,0.0,-1.3271,2.5401,2.0678,9.5346
+food,"SWW with Energy
+& Food Prices",2.4532,6.726,4.9793,-2.9923,0.0,-1.6316,9.5346

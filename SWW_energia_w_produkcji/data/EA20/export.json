@@ -1,0 +1,7 @@
+{
+  "model": "SWW_energia_w_produkcji",
+  "geo": "EA20",
+  "source_md5": "63444401cabd6256ed628ad289a0832e",
+  "generated_utc": "2026-11-03 21:17:24 UTC",
+  "wage_mapping": "dwobs = nominal compensation per employee growth."
+}

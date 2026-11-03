@@ -1,0 +1,32 @@
+[
+  {
+    "file": "sww_energia_w_produkcji_steadystate.m",
+    "sha256": "273d73ddd7a79041440fd2b93384db61c684c6ebe58bc5c557b69dc95e32e0ab",
+    "matches_snapshot": true
+  },
+  {
+    "file": "Estimation_Setup/EA20_calibration.mod",
+    "sha256": "e93dc39c800f8e670f83645569e0072b942231ed83ade1dbf00fcdd83314bcc6",
+    "matches_snapshot": true
+  },
+  {
+    "file": "Estimation_Setup/EA20_measurement.mod",
+    "sha256": "222320ae48c47517e48b233fd6a1276877b4a39099038e5b51686600854a2735",
+    "matches_snapshot": true
+  },
+  {
+    "file": "Estimation_Setup/EA20_shocks.mod",
+    "sha256": "10a1d6d201b51ae2e27ab7610b12acc2992d0caf6c835da6af3f41522d7b3dd3",
+    "matches_snapshot": true
+  },
+  {
+    "file": "data/EA20/dane.mat",
+    "sha256": "8ad7912ec1230067f1ea0ab70b1e56f79b7f94df3d965df950f146dce46167d9",
+    "matches_snapshot": true
+  },
+  {
+    "file": "sww_energia_w_produkcji.mod",
+    "sha256": "4ecd27d765096d5ed1d891cb65302463c2ca37bb2da74fd9bf76b98ca66feb6e",
+    "copy_changes": "mode_compute=0, cova_compute=0 only"
+  }
+]
